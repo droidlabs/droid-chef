@@ -1,5 +1,5 @@
 upstream proxy_<%= @app_name %> {
-  server unix:/data/<%= @app_name %>/current/tmp/sockets/unicorn.sock
+  server unix:/data/<%= @app_name %>/current/tmp/pids/unicorn.sock
         fail_timeout=0;
 }
 server {
