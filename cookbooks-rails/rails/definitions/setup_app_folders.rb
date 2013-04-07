@@ -35,19 +35,5 @@ define :setup_app_folders do
     group deploy_username
     mode "0770"
     action :create
-  end
-
-  directory "/data/#{app[:name]}/shared/tmp/pids" do
-    owner deploy_username
-    group deploy_username
-    mode "0770"
-    action :create
-  end
-
-  directory "/data/#{app[:name]}/shared/tmp/sockets" do
-    owner deploy_username
-    group deploy_username
-    mode "0770"
-    action :create
-  end
+  endå
 end
