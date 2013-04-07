@@ -1,0 +1,35 @@
+# <%= @app_name %> - <%= @web_urls %>
+upstream proxy_<%= @app_name %> {
+  server 127.0.0.1:<%= @using_port %>;
+  server 127.0.0.1:<%= @using_port + 1 %>;
+  server 127.0.0.1:<%= @using_port + 2 %>;
+}
+server {
+  listen 80<%= ' default' if @default %>;
+  client_max_body_size 4G;
+  server_name <%= @web_urls %>;
+
+  # Block bots who like track urls (php usually)
+  location ~ \.php$ {
+    deny  all;
+  }
+  root /data/<%= @app_name %>/current/public;
+
+  location ~ ^/(images|javascripts|stylesheets|system)/  {
+    error_page 404 /404.html;
+  }
+  location = /500.html {
+    root /data/<%= @app_name %>/current/public;
+  }
+
+  access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
+  error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
+
+  location / {
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://proxy_<%= @app_name %>;
+  }
+}

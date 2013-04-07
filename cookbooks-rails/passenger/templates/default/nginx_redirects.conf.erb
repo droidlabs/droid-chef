@@ -1,0 +1,6 @@
+<% @redirects.each do |redirect| %>
+server {
+  server_name  <%= redirect.first %>;
+  rewrite ^(.*) http://<%= redirect.last %>$1 permanent;
+}
+<% end %>

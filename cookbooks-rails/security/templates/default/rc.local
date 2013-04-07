@@ -1,0 +1,12 @@
+#!/bin/sh -e
+#
+# rc.local
+sh /etc/iptables.sh
+
+# start nginx server
+# service passenger start
+
+# start redis server
+# service redis-server start
+
+exit 0

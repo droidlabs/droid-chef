@@ -1,0 +1,25 @@
+################################### Cluster ###################################
+
+cluster.name: '<%= node.elasticsearch[:cluster_name] %>'
+node.name:    '<%= node.elasticsearch[:node_name]    %>'
+
+#################################### Index ####################################
+
+index.number_of_shards:   <%= node.elasticsearch[:index_shards]   %>
+index.number_of_replicas: <%= node.elasticsearch[:index_replicas] %>
+action.auto_create_index: <%= node.elasticsearch[:index_auto_create_index] %>
+index.mapper.dynamic:     <%= node.elasticsearch[:index_mapper_dynamic] %>
+
+
+#################################### Paths ####################################
+
+path.data: <%= node.elasticsearch[:data_path] %>
+path.logs: <%= node.elasticsearch[:log_path] %>
+
+################################### Memory ####################################
+
+bootstrap.mlockall: <%= node.elasticsearch[:mlockall] %>
+
+################################### Varia #####################################
+
+action.disable_delete_all_indices: <%= node.elasticsearch[:disable_delete_all_indices] %>

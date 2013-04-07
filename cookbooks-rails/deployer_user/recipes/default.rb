@@ -1,0 +1,46 @@
+deploy_username = node[:deploy_user][:username]
+
+deploy_password = `openssl passwd -1 "#{node[:deploy_user][:password]}"`.chomp
+
+node.set[:authorization] = Hash[
+  sudo: Hash[
+    groups: [deploy_username, 'vagrant'],
+    users: [deploy_username, 'vagrant'],
+    passwordless: true
+  ]
+]
+
+Chef::Log.debug("# create deploy group and user with name: #{deploy_username}")
+
+group deploy_username
+user deploy_username do
+  comment "Deploy User"
+  home "/home/#{deploy_username}"
+  gid deploy_username
+  shell "/bin/bash"
+  password deploy_password
+  supports manage_home: true
+end
+
+Chef::Log.debug("generate ssh keys for: #{deploy_username}")
+
+execute "generate ssh keys for: #{deploy_username}." do
+  user deploy_username
+  creates "/home/#{deploy_username}/.ssh/id_rsa.pub"
+  command "ssh-keygen -t rsa -q -f /home/#{deploy_username}/.ssh/id_rsa -P \"\""
+end
+execute "cat /home/#{deploy_username}/.ssh/id_rsa.pub"
+
+# create ".bash_profile"
+file "/home/#{deploy_username}/.bash_profile" do
+  user deploy_username
+  group deploy_username
+  action :touch
+end
+
+# directory for file downloads
+directory "/home/#{deploy_username}/downloads" do
+  user deploy_username
+  group deploy_username
+  action :create
+end

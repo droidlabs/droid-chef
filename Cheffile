@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'apt'
+cookbook 'ark'
+cookbook 'build-essential'
+cookbook 'git'
+cookbook 'imagemagick'
+cookbook 'install_from'
+cookbook 'ohai'
+cookbook 'java'
+cookbook 'openssl'
+cookbook 'sudo'
+cookbook 'logrotate'
+cookbook 'rbenv', git: 'git://github.com/fnichol/chef-rbenv.git'

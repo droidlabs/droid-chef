@@ -1,0 +1,31 @@
+Backup::Model.new(:<%= @config[:name] %>, '<%= @config[:description] %>') do
+
+
+  database MySQL do |database|
+    database.name             = :all
+    database.username         = 'root'
+    database.password         = '<%= @user[:db_root_password] %>'
+  end
+
+  <% @mongo_databases.each do |db| %>
+  database MongoDB do |database|
+    database.name             = "<%= db %>"
+  end
+  <% end %>
+
+  compress_with Gzip
+
+  store_with S3 do |s3|
+    s3.access_key_id      = '<%= @config[:s3][:aws_access_key] %>'
+    s3.secret_access_key  = '<%= @config[:s3][:aws_secret_key] %>'
+    s3.region             = '<%= @config[:s3][:bucket_region] %>'
+    s3.bucket             = '<%= @config[:s3][:bucket_name] %>'
+    s3.keep               = '<%= @config[:s3][:keep] %>'
+  end
+
+  <% @sync_dirs.each do |directory| %>
+  archive "<%= directory.first %>" do |archive|
+    archive.add "<%= directory.last %>"
+  end
+  <% end %>
+end

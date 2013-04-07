@@ -1,0 +1,89 @@
+{
+  // This is the list of the recipes that are going to be cooked.
+  "run_list": [
+    "recipe[deployer_user]",
+    "recipe[sudo]",
+    "recipe[deployer_ruby]",
+    "recipe[ruby_build]",
+    "recipe[rbenv::user]",
+
+    "recipe[apt]",
+    "recipe[build-essential]",
+    "recipe[ohai]",
+    "recipe[runit]",
+    "recipe[git]",
+    "recipe[security]",
+    "recipe[imagemagick::devel]",
+    "recipe[redis]",
+    "recipe[passenger::daemon]",
+    "recipe[passenger::redirects]",
+    //"recipe[nodejs]",     // you can add node.js to use for sprockets
+    "recipe[openssl]",
+    "recipe[memcached]",
+    "recipe[mysql]",
+    //"recipe[postgresql]",
+    //"recipe[mongodb]",
+    //"recipe[faye]",
+    //"recipe[newrelic]",
+    //"recipe[backup]",     // don't forget to add configs at the bottom
+    "recipe[java]",
+    "recipe[elasticsearch]",
+
+    "recipe[rails]"
+  ],
+
+  "deploy_user": {
+    "username": "ninja",
+    "password": "NINJA_PASSWORD",
+    "ruby_version": "1.9.3-p327",
+    "db_username": "ninja",
+    "db_password": "DB_NINJA_PASSWORD",
+    "db_root_password": "DB_ROOT_PASSWORD"
+  },
+
+  "applications": [
+    {
+      "name": "application_name",
+      "environment": "production",
+      "web_urls": "example.com",
+      "database": "mysql",
+      "server": "unicorn",
+      "server_workers_count": 10,
+      "default": true,
+      "modules": []
+      // available modules: elasticsearch, sidekiq.
+      // modules needed to add additional configs to shared folder
+    }
+  ],
+
+  "nginx_redirects": [
+    ["www.example.com", "example.com"]
+  ],
+
+  "elasticsearch": {
+    "allocated_memory": "500m"
+  },
+
+  "rails": {
+    "packages":[
+      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", "libcurl4-gnutls-dev", "wkhtmltopdf"
+    ]
+  },
+
+  "backup": {
+    "s3": {
+      "aws_access_key": "YOUR_ACCESS_KEY",
+      "aws_secret_key": "YOUR_SECRET_KEY",
+      "bucket_name": "BUCKET_NAME"
+    }
+  },
+
+  "ssh_known_hosts": [{
+    "id": "github",
+    "fqdn": "github.com",
+    "rsa": "AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=="
+  },{"id": "bitbucket",
+    "fqdn": "bitbucket.org",
+    "rsa": "AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcafrgMeLzaFPsw2kNvEcqTKl/VqLat/MaB33pZy0y3rJZtnqwR2qOOvbwKZYKiEO1O6VqNEBxKvJJelCq0dTXWT5pbO2gDXC6h6QDXCaHo6pOHGPUy+YBaGQRGuSusMEASYiWunYN0vCAI8QaXnWMXNMdFP3jHAJH0eDsoiGnLPBlBp4TNm6rYI74nMzgz3B9IikW4WVK+dc8KZJZWYjAuORU3jc1c/NPskD2ASinf8v3xnfXeukU0sJ5N6m5E8VLjObPEO+mN2t/FZTMZLiFqPWc/ALSqnMnnhwrNi2rbfg/rd/IpL8Le3pSBne8+seeFVBoGqzHM9yXw=="
+  }]
+}

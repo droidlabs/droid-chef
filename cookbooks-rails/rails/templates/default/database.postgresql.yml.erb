@@ -1,0 +1,7 @@
+<%= @app_env %>:
+  adapter: postgresql
+  encoding: utf8
+  database: <%= @app_name %>
+  host: 127.0.0.1
+  username: <%= node[:deploy_user][:db_username] %>
+  password: <%= node[:deploy_user][:db_password] %>
