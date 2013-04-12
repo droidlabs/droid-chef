@@ -17,3 +17,10 @@ pid "#{@dir}/tmp/pids/unicorn.pid"
 # Set log file paths
 stderr_path "#{@dir}/log/unicorn.stderr.log"
 stdout_path "#{@dir}/log/unicorn.stdout.log"
+
+before_fork do |server, worker|
+  old_pid = "#{@dir}/tmp/pids/unicorn.pid.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    Process.kill("QUIT", File.read(old_pid).to_i)
+  end
+end
