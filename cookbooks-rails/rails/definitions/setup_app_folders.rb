@@ -35,5 +35,5 @@ define :setup_app_folders do
     group deploy_username
     mode "0770"
     action :create
-  endå
+  end
 end
