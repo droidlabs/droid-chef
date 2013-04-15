@@ -1,5 +1,5 @@
 user  <%= node[:deploy_user][:username] %>;
-worker_processes  16;
+worker_processes  2;
 error_log  <%= @log_path %>/error.log;
 pid <%= @pidfile %>;
 
