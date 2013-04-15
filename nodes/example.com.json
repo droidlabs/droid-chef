@@ -64,6 +64,10 @@
     "allocated_memory": "500m"
   },
 
+  "newrelic":{
+    "license_key": "YOUR_LICENSE_KEY"
+  },
+
   "rails": {
     "packages":[
       "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", "libcurl4-gnutls-dev", "wkhtmltopdf"

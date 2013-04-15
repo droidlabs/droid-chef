@@ -46,6 +46,8 @@ default.elasticsearch[:gateway][:type] = nil
 
 # === VARIA ===
 #
+default.elasticsearch[:index_shards] = 5
+default.elasticsearch[:index_replicas] = 1
 default.elasticsearch[:index_auto_create_index] = true
 default.elasticsearch[:index_mapper_dynamic]    = true
 default.elasticsearch[:disable_delete_all_indices] = true
