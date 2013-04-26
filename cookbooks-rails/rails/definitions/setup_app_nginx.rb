@@ -21,7 +21,7 @@ define :setup_app_nginx do
         app_name: app[:name], app_env: app[:environment],
         web_urls: app[:web_urls], default: app[:default] || false,
         ssl_support: app[:modules].include?("ssl"),
-        using_port: using_port,
+        using_port: using_port, app: app
       )
       notifies :restart, 'service[passenger]'
     end
@@ -36,7 +36,7 @@ define :setup_app_nginx do
       mode   "0640"
       variables(
         app_name: app[:name], app_env: app[:environment],
-        using_port: using_port, servers_count: servers_count
+        using_port: using_port, servers_count: servers_count, app: app
       )
     end
   end
@@ -49,7 +49,7 @@ define :setup_app_nginx do
       mode   "0640"
       variables(
         app_name: app[:name], app_env: app[:environment],
-        app_workers: app[:server_workers_count]
+        app_workers: app[:server_workers_count], app: app
       )
     end
   end

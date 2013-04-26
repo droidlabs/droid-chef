@@ -1,11 +1,18 @@
 # set path to app that will be used to configure unicorn,
 # note the trailing slash in this example
 @dir = "/data/<%= @app_name %>/current"
+@shared_bundler_gems_path = "/data/<%= @app_name %>/shared/bundle"
 
 worker_processes <%= @app_workers %>
 working_directory @dir
 
 timeout 30
+
+preload_app true
+
+if GC.respond_to?(:copy_on_write_friendly=)
+  GC.copy_on_write_friendly = true
+end
 
 # Specify path to socket unicorn listens to,
 # we will use this in our nginx.conf later
@@ -18,9 +25,30 @@ pid "#{@dir}/tmp/pids/unicorn.pid"
 stderr_path "#{@dir}/log/unicorn.stderr.log"
 stdout_path "#{@dir}/log/unicorn.stdout.log"
 
+if defined?(Bundler.settings)
+  before_exec do |server|
+    paths = (ENV["PATH"] || "").split(File::PATH_SEPARATOR)
+    paths.unshift "#{@shared_bundler_gems_path}/bin"
+    ENV["PATH"] = paths.uniq.join(File::PATH_SEPARATOR)
+
+    ENV['GEM_HOME'] = ENV['GEM_PATH'] = @shared_bundler_gems_path
+    ENV['BUNDLE_GEMFILE'] = "#{@dir}/Gemfile"
+  end
+end
+
 before_fork do |server, worker|
+  <% unless @app_database == 'mongodb' %>
+    defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
+  <% end %>
+
   old_pid = "#{@dir}/tmp/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     Process.kill("QUIT", File.read(old_pid).to_i)
   end
+end
+after_fork do |server, worker|
+  <% unless @app_database == 'mongodb' %>
+    defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
+  <% end %>
+  defined?(Resque) and Resque.redis.client.reconnect
 end

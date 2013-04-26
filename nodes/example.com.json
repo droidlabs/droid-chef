@@ -46,8 +46,8 @@
       "name": "application_name",
       "environment": "production",
       "web_urls": "example.com",
-      "database": "mysql",
-      "server": "unicorn",
+      "database": "mysql", // mongodb, postgresql
+      "server": "unicorn", // passenger
       "server_workers_count": 10,
       "default": true,
       "modules": []
