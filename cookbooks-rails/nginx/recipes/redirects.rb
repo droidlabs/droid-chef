@@ -1,5 +1,5 @@
 deploy_username = node[:deploy_user][:username]
-template "#{node[:passenger][:production][:path]}/conf/sites.d/nginx_redirects.conf" do
+template "#{node[:nginx][:path]}/conf/sites.d/nginx_redirects.conf" do
   source "nginx_redirects.conf.erb"
   owner  deploy_username
   group  deploy_username

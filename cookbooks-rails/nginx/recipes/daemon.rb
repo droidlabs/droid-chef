@@ -1,14 +1,6 @@
-#
-# Cookbook Name:: passenger
-# Recipe:: production
-
-passenger_root = run_passenger_config '--root'.chomp
-ruby_root = `sudo -u #{node[:deploy_user][:username]} -i rbenv which ruby`.chomp
-nginx_path = node[:passenger][:production][:path]
+# Cookbook Name:: nginx
 deploy_user = node[:deploy_user][:username]
-
-node.set[:passenger][:root_path] = run_passenger_config '--root'
-node.set[:passenger][:module_path] = run_passenger_config('--root') + "/ext/apache2/mod_passenger.so"
+nginx_path = node[:nginx][:path]
 
 cc='gcc'
 
@@ -32,7 +24,7 @@ end
 
 tmp_dir = "/home/#{node[:deploy_user][:username]}/downloads"
 unless File.exists? "#{nginx_path}/conf/nginx.conf"
-  nginx_version = node[:passenger][:production][:nginx_version]
+  nginx_version = node[:nginx][:nginx_version]
   remote_file "#{tmp_dir}/nginx-#{nginx_version}.tar.gz" do
     owner deploy_user
     group deploy_user
@@ -44,13 +36,16 @@ unless File.exists? "#{nginx_path}/conf/nginx.conf"
     code "cd #{tmp_dir}; sudo -u #{deploy_user} tar -xzf nginx-#{nginx_version}.tar.gz"
   end
 
-  flags = node[:passenger][:production][:configure_flags]
+  flags = node[:nginx][:configure_flags]
   bash "install passenger/nginx" do
     code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
 end
 
-log_path = node[:passenger][:production][:log_path]
+passenger_root = run_passenger_config '--root'.chomp
+ruby_root = system("sudo -u #{deploy_user} -i rbenv which ruby")
+
+log_path = node[:nginx][:log_path]
 
 directory log_path do
   user deploy_user
@@ -97,7 +92,7 @@ template "#{nginx_path}/conf/nginx.conf" do
     :log_path => log_path,
     :passenger_root => passenger_root,
     :ruby_path => ruby_root,
-    :passenger => node[:passenger][:production],
+    :passenger => node[:nginx],
     :pidfile => "#{nginx_path}/logs/nginx.pid"
   )
   notifies :restart, 'service[passenger]'
@@ -114,7 +109,7 @@ template "/etc/init.d/passenger" do
   )
 end
 
-if node[:passenger][:production][:status_server]
+if node[:nginx][:status_server]
   cookbook_file "#{nginx_path}/conf/sites.d/status.conf" do
     source "status.conf"
     mode "0644"
@@ -137,6 +132,6 @@ end
 include_recipe "logrotate"
 
 logrotate_app "passenger" do
-  path "#{node[:passenger][:production][:log_path]}/*.log #{node[:passenger][:production][:log_path]}/*/*.log"
+  path "#{node[:nginx][:log_path]}/*.log #{node[:nginx][:log_path]}/*/*.log"
   rotate 12
 end

@@ -15,8 +15,8 @@
     "recipe[security]",
     "recipe[imagemagick::devel]",
     "recipe[redis]",
-    "recipe[passenger::daemon]",
-    "recipe[passenger::redirects]",
+    "recipe[nginx::daemon]",
+    "recipe[nginx::redirects]",
     //"recipe[nodejs]",     // you can add node.js to use for sprockets
     "recipe[openssl]",
     "recipe[memcached]",
@@ -35,7 +35,7 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "1.9.3-p327",
+    "ruby_version": "1.9.3-p392",
     "db_username": "ninja",
     "db_password": "DB_NINJA_PASSWORD",
     "db_root_password": "DB_ROOT_PASSWORD"
@@ -70,7 +70,7 @@
 
   "rails": {
     "packages":[
-      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", "libcurl4-gnutls-dev", "wkhtmltopdf"
+      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", "libcurl4-gnutls-dev", "wkhtmltopdf", "vim"
     ]
   },
 

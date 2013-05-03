@@ -20,7 +20,7 @@ server {
   location ~ ^/(assets)/  {
     root /data/<%= @app_name %>/current/public;
 
-    <%- if node[:passenger][:production][:gzip] %>
+    <%- if node[:nginx][:gzip] %>
       gzip_static on;
       gzip_http_version 1.0;
     <% end -%>

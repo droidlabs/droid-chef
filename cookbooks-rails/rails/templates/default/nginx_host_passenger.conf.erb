@@ -15,7 +15,7 @@ server {
   location ~ ^/(assets)/  {
     root /data/<%= @app_name %>/current/public;
 
-    <%- if node[:passenger][:production][:gzip] %>
+    <%- if node[:nginx][:gzip] %>
       gzip_static on;
       gzip_http_version 1.0;
     <% end -%>
@@ -50,7 +50,7 @@ server {
   location ~ ^/(assets)/  {
     root /data/<%= @app_name %>/current/public;
 
-    <%- if node[:passenger][:production][:gzip] %>
+    <%- if node[:nginx][:gzip] %>
       gzip_static on;
       gzip_http_version 1.0;
     <% end -%>
@@ -68,8 +68,8 @@ server {
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
   ssl on;
-  ssl_certificate <%= node[:passenger][:production][:path] %>/ssl/<%= @app_name %>.crt;
-  ssl_certificate_key <%= node[:passenger][:production][:path] %>/ssl/<%= @app_name %>.key;
+  ssl_certificate <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.crt;
+  ssl_certificate_key <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.key;
   ssl_protocols SSLv3 TLSv1;
   ssl_ciphers ECDHE-RSA-AES256-SHA384:AES256-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM;
   ssl_prefer_server_ciphers on;

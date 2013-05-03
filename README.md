@@ -19,9 +19,13 @@
 
 * $ knife solo cook root@yourserver.com
 
+### Notes
+
+* commands should be runned using user with sudo privileges
+
 # TEST WITH VAGRANT
 
-* $ cp nodes/example.com.json nodes/localhost.com.json
+* $ cp nodes/example.com.json nodes/localhost.json
 * $ vagrant up
 * $ knife solo prepare vagrant@localhost --ssh-port 2222
 * $ knife solo cook vagrant@localhost --ssh-port 2222

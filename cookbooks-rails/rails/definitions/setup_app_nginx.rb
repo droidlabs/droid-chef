@@ -6,13 +6,13 @@ define :setup_app_nginx do
 
   if app[:modules].include?("ssl")
     local_ssl_path = "#{Chef::Config[:file_cache_path]}/ssl"
-    ssl_path = "#{node[:passenger][:production][:path]}/ssl"
+    ssl_path = "#{node[:nginx][:path]}/ssl"
     FileUtils.cp "#{local_ssl_path}/#{app[:name]}.key", "#{ssl_path}/#{app[:name]}.key"
     FileUtils.cp "#{local_ssl_path}/#{app[:name]}.crt", "#{ssl_path}/#{app[:name]}.crt"
   end
 
   if app[:modules].include?("websockets")
-    template "#{node[:passenger][:production][:path]}/conf/sites-tcp.d/#{app[:name]}.conf" do
+    template "#{node[:nginx][:path]}/conf/sites-tcp.d/#{app[:name]}.conf" do
       source "nginx_host_websockets.conf.erb"
       owner  deploy_username
       group  deploy_username
@@ -54,7 +54,7 @@ define :setup_app_nginx do
     end
   end
 
-  template "#{node[:passenger][:production][:path]}/conf/sites.d/#{app[:name]}.conf" do
+  template "#{node[:nginx][:path]}/conf/sites.d/#{app[:name]}.conf" do
     source "nginx_host_#{app[:server] || 'passenger'}.conf.erb"
     owner  deploy_username
     group  deploy_username

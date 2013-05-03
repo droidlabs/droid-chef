@@ -4,7 +4,7 @@
 class Chef
   class Recipe
     def run_passenger_config *opts
-      return `sudo -u #{node[:deploy_user][:username]} -i passenger-config #{opts * ' '}`
+      return system("sudo -u #{node[:deploy_user][:username]} -i passenger-config #{opts * ' '}")
     end
   end
 end
