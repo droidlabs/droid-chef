@@ -4,8 +4,8 @@ deploy_password = `openssl passwd -1 "#{node[:deploy_user][:password]}"`.chomp
 
 node.set[:authorization] = Hash[
   sudo: Hash[
-    groups: [deploy_username, 'vagrant'],
-    users: [deploy_username, 'vagrant'],
+    groups: [deploy_username, 'vagrant', 'ubuntu'],
+    users: [deploy_username, 'vagrant', 'ubuntu'],
     passwordless: true
   ]
 ]
