@@ -18,10 +18,12 @@ define :setup_app_nginx do
       group  deploy_username
       mode   "0640"
       variables(
-        app_name: app[:name], app_env: app[:environment],
-        web_urls: app[:web_urls], default: app[:default] || false,
+        app_name: app[:name],
+        app_env: app[:environment],
+        web_urls: app[:web_urls],
+        default: app[:server_host_default] || false,
         ssl_support: app[:modules].include?("ssl"),
-        using_port: using_port, app: app
+        using_port: using_port
       )
       notifies :restart, 'service[passenger]'
     end
@@ -35,8 +37,12 @@ define :setup_app_nginx do
       group  deploy_username
       mode   "0640"
       variables(
-        app_name: app[:name], app_env: app[:environment],
-        using_port: using_port, servers_count: servers_count, app: app
+        app_name: app[:name],
+        app_env: app[:environment],
+        web_urls: app[:web_urls],
+        default: app[:server_host_default] || false,
+        using_port: using_port,
+        servers_count: servers_count
       )
     end
   end
@@ -48,8 +54,11 @@ define :setup_app_nginx do
       group  deploy_username
       mode   "0640"
       variables(
-        app_name: app[:name], app_env: app[:environment],
-        app_workers: app[:server_workers_count], app: app
+        app_name: app[:name],
+        app_env: app[:environment],
+        app_workers: app[:server_workers_count],
+        web_urls: app[:web_urls],
+        default: app[:server_host_default] || false
       )
     end
   end
@@ -64,7 +73,7 @@ define :setup_app_nginx do
       app_env: app[:environment],
       app_workers: app[:server_workers_count],
       web_urls: app[:web_urls],
-      default: app[:default] || false,
+      default: app[:server_host_default] || false,
       ssl_support: app[:modules].include?("ssl"),
       using_port: using_port
     )

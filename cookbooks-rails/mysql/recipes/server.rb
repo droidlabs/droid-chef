@@ -21,9 +21,9 @@
 
 include_recipe "mysql::client"
 
-node.set[:mysql][:server_debian_password] = node[:deploy_user][:db_root_password]
-node.set[:mysql][:server_root_password] = node[:deploy_user][:db_root_password]
-node.set[:mysql][:server_repl_password] = node[:deploy_user][:db_root_password]
+node.set[:mysql][:server_debian_password] = node[:deploy_user][:database_root_password]
+node.set[:mysql][:server_root_password] = node[:deploy_user][:database_root_password]
+node.set[:mysql][:server_repl_password] = node[:deploy_user][:database_root_password]
 
 if Chef::Config[:solo]
   missing_attrs = %w{

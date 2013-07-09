@@ -2,6 +2,6 @@
   adapter: mysql2
   encoding: utf8
   database: <%= @app_name %>
-  host: localhost
-  username: <%= node[:deploy_user][:db_username] %>
-  password: <%= node[:deploy_user][:db_password] %>
+  host: <%= @database_host %>
+  username: <%= @database_username %>
+  password: <%= @database_password %>

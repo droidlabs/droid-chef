@@ -22,8 +22,10 @@ iptables -I INPUT -i lo -j ACCEPT
 iptables -A INPUT -p TCP --dport 80 -i $WAN -j ACCEPT
 iptables -A INPUT -p TCP --dport 443 -i $WAN -j ACCEPT
 iptables -A INPUT -p TCP --dport 22 -i $WAN -j ACCEPT
-iptables -A INPUT -p TCP --dport 8000 -i $WAN -j ACCEPT
-iptables -A INPUT -p TCP --dport 9292 -i $WAN -j ACCEPT
+
+<%- node[:security][:additional_ports].each do |port| %>
+iptables -A INPUT -p TCP --dport <%= port %> -i $WAN -j ACCEPT
+<% end %>
 
 #allow icmp
 iptables -I INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT

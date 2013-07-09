@@ -2,22 +2,39 @@ define :setup_app_database do
   app = node.run_state[:current_app]
   deploy_username = node[:deploy_user][:username]
 
-  if app[:database].to_sym == :mongodb
+  database = app[:database] || node[:deploy_user][:database] || 'mysql'
+  database_host = app[:database_host] || node[:deploy_user][:database_host] || 'localhost'
+  database_username = app[:database_username] || node[:deploy_user][:database_username] || 'root'
+  database_password = app[:database_password] || node[:deploy_user][:database_password] || ''
+
+  if database.to_sym == :mongodb
     template "/data/#{app[:name]}/shared/config/mongoid.yml" do
       source "mongoid.yml.erb"
       owner  deploy_username
       group  deploy_username
       mode   "0640"
-      variables(app_name: app[:name], app_env: app[:environment], app_database: app[:database])
+      variables(
+        app_name: app[:name],
+        app_env: app[:environment],
+        database: database,
+        database_host: database_host
+      )
     end
   else
-    template_name = "database.#{app[:database]}.yml.erb"
+    template_name = "database.#{database}.yml.erb"
     template "/data/#{app[:name]}/shared/config/database.yml" do
       source template_name
       owner  deploy_username
       group  deploy_username
       mode   "0640"
-      variables(app_name: app[:name], app_env: app[:environment], app_database: app[:database])
+      variables(
+        app_name: app[:name],
+        app_env: app[:environment],
+        database: database,
+        database_host: database_host,
+        database_username: database_username,
+        database_password: database_password
+      )
     end
   end
   if app[:modules].include?("elasticsearch")

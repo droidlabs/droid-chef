@@ -4,7 +4,7 @@ Backup::Model.new(:<%= @config[:name] %>, '<%= @config[:description] %>') do
   database MySQL do |database|
     database.name             = :all
     database.username         = 'root'
-    database.password         = '<%= @user[:db_root_password] %>'
+    database.password         = '<%= @user[:database_root_password] %>'
   end
 
   <% @mongo_databases.each do |db| %>

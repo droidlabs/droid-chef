@@ -1,5 +1,5 @@
 template "/etc/iptables.sh" do
-  source "iptables.sh"
+  source "iptables.sh.erb"
   owner  "root"
   group  "root"
   mode   "0700"
