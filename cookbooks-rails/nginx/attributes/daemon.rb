@@ -21,3 +21,5 @@ default[:nginx][:worker_connections] = 1024
 
 # Enable the status server on 127.0.0.1
 default[:nginx][:status_server] = false
+
+default[:nginx_redirects] = []

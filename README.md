@@ -8,7 +8,7 @@
 ### bundle and update cookbooks
 
 * $ bundle install
-*$ librarian-chef install
+* $ librarian-chef install
 
 ### Prepare server first time
 

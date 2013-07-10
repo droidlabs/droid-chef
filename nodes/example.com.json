@@ -19,7 +19,7 @@
     "recipe[nginx::redirects]",
     //"recipe[nodejs]",     // you can add node.js to use for sprockets
     "recipe[openssl]",
-    "recipe[memcached]",
+    //"recipe[memcached]",
     "recipe[mysql]",
     //"recipe[postgresql]",
     //"recipe[mongodb]",
@@ -35,9 +35,8 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "1.9.3-p392",
+    "ruby_version": "1.9.3-p448",
     "database_host": "localhost",
-    "database_access_from": ["app01.onenear.net"],
     "database_username": "ninja",
     "database_password": "DB_NINJA_PASSWORD",
     "database_root_password": "DB_ROOT_PASSWORD"
@@ -61,10 +60,6 @@
   "nginx_redirects": [
     ["www.example.com", "example.com"]
   ],
-
-  "elasticsearch": {
-    "allocated_memory": "500m"
-  },
 
   "newrelic":{
     "license_key": "YOUR_LICENSE_KEY"
