@@ -1,19 +1,21 @@
 # Cookbook Name:: nginx
 deploy_user = node[:deploy_user][:username]
 nginx_path = node[:nginx][:path]
+log_path = node[:nginx][:log_path]
+home_path = "/home/#{deploy_user}"
+tmp_dir = "#{home_path}/downloads"
+ruby_dir = "#{home_path}/.rbenv/versions/#{node[:deploy_user][:ruby_version]}"
+
+passenger_dir = if node[:nginx][:passenger][:enterprise]
+  "#{ruby_dir}/lib/ruby/gems/1.9.1/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
+else
+  "#{ruby_dir}/lib/ruby/gems/1.9.1/gems/passenger-#{node[:nginx][:passenger][:version]}"
+end
 
 cc='gcc'
 
-package "curl"
-if ['ubuntu', 'debian'].member? node[:platform]
-  ['libcurl4-openssl-dev','libpcre3-dev'].each do |pkg|
-    package pkg
-  end
-  if node[:platform_version] == '11.10'
-    package 'gcc-4.4'
-    package 'libstdc++6-4.4-dev'
-    cc='gcc-4.4'
-  end
+['libcurl4-openssl-dev','libpcre3-dev', 'curl'].each do |pkg|
+  package pkg
 end
 
 directory nginx_path do
@@ -22,9 +24,32 @@ directory nginx_path do
   action :create
 end
 
-tmp_dir = "/home/#{node[:deploy_user][:username]}/downloads"
+# install enterprise or regular passenger
+# NOTE: you should copy enterprise passgenger gem and license to /files dir
+if node[:nginx][:passenger][:enterprise]
+  cookbook_file "/etc/passenger-enterprise-license" do
+    owner 'root'
+    group 'root'
+    mode 0755
+  end
+  cookbook_file "#{tmp_dir}/passenger-enterprise-server.gem" do
+    owner deploy_user
+    group deploy_user
+    mode 0755
+  end
+  bash "install passenger gem" do
+    code "sudo -u #{deploy_user} -i gem install #{tmp_dir}/passenger-enterprise-server.gem"
+  end
+else
+  deployer_gem "passenger" do
+    version node[:nginx][:passenger][:version]
+  end
+end
+
+nginx_version = node[:nginx][:nginx_version]
+
+# INSTALL PASSENGER && NGINX
 unless File.exists? "#{nginx_path}/conf/nginx.conf"
-  nginx_version = node[:nginx][:nginx_version]
   remote_file "#{tmp_dir}/nginx-#{nginx_version}.tar.gz" do
     owner deploy_user
     group deploy_user
@@ -40,12 +65,10 @@ unless File.exists? "#{nginx_path}/conf/nginx.conf"
   bash "install passenger/nginx" do
     code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
+  # bash "fix issue with passenger installation" do
+  #   code "cd #{passenger_dir}; sudo -u #{deploy_user} -i sudo rake nginx"
+  # end
 end
-
-passenger_root = run_passenger_config '--root'.chomp
-ruby_root = system("sudo -u #{deploy_user} -i rbenv which ruby")
-
-log_path = node[:nginx][:log_path]
 
 directory log_path do
   user deploy_user
@@ -83,6 +106,7 @@ directory "#{nginx_path}/conf/sites.d" do
   notifies :reload, 'service[passenger]'
 end
 
+use_passenger = node[:applications].any?{ |a| a[:server] == 'passenger'}
 template "#{nginx_path}/conf/nginx.conf" do
   source "nginx.conf.erb"
   owner "root"
@@ -90,10 +114,11 @@ template "#{nginx_path}/conf/nginx.conf" do
   mode 0644
   variables(
     :log_path => log_path,
-    :passenger_root => passenger_root,
-    :ruby_path => ruby_root,
-    :passenger => node[:nginx],
-    :pidfile => "#{nginx_path}/logs/nginx.pid"
+    :nginx => node[:nginx],
+    :pidfile => "#{nginx_path}/logs/nginx.pid",
+    :use_passenger => use_passenger,
+    :ruby_dir => ruby_dir,
+    :passenger_dir => passenger_dir
   )
   notifies :restart, 'service[passenger]'
 end
