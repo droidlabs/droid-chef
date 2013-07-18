@@ -33,6 +33,10 @@ server {
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
 
+  location /nginx_stub_status {
+    stub_status on;
+  }
+
   location / {
     try_files $uri @app;
   }
@@ -43,6 +47,9 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_pass http://proxy_<%= @app_name %>;
+    proxy_buffer_size   128k;
+    proxy_buffers       6 256k;
+    proxy_busy_buffers_size   256k;
   }
 }
 <% if @ssl_support %>
@@ -94,6 +101,9 @@ server {
     proxy_set_header  Host $http_host;
     proxy_redirect off;
     proxy_pass http://proxy_<%= @app_name %>;
+    proxy_buffer_size   128k;
+    proxy_buffers       6 256k;
+    proxy_busy_buffers_size   256k;
   }
 }
 <% end %>

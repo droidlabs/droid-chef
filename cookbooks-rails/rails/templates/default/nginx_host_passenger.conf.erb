@@ -26,6 +26,10 @@ server {
     error_page 404 /404.html;
   }
 
+  location /nginx_stub_status {
+    stub_status on;
+  }
+
   passenger_enabled on;
   passenger_min_instances <%= @app_workers %>;
   rails_env <%= @app_env %>;

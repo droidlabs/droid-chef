@@ -12,4 +12,8 @@ server {
 
   tcp_nodelay on;
   websocket_pass proxy_websocket_<%= @app_name %>;
+
+  location /nginx_stub_status {
+    stub_status on;
+  }
 }

@@ -6,7 +6,7 @@ node.set[:rbenv][:user_installs] = [{
   rubies: [ruby_version],
   global: ruby_version,
   gems: {
-    ruby_version => [{ name: "bundler" },{ name: "rake" },{ name: "passenger" }]
+    ruby_version => node[:deployer_ruby][:gems].map{ |g| {name: g} }
   }
 }]
 
