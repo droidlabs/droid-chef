@@ -36,4 +36,11 @@ define :setup_app_folders do
     mode "0770"
     action :create
   end
+
+  include_recipe "logrotate"
+
+  logrotate_app "rails_#{app[:name]}" do
+    path "/data/#{app[:name]}/shared/log/*.log /data/#{app[:name]}/shared/log/*/*.log"
+    rotate 12
+  end
 end
