@@ -123,6 +123,14 @@ template "#{nginx_path}/conf/nginx.conf" do
   notifies :restart, 'service[passenger]'
 end
 
+template "#{nginx_path}/conf/mime.types" do
+  source "mime.types.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, 'service[passenger]'
+end
+
 template "/etc/init.d/passenger" do
   source "passenger.init.erb"
   owner "root"

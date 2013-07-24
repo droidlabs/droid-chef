@@ -1,4 +1,6 @@
-# GETTING STARTED
+# Chef recipes bundle for Rails applications
+
+## GETTING STARTED
 
 ### Setup ssh
 
@@ -21,9 +23,9 @@
 
 ### Notes
 
-* commands should be runned using user with sudo privileges
+* this chef recipes build for using on Ubuntu 12.04 LTS
 
-# TEST WITH VAGRANT
+## TEST WITH VAGRANT
 
 * $ cp nodes/example.com.json nodes/localhost.json
 * $ vagrant up

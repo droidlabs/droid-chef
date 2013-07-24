@@ -37,10 +37,12 @@ define :setup_app_folders do
     action :create
   end
 
-  include_recipe "logrotate"
+  if app[:server]
+    include_recipe "logrotate"
 
-  logrotate_app "rails_#{app[:name]}" do
-    path "/data/#{app[:name]}/shared/log/*.log /data/#{app[:name]}/shared/log/*/*.log"
-    rotate 12
+    logrotate_app "rails_#{app[:name]}" do
+      path "/data/#{app[:name]}/shared/log/*.log /data/#{app[:name]}/shared/log/*/*.log"
+      rotate 12
+    end
   end
 end
