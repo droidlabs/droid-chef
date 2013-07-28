@@ -22,6 +22,12 @@ directory "#{backup_path}/config" do
   recursive true
 end
 
+directory "#{backup_path}/log" do
+  owner deploy_user
+  group deploy_user
+  recursive true
+end
+
 sync_dirs = []
 node[:applications].each do |app|
   system_path = "/data/#{app[:name]}/shared/system"
