@@ -56,7 +56,7 @@ define :setup_app_nginx do
       variables(
         app_name: app[:name],
         app_env: app[:environment],
-        app_workers: app[:server_workers_count],
+        app_workers: app[:server_workers_count] || 2,
         web_urls: app[:web_urls],
         default: app[:server_host_default] || false
       )
@@ -71,7 +71,7 @@ define :setup_app_nginx do
     variables(
       app_name: app[:name],
       app_env: app[:environment],
-      app_workers: app[:server_workers_count],
+      app_workers: app[:server_workers_count] || 2,
       web_urls: app[:web_urls],
       default: app[:server_host_default] || false,
       ssl_support: app[:modules].include?("ssl"),

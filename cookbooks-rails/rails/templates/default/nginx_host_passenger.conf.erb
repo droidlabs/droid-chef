@@ -33,6 +33,7 @@ server {
 
   passenger_enabled on;
   passenger_min_instances <%= @app_workers %>;
+  passenger_pre_start http://<%= @web_urls.first %>;
   rails_env <%= @app_env %>;
 
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;

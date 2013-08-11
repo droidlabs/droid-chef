@@ -49,7 +49,7 @@
       "web_urls": "example.com",
       "database": "mysql", // mongodb, postgresql
       "server": "unicorn", // passenger, thin
-      "server_workers_count": 10,
+      "server_workers_count": 4,
       "server_host_default": true,
       "modules": []
       // available modules: elasticsearch, sidekiq, websockets.

@@ -1,1 +1,1 @@
-default[:deployer_ruby][:gems] = ["bundler", "rake", "passenger", "daemons"]
+default[:deployer_ruby][:gems] = ["bundler", "daemons"]
