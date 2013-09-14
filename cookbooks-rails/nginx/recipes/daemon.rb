@@ -6,10 +6,11 @@ home_path = "/home/#{deploy_user}"
 tmp_dir = "#{home_path}/downloads"
 ruby_dir = "#{home_path}/.rbenv/versions/#{node[:deploy_user][:ruby_version]}"
 
+major_ruby = node[:deploy_user][:ruby_version].match(/^2\.0\./) ? '2.0.0' : '1.9.1'
 passenger_dir = if node[:nginx][:passenger][:enterprise]
-  "#{ruby_dir}/lib/ruby/gems/1.9.1/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
+  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
 else
-  "#{ruby_dir}/lib/ruby/gems/1.9.1/gems/passenger-#{node[:nginx][:passenger][:version]}"
+  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-#{node[:nginx][:passenger][:version]}"
 end
 
 cc='gcc'
