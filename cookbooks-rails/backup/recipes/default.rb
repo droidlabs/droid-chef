@@ -33,15 +33,15 @@ node[:applications].each do |app|
   system_path = "/data/#{app[:name]}/shared/system"
   sync_dirs << [app[:name], system_path] if File.exists?(system_path)
 end
-mongo_databases = []
+databases = []
 node[:applications].each do |app|
-  mongo_databases << app[:name] if app[:database] == 'mongodb'
+  databases << { name: app[:name], type: app[:database] } if app[:database]
 end
 template "#{backup_path}/config.rb" do
   owner deploy_user
   source "config.rb.erb"
   variables config: node[:backup], user: node[:deploy_user],
-            sync_dirs: sync_dirs, mongo_databases: mongo_databases
+            sync_dirs: sync_dirs, databases: databases
 end
 
 template "#{backup_path}/config/schedule.rb" do

@@ -1,16 +1,26 @@
 Backup::Model.new(:<%= @config[:name] %>, '<%= @config[:description] %>') do
+  <% @databases.each do |db| %>
+    <% if db[:type] == 'mongodb' %>
+    database MongoDB do |database|
+      database.name             = "<%= db %>"
+    end
+    <% end %>
 
+    <% if db[:type] == 'mysql' %>
+    database MySQL do |database|
+      database.name             = "<%= db[:name] %>"
+      database.username         = '<%= @user[:database_username] %>'
+      database.password         = '<%= @user[:database_password] %>'
+    end
+    <% end %>
 
-  database MySQL do |database|
-    database.name             = :all
-    database.username         = 'root'
-    database.password         = '<%= @user[:database_root_password] %>'
-  end
-
-  <% @mongo_databases.each do |db| %>
-  database MongoDB do |database|
-    database.name             = "<%= db %>"
-  end
+    <% if db[:type] == 'postgresql' %>
+    database PostgreSQL do |database|
+      database.name             = "<%= db[:name] %>"
+      database.username         = '<%= @user[:database_username] %>'
+      database.password         = '<%= @user[:database_password] %>'
+    end
+    <% end %>
   <% end %>
 
   compress_with Gzip
