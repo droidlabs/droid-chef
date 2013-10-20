@@ -31,6 +31,14 @@ execute "generate ssh keys for: #{deploy_username}." do
 end
 execute "cat /home/#{deploy_username}/.ssh/id_rsa.pub"
 
+# add ".ssh/known_hosts"
+template "/home/#{deploy_username}/.ssh/known_hosts" do
+  source 'known_hosts.erb'
+  user deploy_username
+  group deploy_username
+  variables(hosts: node[:deployer_known_hosts])
+end
+
 # create ".bash_profile"
 file "/home/#{deploy_username}/.bash_profile" do
   user deploy_username
