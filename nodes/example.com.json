@@ -66,9 +66,11 @@
   },
 
   "security": {
-    "additional_ports": {
-      //"all": "3000"
-      //"127.0.0.1": "9200"
+    // 22, 80, 443 ports are included by default, add them only to override
+    "ports": {
+      //"3000": "all"
+      //"9200": "127.0.0.1"
+      //"9201": ["127.0.0.1", "8.8.8.8"]
     }
   },
 
