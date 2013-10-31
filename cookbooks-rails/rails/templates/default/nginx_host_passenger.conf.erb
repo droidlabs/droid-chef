@@ -12,7 +12,7 @@ server {
   location = /500.html {
     root /data/<%= @app_name %>/current/public;
   }
-  location ~ ^/(assets)/  {
+  location ~ ^/assets/.*\.(jpg|jpeg|png|bmp|gif|css|js)$  {
     root /data/<%= @app_name %>/current/public;
 
     <%- if node[:nginx][:gzip] %>
