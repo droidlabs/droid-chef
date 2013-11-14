@@ -1,4 +1,4 @@
-if node[:security][:additional_ports].any?
+if node[:security][:additional_ports] && node[:security][:additional_ports].any?
   raise "security[additional_ports] is deprecated. please use security[ports] with reverted hash syntax."
 end
 
