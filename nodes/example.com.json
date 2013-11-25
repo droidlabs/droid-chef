@@ -35,7 +35,7 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "1.9.3-p448",
+    "ruby_version": "2.0.0-p353",
     "database_host": "localhost",
     "database_username": "ninja",
     "database_password": "DB_NINJA_PASSWORD",
@@ -76,7 +76,8 @@
 
   "rails": {
     "packages":[
-      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", "libcurl4-gnutls-dev", "wkhtmltopdf", "vim"
+      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", 
+      "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "libmysqlclient-dev"
     ]
   },
 
