@@ -5,8 +5,9 @@ log_path = node[:nginx][:log_path]
 home_path = "/home/#{deploy_user}"
 tmp_dir = "#{home_path}/downloads"
 ruby_dir = "#{home_path}/.rbenv/versions/#{node[:deploy_user][:ruby_version]}"
+ruby_version = node[:deploy_user][:ruby_version]
 
-major_ruby = node[:deploy_user][:ruby_version].match(/^2\.0\./) ? '2.0.0' : '1.9.1'
+major_ruby = ruby_version.match(/^2\.[0-9]*\./) ? ruby_version.split('-').first : '1.9.1'
 passenger_dir = if node[:nginx][:passenger][:enterprise]
   "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
 else
@@ -50,7 +51,7 @@ end
 nginx_version = node[:nginx][:nginx_version]
 
 # INSTALL PASSENGER && NGINX
-unless File.exists? "#{nginx_path}/conf/nginx.conf"
+if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade'] != 'none'
   remote_file "#{tmp_dir}/nginx-#{nginx_version}.tar.gz" do
     owner deploy_user
     group deploy_user

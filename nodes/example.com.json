@@ -71,6 +71,11 @@
     }
   },
 
+  // uncomment this line to upgrade ruby version
+  // "ruby_build": {
+  //   "upgrade": "true"
+  // },
+
   "security": {
     // 22, 80, 443 ports are included by default, add them only to override
     "ports": {

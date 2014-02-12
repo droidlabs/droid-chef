@@ -27,8 +27,8 @@ git_url = node[:ruby_build][:git_url]
 git_ref = node[:ruby_build][:git_ref]
 upgrade_strategy  = build_upgrade_strategy(node['ruby_build']['upgrade'])
 
-cache_path  = Chef::Config['file_cache_path']
-src_path    = "#{cache_path}/ruby-build"
+home_path = "/home/#{node[:deploy_user][:username]}"
+src_dir = "#{home_path}/downloads/ruby_build"
 
 unless mac_with_no_homebrew
   Array(node['ruby_build']['install_pkgs']).each do |pkg|
@@ -37,7 +37,7 @@ unless mac_with_no_homebrew
 end
 
 execute "Install ruby-build" do
-  cwd       src_path
+  cwd       src_dir
   command   %{./install.sh}
 
   action    :nothing
@@ -46,11 +46,11 @@ execute "Install ruby-build" do
   end
 end
 
-directory ::File.dirname(src_path) do
+directory ::File.dirname(src_dir) do
   recursive true
 end
 
-git src_path do
+git src_dir do
   repository  git_url
   reference   git_ref
 

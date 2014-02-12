@@ -37,5 +37,5 @@ end
 
 execute "install npm" do
   user node[:deploy_user][:username]
-  command "curl https://npmjs.org/install.sh | sudo -u #{node[:deploy_user][:username]} -i sh"
+  command "curl https://www.npmjs.org/install.sh | sudo -u #{node[:deploy_user][:username]} -i sh"
 end
