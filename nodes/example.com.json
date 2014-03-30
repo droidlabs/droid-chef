@@ -35,7 +35,7 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "2.0.0-p353",
+    "ruby_version": "2.1.0",
     "database_host": "localhost",
     "database_username": "ninja",
     "database_password": "DB_NINJA_PASSWORD",
