@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-default['mysql']['bind_address']               = attribute?('cloud') ? cloud['local_ipv4'] : ipaddress
+default['mysql']['bind_address']               = ipaddress
 default['mysql']['port']                       = 3306
 
 case node["platform"]

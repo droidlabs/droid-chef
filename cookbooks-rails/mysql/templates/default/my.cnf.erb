@@ -62,7 +62,7 @@ bind-address            = <%= node['mysql']['bind_address'] %>
 #
 # * Fine Tuning
 #
-key_buffer              = <%= node['mysql']['tunable']['key_buffer'] %>
+key_buffer_size              = <%= node['mysql']['tunable']['key_buffer'] %>
 max_allowed_packet      = <%= node['mysql']['tunable']['max_allowed_packet'] %>
 thread_stack            = <%= node['mysql']['tunable']['thread_stack'] %>
 thread_cache_size       = <%= node['mysql']['tunable']['thread_cache_size'] %>
@@ -72,7 +72,7 @@ auto-increment-offset    = <%= node['mysql']['auto-increment-offset'] %>
 
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
-myisam-recover          = BACKUP
+myisam-recover-option   = BACKUP
 #max_connections        = 100
 #table_cache            = 64
 #thread_concurrency     = 10
@@ -182,7 +182,7 @@ max_allowed_packet      = <%= node['mysql']['tunable']['max_allowed_packet'] %>
 #no-auto-rehash # faster start of mysql but no tab completition
 
 [isamchk]
-key_buffer              = <%= node['mysql']['tunable']['max_allowed_packet'] %>
+key_buffer_size              = <%= node['mysql']['tunable']['max_allowed_packet'] %>
 
 #
 # * NDB Cluster

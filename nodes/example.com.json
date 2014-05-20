@@ -76,6 +76,10 @@
   //   "upgrade": "true"
   // },
 
+  // "elasticsearch": {
+  //   "allocated_memory": "1000m"
+  // },
+
   "security": {
     // 22, 80, 443 ports are included by default, add them only to override
     "ports": {
@@ -87,7 +91,7 @@
 
   "rails": {
     "packages":[
-      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev", 
+      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev",
       "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "libmysqlclient-dev"
     ]
   },
