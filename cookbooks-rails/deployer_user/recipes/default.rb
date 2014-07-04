@@ -29,14 +29,16 @@ execute "generate ssh keys for: #{deploy_username}." do
   creates "/home/#{deploy_username}/.ssh/id_rsa.pub"
   command "ssh-keygen -t rsa -q -f /home/#{deploy_username}/.ssh/id_rsa -P \"\""
 end
-execute "cat /home/#{deploy_username}/.ssh/id_rsa.pub"
 
-# add ".ssh/known_hosts"
-template "/home/#{deploy_username}/.ssh/known_hosts" do
-  source 'known_hosts.erb'
+keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
+hosts_path = "/home/#{deploy_username}/.ssh/known_hosts"
+file "ssh_known_hosts" do
   user deploy_username
   group deploy_username
-  variables(hosts: node[:deployer_known_hosts])
+  path hosts_path
+  action :create
+  content "#{keys.join($/)}#{$/}"
+  not_if { File.exists?(hosts_path) }
 end
 
 # create ".bash_profile"

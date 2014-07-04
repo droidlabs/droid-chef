@@ -1,3 +1,0 @@
-<%- @hosts.each do |host| %>
-<%= host[:fqdn] %>,<%= `dig +short #{host[:fqdn]}` %> ssh-rsa <%= host[:rsa] %>
-<% end %>

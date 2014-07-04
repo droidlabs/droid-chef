@@ -34,8 +34,3 @@ remote_file "#{tmp_dir}/node-v#{node["nodejs"]["version"]}.tar.gz" do
   notifies :run, resources(:bash => "install-node"), :immediately
   action :create_if_missing
 end
-
-execute "install npm" do
-  user node[:deploy_user][:username]
-  command "curl https://www.npmjs.org/install.sh | sudo -u #{node[:deploy_user][:username]} -i sh"
-end
