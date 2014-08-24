@@ -7,7 +7,12 @@ tmp_dir = "#{home_path}/downloads"
 ruby_dir = "#{home_path}/.rbenv/versions/#{node[:deploy_user][:ruby_version]}"
 ruby_version = node[:deploy_user][:ruby_version]
 
-major_ruby = ruby_version.match(/^2\.[0-9]*\./) ? ruby_version.split('-').first : '1.9.1'
+major_ruby = case ruby_version
+             when /1\.9/ then "1.9.1"
+             when /2\.0/ then "2.0.0"
+             when /2\.1/ then "2.1.0"
+             end
+
 passenger_dir = if node[:nginx][:passenger][:enterprise]
   "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
 else
