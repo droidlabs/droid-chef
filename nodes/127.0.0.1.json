@@ -14,7 +14,7 @@
     "recipe[git]",
     "recipe[security]",
     "recipe[imagemagick::devel]",
-    "recipe[redis]",
+    "recipe[redis::server]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
     //"recipe[memcached]",

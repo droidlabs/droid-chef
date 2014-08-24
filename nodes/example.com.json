@@ -17,7 +17,6 @@
     "recipe[redis::server]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
-    //"recipe[nodejs]",     // you can add node.js to use for sprockets
     //"recipe[memcached]",
     //"recipe[mysql]",
     "recipe[postgresql]",
@@ -34,7 +33,7 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "2.1.0",
+    "ruby_version": "2.1.2",
     "database_host": "localhost",
     "database_username": "ninja",
     "database_password": "DB_NINJA_PASSWORD",
