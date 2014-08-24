@@ -1,4 +1,5 @@
 .bundle
 /tmp/*
 /.vagrant
+cookbooks/*
 .DS_Store

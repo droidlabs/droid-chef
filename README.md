@@ -23,11 +23,15 @@
 
 ### Notes
 
-* this chef recipes build for using on Ubuntu 12.04 LTS
+* this chef recipes build for using on Ubuntu 12.04/14.04 LTS
 
 ## TEST WITH VAGRANT
 
-* $ cp nodes/example.com.json nodes/localhost.json
+* Download and install Vagrant - http://www.vagrantup.com/downloads.html
+* Download and install VirtualBox - https://www.virtualbox.org/wiki/Downloads
+* $ vagrant box add ubuntu/trusty64
+* $ cp nodes/example.com.json nodes/127.0.0.1.json
 * $ vagrant up
-* $ knife solo prepare vagrant@localhost --ssh-port 2222
-* $ knife solo cook vagrant@localhost --ssh-port 2222
+* $ knife solo prepare vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key
+* $ knife solo cook vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key
+* $ vagrant halt
