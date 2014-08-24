@@ -92,7 +92,8 @@
   "rails": {
     "packages":[
       "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev",
-      "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "libmysqlclient-dev"
+      "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "nodejs",
+      "libpq-dev", "postgresql-client-common", "postgresql-client", "libmysqlclient-dev" // remove pg/mysql client dev if not needed
     ]
   },
 

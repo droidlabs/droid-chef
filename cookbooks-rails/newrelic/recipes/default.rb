@@ -17,12 +17,7 @@
 # limitations under the License.
 #
 
-case node[:platform]
-when "ubuntu", "debian"
-  include_recipe "newrelic::debian"
-when "redhat", "centos", "fedora"
-  include_recipe "newrelic::redhat"
-end
+include_recipe "newrelic::debian"
 
 directory "/var/run/newrelic" do
   owner "newrelic"
