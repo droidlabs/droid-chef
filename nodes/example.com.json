@@ -12,12 +12,12 @@
     "recipe[ohai]",
     "recipe[runit]",
     "recipe[git]",
+    "recipe[openssl]",
     "recipe[security]",
     "recipe[imagemagick::devel]",
-    "recipe[redis::server]",
+    "recipe[redis::install_from_package]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
-    //"recipe[memcached]",
     //"recipe[mysql]",
     "recipe[postgresql]",
     //"recipe[mongodb]",
@@ -45,7 +45,7 @@
       "name": "application_name",
       "environment": "production",
       "web_urls": "example.com",
-      "database": "mysql", // mongodb, postgresql
+      "database": "postgresql", // mongodb, mysql
       "server": "passenger", // unicorn, thin
       "server_workers_count": 4,
       "server_host_default": true,

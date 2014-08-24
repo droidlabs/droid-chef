@@ -70,5 +70,6 @@ DEPENDENCIES
   openssl (>= 0)
   rbenv (>= 0)
   redis (>= 0)
+  runit (>= 0)
   sudo (>= 0)
 
