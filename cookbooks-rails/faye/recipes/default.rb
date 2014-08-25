@@ -15,15 +15,17 @@ directory "/data/faye/log/" do
   action :create
 end
 
+package "npm"
+
 bash "install faye-websocket" do
   code <<-EOH
-    cd /data/faye/ && npm install faye-websocket
+    cd /data/faye/ && npm install -g faye-websocket
   EOH
 end
 
 bash "install faye" do
   code <<-EOH
-    cd /data/faye/ && npm install faye
+    cd /data/faye/ && npm install -g faye
   EOH
 end
 

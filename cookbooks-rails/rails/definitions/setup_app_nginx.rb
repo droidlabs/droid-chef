@@ -4,29 +4,14 @@ define :setup_app_nginx do
   using_port = node.run_state[:using_port]
   deploy_username = node[:deploy_user][:username]
 
+  ruby_version = app[:ruby_version] || node[:deploy_user][:ruby_version]
+  ruby_dir = "/home/#{deploy_username}/.rbenv/versions/#{ruby_version}"
+
   if app[:modules].include?("ssl")
     local_ssl_path = "#{Chef::Config[:file_cache_path]}/ssl"
     ssl_path = "#{node[:nginx][:path]}/ssl"
     FileUtils.cp "#{local_ssl_path}/#{app[:name]}.key", "#{ssl_path}/#{app[:name]}.key"
     FileUtils.cp "#{local_ssl_path}/#{app[:name]}.crt", "#{ssl_path}/#{app[:name]}.crt"
-  end
-
-  if app[:modules].include?("websockets")
-    template "#{node[:nginx][:path]}/conf/sites-tcp.d/#{app[:name]}.conf" do
-      source "nginx_host_websockets.conf.erb"
-      owner  deploy_username
-      group  deploy_username
-      mode   "0640"
-      variables(
-        app_name: app[:name],
-        app_env: app[:environment],
-        web_urls: app[:web_urls],
-        default: app[:server_host_default] || false,
-        ssl_support: app[:modules].include?("ssl"),
-        using_port: using_port
-      )
-      notifies :restart, 'service[passenger]'
-    end
   end
 
   if app[:server] == 'thin'
@@ -75,7 +60,8 @@ define :setup_app_nginx do
       web_urls: app[:web_urls],
       default: app[:server_host_default] || false,
       ssl_support: app[:modules].include?("ssl"),
-      using_port: using_port
+      using_port: using_port,
+      ruby_dir: ruby_dir
     )
     notifies :restart, 'service[passenger]'
   end

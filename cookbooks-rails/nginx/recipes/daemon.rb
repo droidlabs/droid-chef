@@ -4,14 +4,18 @@ nginx_path = node[:nginx][:path]
 log_path = node[:nginx][:log_path]
 home_path = "/home/#{deploy_user}"
 tmp_dir = "#{home_path}/downloads"
-ruby_dir = "#{home_path}/.rbenv/versions/#{node[:deploy_user][:ruby_version]}"
-ruby_version = node[:deploy_user][:ruby_version]
 
-major_ruby = case ruby_version
+main_ruby_version = node[:deploy_user][:ruby_version]
+app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
+ruby_versions = [main_ruby_version] + app_ruby_versions
+
+major_ruby = case main_ruby_version
              when /1\.9/ then "1.9.1"
              when /2\.0/ then "2.0.0"
              when /2\.1/ then "2.1.0"
              end
+
+ruby_dir = "#{home_path}/.rbenv/versions/#{main_ruby_version}"
 
 passenger_dir = if node[:nginx][:passenger][:enterprise]
   "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
@@ -44,8 +48,11 @@ if node[:nginx][:passenger][:enterprise]
     group deploy_user
     mode 0755
   end
-  bash "install passenger gem" do
-    code "sudo -u #{deploy_user} -i gem install #{tmp_dir}/passenger-enterprise-server.gem"
+  ruby_versions.each do |version|
+    bash "install passenger gem - ruby #{version}" do
+      code "sudo -u #{deploy_user} -i env RBENV_VERSION='#{version}' gem install #{tmp_dir}/passenger-enterprise-server.gem"
+      not_if { result = `sudo -u #{deploy_user} -i env RBENV_VERSION='#{version}' gem list | grep passenger`; result && result != '' }
+    end
   end
 else
   deployer_gem "passenger" do
@@ -72,6 +79,7 @@ if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade
   bash "install passenger/nginx" do
     code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
+
   # bash "fix issue with passenger installation" do
   #   code "cd #{passenger_dir}; sudo -u #{deploy_user} -i sudo rake nginx"
   # end

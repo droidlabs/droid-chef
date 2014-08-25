@@ -1,25 +1,25 @@
-# Chef recipes bundle for Rails applications
+# Chef recipes bundle for Ruby applications
 
 ## GETTING STARTED
 
 ### Setup ssh
 
-* $ brew install ssh-copy-id
-* $ ssh-copy-id root@yourserver.com
+* `$ brew install ssh-copy-id`
+* `$ ssh-copy-id root@yourserver.com`
 
 ### bundle and update cookbooks
 
-* $ bundle install
-* $ librarian-chef install
+* `$ bundle install`
+* `$ librarian-chef install`
 
 ### Prepare server first time
 
-* $ cp nodes/example.com.json nodes/yourserver.com.json
-* $ knife solo prepare root@yourserver.com
+* `$ cp nodes/example.com.json nodes/yourserver.com.json`
+* `$ knife solo prepare root@yourserver.com`
 
 ### Cook
 
-* $ knife solo cook root@yourserver.com
+* `$ knife solo cook root@yourserver.com`
 
 ### Notes
 
@@ -29,9 +29,8 @@
 
 * Download and install Vagrant - http://www.vagrantup.com/downloads.html
 * Download and install VirtualBox - https://www.virtualbox.org/wiki/Downloads
-* $ vagrant box add ubuntu/trusty64
-* $ cp nodes/example.com.json nodes/127.0.0.1.json
-* $ vagrant up
-* $ knife solo prepare vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key
-* $ knife solo cook vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key
-* $ vagrant halt
+* `$ vagrant box add ubuntu/trusty64`
+* `$ vagrant up`
+* `$ knife solo prepare vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
+* `$ knife solo cook vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
+* `$ vagrant halt`

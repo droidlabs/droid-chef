@@ -33,6 +33,10 @@ server {
 
   passenger_enabled on;
   passenger_min_instances <%= @app_workers %>;
+  <%- if node[:nginx][:passenger][:enterprise] %>
+  passenger_ruby <%= @ruby_dir %>/bin/ruby;
+  <% end -%>
+
   rails_env <%= @app_env %>;
 
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
@@ -69,6 +73,10 @@ server {
 
   passenger_enabled on;
   passenger_min_instances 1;
+  <%- if node[:nginx][:passenger][:enterprise] %>
+  passenger_ruby <%= @ruby_dir %>/bin/ruby;
+  <% end -%>
+
   rails_env <%= @app_env %>;
 
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;

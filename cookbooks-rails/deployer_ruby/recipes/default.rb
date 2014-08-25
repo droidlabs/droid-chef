@@ -1,13 +1,19 @@
-ruby_version = node[:deploy_user][:ruby_version]
+main_ruby_version = node[:deploy_user][:ruby_version]
+app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
+ruby_versions = [main_ruby_version] + app_ruby_versions
+
+gems_hash = {}
+ruby_versions.each do |version|
+  gems_hash[version] = node[:deployer_ruby][:gems].map{ |g| {name: g} }
+end
+
 deploy_username = node[:deploy_user][:username]
 
 node.set[:rbenv][:user_installs] = [{
   user: deploy_username,
-  rubies: [ruby_version],
-  global: ruby_version,
-  gems: {
-    ruby_version => node[:deployer_ruby][:gems].map{ |g| {name: g} }
-  }
+  rubies: ruby_versions,
+  global: main_ruby_version,
+  gems: gems_hash
 }]
 
 ## env variables

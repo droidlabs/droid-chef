@@ -48,9 +48,10 @@
       "database": "postgresql", // mongodb, mysql
       "server": "passenger", // unicorn, thin
       "server_workers_count": 4,
-      "server_host_default": true,
+      "server_host_default": false,
+      // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
       "modules": []
-      // available modules: elasticsearch, sidekiq, websockets, ssl.
+      // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
     }
   ],
@@ -64,10 +65,12 @@
   },
 
   "java": {
-    "oracle": {
-      "accept_oracle_download_terms": true
-    }
+    "oracle": { "accept_oracle_download_terms": true }
   },
+
+  // "nginx": {
+  //   "passenger": { "enterprise": true }
+  // },
 
   // uncomment this line to upgrade ruby version
   // "ruby_build": {

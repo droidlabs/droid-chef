@@ -32,31 +32,44 @@
 
   "deploy_user": {
     "username": "ninja",
-    "password": "NINJA_PASSWORD",
+    "password": "sample",
     "ruby_version": "2.1.2",
     "database_host": "localhost",
     "database_username": "ninja",
-    "database_password": "DB_NINJA_PASSWORD",
-    "database_root_password": "DB_ROOT_PASSWORD"
+    "database_password": "sample",
+    "database_root_password": "sample"
   },
 
   "applications": [
     {
-      "name": "application_name",
+      "name": "application_name1",
       "environment": "production",
-      "web_urls": "example.com",
+      "web_urls": "example1.com",
       "database": "postgresql", // mongodb, mysql
       "server": "passenger", // unicorn, thin
       "server_workers_count": 4,
       "server_host_default": true,
-      "modules": []
-      // available modules: elasticsearch, sidekiq, websockets, ssl.
+      "modules": ["sidekiq"]
+      // available modules: elasticsearch, sidekiq, ssl.
+      // modules needed to add additional configs to shared folder
+    },
+    {
+      "name": "application_name2",
+      "environment": "production",
+      "web_urls": "example2.com",
+      "database": "mysql", // mongodb, mysql
+      "server": "thin", // unicorn, thin
+      "server_workers_count": 4,
+      "server_host_default": false,
+      "modules": ["elasticsearch"]
+      // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
     }
   ],
 
   "nginx_redirects": [
-    ["www.example.com", "example.com"]
+    ["www.example1.com", "example1.com"],
+    ["www.example2.com", "example2.com"]
   ],
 
   "newrelic":{
@@ -64,9 +77,7 @@
   },
 
   "java": {
-    "oracle": {
-      "accept_oracle_download_terms": true
-    }
+    "oracle": { "accept_oracle_download_terms": true }
   },
 
   "security": {
