@@ -54,7 +54,3 @@ directory "/home/#{deploy_username}/downloads" do
   group deploy_username
   action :create
 end
-
-execute "change /usr/local owner" do
-  command "chown -R #{deploy_username}:#{deploy_username} /usr/local"
-end

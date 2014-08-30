@@ -1,12 +1,5 @@
-package "libxslt" do
-  package_name "libxslt-dev"
-  action :install
-end
-
-package "libxml-dev" do
-  package_name "libxml2-dev"
-  action :install
-end
+package "libxslt-dev"
+package "libxml2-dev"
 
 deploy_user = node[:deploy_user][:username]
 backup_path = "/home/#{deploy_user}/Backup"
