@@ -17,7 +17,6 @@ else
   package "postgresql-#{pg_version}"
 end
 
-
 # environment
 template "/etc/postgresql/#{pg_version}/main/environment" do
   source "environment.erb"
