@@ -17,6 +17,15 @@ else
   package "postgresql-#{pg_version}"
 end
 
+#bag fix install, add directory for postgresql
+directory "/etc/postgresql/#{pg_version}/main/" do
+  owner  "postgres"
+  group  "postgres"
+  mode   "0644"
+  recursive true
+  action :create
+end
+
 # environment
 template "/etc/postgresql/#{pg_version}/main/environment" do
   source "environment.erb"
