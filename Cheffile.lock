@@ -56,6 +56,14 @@ GIT
   specs:
     rbenv (0.7.3)
 
+GIT
+  remote: git://github.com/phlipper/chef-postgresql
+  ref: master
+  sha: 4ed030dd3f6c770dd0f6a7a9bdc20f48ede448e0
+  specs:
+    postgresql (0.14.1)
+      apt (>= 1.9.0)
+
 DEPENDENCIES
   apt (>= 0)
   ark (>= 0)
@@ -68,6 +76,7 @@ DEPENDENCIES
   mongodb (>= 0)
   ohai (>= 0)
   openssl (>= 0)
+  postgresql (= 0.14.1)
   rbenv (>= 0)
   redis (>= 0)
   runit (>= 0)

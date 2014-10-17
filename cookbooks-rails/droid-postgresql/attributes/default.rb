@@ -8,7 +8,7 @@
 #
 
 include_attribute "postgresql"  #LOAD default attributes for postrgresql
-include_attribute "postgis"     # ????
+include_attribute "postgresql::postgis"     # ????
 
 # DROID ATTRIBUTIONS: --------------------------------------------------
 default["postgresql"]["version"]                         = "9.2"
@@ -22,4 +22,3 @@ default["postgresql"]["pg_hba"]                          = [
 "host   all   all   ::1/128       trust" 
  		 ]
 
- 
