@@ -7,7 +7,9 @@
 # 
 #
 
-include_attribute "postgresql"  #LOAD default attributes for postrgres
+include_attribute "postgresql"  #LOAD default attributes for postrgresql
+include_attribute "postgis"     # ????
 
-
+# DROID ATTRIBUTIONS:
 default["postgresql"]["version"]                         = "9.2"
+default["postgresql"]["ssl"]                             = false
