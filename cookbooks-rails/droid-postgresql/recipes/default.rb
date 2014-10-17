@@ -9,7 +9,7 @@
 include_recipe "postgresql"
 
 include_recipe "postgresql::server"
-include_recipe "postgresql::server-dev"
+include_recipe "postgresql::server_dev"
 include_recipe "postgresql::libpq"
 include_recipe "postgresql::client"
 

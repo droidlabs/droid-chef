@@ -20,8 +20,9 @@
     "recipe[nginx::redirects]",
     //"recipe[mysql]",
     
-    //"recipe[postgresql]",
+    
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
+    //"recipe[postgresql]",
 
     //"recipe[mongodb]",
     //"recipe[faye]",
