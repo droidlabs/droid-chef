@@ -10,10 +10,17 @@
 include_attribute "postgresql"  #LOAD default attributes for postrgresql
 include_attribute "postgresql::postgis"     # ????
 
-# DROID ATTRIBUTIONS: --------------------------------------------------
+# DROID ATTRIBUTIONS: ---------------------------------------------------------
 default["postgresql"]["version"]                         = "9.2"
 default["postgresql"]["ssl"]                             = false
 default["postgresql"]["pg_hba_defaults"]                 = false
+#------------------------------------------------------------------------------
+# FILE LOCATIONS
+#------------------------------------------------------------------------------
+default["postgresql"]["data_directory"]                  = "/var/lib/postgresql/#{node["postgresql"]["version"]}/main"
+default["postgresql"]["hba_file"]                        = "/etc/postgresql/#{node["postgresql"]["version"]}/main/pg_hba.conf"
+default["postgresql"]["ident_file"]                      = "/etc/postgresql/#{node["postgresql"]["version"]}/main/pg_ident.conf"
+default["postgresql"]["external_pid_file"]               = "/var/run/postgresql/#{node["postgresql"]["version"]}-main.pid"
 
 default["postgresql"]["pg_hba"]                          = [
 "local  all   all                 trust",  
@@ -22,3 +29,12 @@ default["postgresql"]["pg_hba"]                          = [
 "host   all   all   ::1/128       trust" 
  		 ]
 
+#------------------------------------------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+#------------------------------------------------------------------------------
+
+if Gem::Version.new(node["postgresql"]["version"]) >= Gem::Version.new("9.3")
+  default["postgresql"]["unix_socket_directories"]       = "/var/run/postgresql"
+else
+  default["postgresql"]["unix_socket_directory"]         = "/var/run/postgresql"
+end
