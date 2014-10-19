@@ -22,12 +22,21 @@ default["postgresql"]["hba_file"]                        = "/etc/postgresql/#{no
 default["postgresql"]["ident_file"]                      = "/etc/postgresql/#{node["postgresql"]["version"]}/main/pg_ident.conf"
 default["postgresql"]["external_pid_file"]               = "/var/run/postgresql/#{node["postgresql"]["version"]}-main.pid"
 
-default["postgresql"]["pg_hba"]                          = [
-"local  all   all                 trust",  
-"host   all   all   127.0.0.1/32  trust",  
-"host   all   all   localhost     trust",  
-"host   all   all   ::1/128       trust" 
- 		 ]
+
+default["postgresql"]["pg_hba"]["type"]                  = ['local', 'host',         'host',      'host'   ]
+default["postgresql"]["pg_hba"]["db"]                    = ['all',   'all',          'all',       'all'    ]
+default["postgresql"]["pg_hba"]["user"]                  = ['all',   'all',          'all',       'all'    ]
+default["postgresql"]["pg_hba"]["addr"]                  = [' ',     '127.0.0.1/32', 'localhost', '::1/128']
+default["postgresql"]["pg_hba"]["method"]                = ['trust', 'trust',        'trust',     'trust'  ]
+
+#default["postgresql"]["pg_hba"]                          = Hash[
+#	type:   [ "local", "host",         "host",      "host"   ],
+#	db:     [ "all",   "all",          "all",       "all"    ],
+#	user:   [ "all",   "all",          "all",       "all"    ],
+#	addr:   [ " ",     "127.0.0.1/32", "localhost", "::1/128"],
+#	method: [ "trust", "trust",        "trust",     "trust"  ]
+#]	
+
 
 #------------------------------------------------------------------------------
 # CONNECTIONS AND AUTHENTICATION
