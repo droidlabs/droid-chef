@@ -7,7 +7,7 @@ SITE
     ark (0.9.0)
       7-zip (>= 0.0.0)
       windows (>= 0.0.0)
-    build-essential (2.1.0)
+    build-essential (2.1.2)
     chef-sugar (2.4.1)
     chef_handler (1.1.6)
     dmg (2.2.0)
