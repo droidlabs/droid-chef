@@ -42,9 +42,10 @@
     "password": "NINJA_PASSWORD",
     "ruby_version": "2.1.2",
     "database_host": "localhost",
-    "database_username": "ninja",                // superuser
+    "database_username": "ninja",                						// superuser
     "database_password": "DB_NINJA_PASSWORD",
-    "database_root_password": "DB_ROOT_PASSWORD" //MySQL root password
+    "database_encrypted_password": "667ff118ef6d196c96313aeaee7da519",  // MD5 HASH
+    "database_root_password": "DB_ROOT_PASSWORD" 						//MySQL root password
   },
 
   "applications": [
@@ -52,6 +53,7 @@
       "name": "test1",
       "app_user": "appuser-test1",
       "app_user_password": "APP_USER_PASSWORD",
+      "app_user_encrypted_password": "667ff118ef6d196c96313aeaee7da519", // MD5 HASH
       "environment": "production",
       "web_urls": "test1.com",
       "database": "postgresql", // mongodb, mysql
@@ -67,6 +69,7 @@
       "name": "test2",
       "app_user": "appuser-test2",
       "app_user_password": "APP_USER_PASSWORD",
+      "app_user_encrypted_password": "667ff118ef6d196c96313aeaee7da519",
       "environment": "production",
       "web_urls": "test2.com",
       "database": "mysql", // mongodb, mysql
