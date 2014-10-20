@@ -23,11 +23,18 @@ default["postgresql"]["ident_file"]                      = "/etc/postgresql/#{no
 default["postgresql"]["external_pid_file"]               = "/var/run/postgresql/#{node["postgresql"]["version"]}-main.pid"
 
 
-default["postgresql"]["pg_hba"]["type"]                  = ['local', 'host',         'host',      'host'   ]
-default["postgresql"]["pg_hba"]["db"]                    = ['all',   'all',          'all',       'all'    ]
-default["postgresql"]["pg_hba"]["user"]                  = ['all',   'all',          'all',       'all'    ]
-default["postgresql"]["pg_hba"]["addr"]                  = [' ',     '127.0.0.1/32', 'localhost', '::1/128']
-default["postgresql"]["pg_hba"]["method"]                = ['trust', 'trust',        'trust',     'trust'  ]
+default["postgresql"]["pg_hba"]                          = [
+	{"type" => "local", "db" => "all", "user" => "all", "addr" => " ",            "method" => "trust" },
+	{"type" => "host",  "db" => "all", "user" => "all", "addr" => "127.0.0.1/32", "method" => "trust" },
+	{"type" => "host",  "db" => "all", "user" => "all", "addr" => "localhost",    "method" => "trust" },
+	{"type" => "host",  "db" => "all", "user" => "all", "addr" => "::1/128",      "method" => "trust" },
+]
+
+#                    	    	["type"]                 = ['local', 'host',         'host',      'host'   ]
+#default["postgresql"]["pg_hba"]["db"]                    = ['all',   'all',          'all',       'all'    ]
+#default["postgresql"]["pg_hba"]["user"]                  = ['all',   'all',          'all',       'all'    ]
+#default["postgresql"]["pg_hba"]["addr"]                  = [' ',     '127.0.0.1/32', 'localhost', '::1/128']
+#default["postgresql"]["pg_hba"]["method"]                = ['trust', 'trust',        'trust',     'trust'  ]
 
 #default["postgresql"]["pg_hba"]                          = Hash[
 #	type:   [ "local", "host",         "host",      "host"   ],
