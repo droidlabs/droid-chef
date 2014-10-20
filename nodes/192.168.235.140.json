@@ -19,9 +19,11 @@
     "recipe[redis::install_from_package]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
+    
+    
+    "recipe[droid-mysql]", //wrapper-cookbook, change settings postresql here !!
     //"recipe[mysql]",
-    
-    
+
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
     //"recipe[postgresql]",
 

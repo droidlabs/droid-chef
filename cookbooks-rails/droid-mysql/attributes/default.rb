@@ -14,9 +14,12 @@ node['mysql']['tunable']['key_buffer_size']      = '256M'
 node['mysql']['tunable']['myisam-recover']       = 'BACKUP'
 node['mysql']['tunable']['max_allowed_packet']   = '16M'
 
-
-
 #############################################################################
+
+# passwords
+default['mysql']['server_root_password']   = 'ilikerandompasswords'
+default['mysql']['server_debian_password'] = nil
+default['mysql']['server_repl_password']   = nil
 
 # port
 default['mysql']['port'] = '3306'
