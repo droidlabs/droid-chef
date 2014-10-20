@@ -1,6 +1,7 @@
 {
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
+    "recipe[locale]",
     "recipe[deployer_user]",
     "recipe[sudo]",
     "recipe[deployer_ruby]",
