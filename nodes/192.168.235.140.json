@@ -82,9 +82,9 @@
   //   "upgrade": "true"
   // },
 
-  // "elasticsearch": {
-  //   "allocated_memory": "1000m"
-  // },
+   "elasticsearch": {
+     "allocated_memory": "300m"  // for test
+   },
 
   "security": {
     // 22, 80, 443 ports are included by default, add them only to override

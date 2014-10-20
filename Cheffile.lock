@@ -28,6 +28,8 @@ SITE
       python (>= 0.0.0)
       runit (>= 1.5.0)
       yum (>= 3.0)
+    mysql (5.5.4)
+      yum-mysql-community (>= 0.0.0)
     ohai (2.0.1)
     openssl (2.0.0)
       chef-sugar (>= 0.0.0)
@@ -48,6 +50,8 @@ SITE
     yum (3.4.0)
     yum-epel (0.5.1)
       yum (~> 3.0)
+    yum-mysql-community (0.1.10)
+      yum (>= 3.0)
 
 GIT
   remote: git://github.com/fnichol/chef-rbenv.git
@@ -55,6 +59,13 @@ GIT
   sha: 0a3018634bafe58ad21c6ee271af015220e444b9
   specs:
     rbenv (0.7.3)
+
+GIT
+  remote: git://github.com/hw-cookbooks/locale/
+  ref: master
+  sha: 82b365ba140fe303a5c137aa4a7cc1ad44791bf4
+  specs:
+    locale (1.0.3)
 
 GIT
   remote: git://github.com/phlipper/chef-postgresql
@@ -72,8 +83,10 @@ DEPENDENCIES
   imagemagick (>= 0)
   install_from (>= 0)
   java (>= 0)
+  locale (>= 0)
   logrotate (>= 0)
   mongodb (>= 0)
+  mysql (>= 0)
   ohai (>= 0)
   openssl (>= 0)
   postgresql (= 0.14.1)
