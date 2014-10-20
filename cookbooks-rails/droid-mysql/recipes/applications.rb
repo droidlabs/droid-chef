@@ -6,12 +6,31 @@ mysql_user user_name do
 end
 
 node["applications"].each do |app|
-  database = app[:database] || node[:deploy_user][:database] || 'mysql'
+  
+  if app[:database] == 'mysql'
 
-  if database == 'mysql'
+    mysql_user app[:app_user] do
+      password app[:app_user_password]
+    end
+
     execute "create database for: #{app[:name]}." do
-      user node[:deploy_user][:username]
+      user app[:app_user]
       command "mysql -uroot -p#{root_password} -e \"CREATE DATABASE IF NOT EXISTS #{app[:name]}\""
     end
   end
 end
+
+
+
+
+
+#node["applications"].each do |app|
+#  database = app[:database] || node[:deploy_user][:database] || 'mysql'
+#
+# if database == 'mysql'
+#    execute "create database for: #{app[:name]}." do
+#      user node[:deploy_user][:username]
+#      command "mysql -uroot -p#{root_password} -e \"CREATE DATABASE IF NOT EXISTS #{app[:name]}\""
+#    end
+#  end
+#end

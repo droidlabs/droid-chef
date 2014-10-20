@@ -42,16 +42,18 @@
     "password": "NINJA_PASSWORD",
     "ruby_version": "2.1.2",
     "database_host": "localhost",
-    "database_username": "ninja",
+    "database_username": "ninja",                // superuser
     "database_password": "DB_NINJA_PASSWORD",
-    "database_root_password": "DB_ROOT_PASSWORD"
+    "database_root_password": "DB_ROOT_PASSWORD" //MySQL root password
   },
 
   "applications": [
     {
-      "name": "application_name",
+      "name": "test1",
+      "app_user": "appuser-test1",
+      "app_user_password": "APP_USER_PASSWORD",
       "environment": "production",
-      "web_urls": "example.com",
+      "web_urls": "test1.com",
       "database": "postgresql", // mongodb, mysql
       "server": "passenger", // unicorn, thin
       "server_workers_count": 4,
@@ -61,7 +63,24 @@
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
     }
-  ],
+   {
+      "name": "test2",
+      "app_user": "appuser-test2",
+      "app_user_password": "APP_USER_PASSWORD",
+      "environment": "production",
+      "web_urls": "test2.com",
+      "database": "mysql", // mongodb, mysql
+      "server": "passenger", // unicorn, thin
+      "server_workers_count": 2,
+      "server_host_default": false,
+      // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
+      "modules": []
+      // available modules: elasticsearch, sidekiq, ssl.
+      // modules needed to add additional configs to shared folder
+    }
+
+
+   ],
 
   "nginx_redirects": [
     ["www.example.com", "example.com"]

@@ -8,11 +8,13 @@ include_attribute "mysql::default"
 #############################################################################
 #DROID ATTRIBUTES
 
-node['mysql']['tunable']['collation-server']     = 'utf8_unicode_ci'
-node['mysql']['tunable']['character-set-server'] = 'utf8'
-node['mysql']['tunable']['key_buffer_size']      = '256M'
-node['mysql']['tunable']['myisam-recover']       = 'BACKUP'
-node['mysql']['tunable']['max_allowed_packet']   = '16M'
+default['mysql']['tunable']['collation-server']        = 'utf8_unicode_ci'
+default['mysql']['tunable']['character-set-server']    = 'utf8'
+default['mysql']['tunable']['key_buffer_size']         = '256M'
+default['mysql']['tunable']['myisam-recover']          = 'BACKUP'
+default['mysql']['tunable']['max_allowed_packet']      = '16M'
+default['mysql']['tunable']['innodb_buffer_pool_size'] = '256M'
+default['mysql']['bind_address']                       = ipaddress
 
 #############################################################################
 
