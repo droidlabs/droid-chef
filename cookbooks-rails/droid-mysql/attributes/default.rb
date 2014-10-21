@@ -19,7 +19,7 @@ default['mysql']['bind_address']                       = ipaddress
 #############################################################################
 
 # passwords
-default['mysql']['server_root_password']   = 'ilikerandompasswords'
+default['mysql']['server_root_password']   = node[:deploy_user][:database_root_password]
 default['mysql']['server_debian_password'] = nil
 default['mysql']['server_repl_password']   = nil
 
@@ -27,6 +27,7 @@ default['mysql']['server_repl_password']   = nil
 default['mysql']['port'] = '3306'
 
 # server package version and action
-default['mysql']['server_package_version'] = '5.6'
-default['mysql']['server_package_action'] = 'install'
+default['mysql']['version']                = '5.6'
+#default['mysql']['server_package_version'] = '5.6'
+default['mysql']['server_package_action']  = 'install'
 

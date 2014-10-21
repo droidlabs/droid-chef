@@ -14,7 +14,7 @@ node["applications"].each do |app|
     end
 
     execute "create database for: #{app[:name]}." do
-      user app[:app_user]
+      user node[:deploy_user][:username]
       command "mysql -uroot -p#{root_password} -e \"CREATE DATABASE IF NOT EXISTS #{app[:name]}\""
     end
   end

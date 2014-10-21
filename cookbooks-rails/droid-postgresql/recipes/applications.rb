@@ -1,7 +1,7 @@
 user_name = node[:deploy_user][:database_username]
 pg_user user_name do
   privileges superuser: true, createdb: true, login: user_name
-  encrypted_password node[:deploy_user][:database_encrypted_password]
+  password node[:deploy_user][:database_password]
 end
 
 
@@ -10,7 +10,7 @@ node[:applications].each do |app|
     
     pg_user app[:app_user] do
     privileges superuser: false, createdb: false, login: true
-    encrypted_password app[:app_user_encrypted_password]      # MD5 HASH
+    password app[:app_user_password]      
     end
     
     pg_database app[:name] do
