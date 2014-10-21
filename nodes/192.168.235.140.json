@@ -64,7 +64,7 @@
       "modules": []
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
-    }
+    },
    {
       "name": "test2",
       "app_user": "appuser-test2",
