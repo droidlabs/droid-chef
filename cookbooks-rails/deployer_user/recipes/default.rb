@@ -10,47 +10,19 @@ node.set[:authorization] = Hash[
   ]
 ]
 
-Chef::Log.debug("# create deploy group and user with name: #{deploy_username}")
+###### Create Super Deploy User [Ninja] ######
 
-group deploy_username
-user deploy_username do
-  comment "Deploy User"
-  home "/home/#{deploy_username}"
-  gid deploy_username
-  shell "/bin/bash"
+deploy_user deploy_username do           
   password deploy_password
-  supports manage_home: true
 end
+###############################################
 
-Chef::Log.debug("generate ssh keys for: #{deploy_username}")
+######## Create App Deploy Users ##############
 
-execute "generate ssh keys for: #{deploy_username}." do
-  user deploy_username
-  creates "/home/#{deploy_username}/.ssh/id_rsa.pub"
-  command "ssh-keygen -t rsa -q -f /home/#{deploy_username}/.ssh/id_rsa -P \"\""
+node["applications"].each do |app|     
+  deploy_user app[:app_user] do
+    deploy_password = `openssl passwd -1 "#{app[:app_user_password]}"`.chomp
+    password deploy_password
+  end
 end
-
-keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
-hosts_path = "/home/#{deploy_username}/.ssh/known_hosts"
-file "ssh_known_hosts" do
-  user deploy_username
-  group deploy_username
-  path hosts_path
-  action :create
-  content "#{keys.join($/)}#{$/}"
-  not_if { File.exists?(hosts_path) }
-end
-
-# create ".bash_profile"
-file "/home/#{deploy_username}/.bash_profile" do
-  user deploy_username
-  group deploy_username
-  action :touch
-end
-
-# directory for file downloads
-directory "/home/#{deploy_username}/downloads" do
-  user deploy_username
-  group deploy_username
-  action :create
-end
+################################################       
