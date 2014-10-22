@@ -43,6 +43,9 @@ define :setup_app_database do
       owner  deploy_username
       group  deploy_username
       mode   "0640"
+      variables(
+        app_secret_key_base: app[:secret_key_base]
+      )
     end
   end
   if app[:modules].include?("elasticsearch")
