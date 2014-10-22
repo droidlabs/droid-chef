@@ -1,7 +1,7 @@
 {
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    "recipe[locale]",
+    "recipe[locale]",					//add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
     "recipe[deployer_ruby]",
@@ -19,8 +19,7 @@
     "recipe[redis::install_from_package]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
-    
-    
+        
     "recipe[droid-mysql]", //wrapper-cookbook, change settings postresql here !!
     //"recipe[mysql]",
 
