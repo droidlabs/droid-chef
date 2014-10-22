@@ -1,3 +1,7 @@
+# Create Postgresql super user and databases this owner
+# Droid Labs
+# ver 0.0.2
+
 user_name = node[:deploy_user][:database_username]
 pg_user user_name do
   privileges superuser: true, createdb: true, login: user_name

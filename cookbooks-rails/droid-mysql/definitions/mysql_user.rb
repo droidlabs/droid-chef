@@ -1,3 +1,6 @@
+# Definition mysql_user for cookbook droid-mysql
+
+
 define :mysql_user do
   root_password = node[:deploy_user][:database_root_password]
   mysql_cmd = "mysql -uroot -p#{root_password} mysql -e"
