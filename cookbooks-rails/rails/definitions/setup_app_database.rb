@@ -44,6 +44,7 @@ define :setup_app_database do
       group  deploy_username
       mode   "0640"
     end
+  end
   if app[:modules].include?("elasticsearch")
     template "/data/#{app[:name]}/shared/config/elasticsearch.yml" do
       source "elasticsearch.yml.erb"

@@ -3,3 +3,4 @@
 /.vagrant
 cookbooks/*
 .DS_Store
+/nodes/192.168.235.140.json
