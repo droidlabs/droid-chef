@@ -13,5 +13,5 @@ include_recipe "postgresql::server_dev"
 include_recipe "postgresql::libpq"
 include_recipe "postgresql::client"
 
-#include_recipe "droid-postgresql::ppa"     # Уточнить у Искандера нужно ли это
+#include_recipe "droid-postgresql::ppa"
 include_recipe "droid-postgresql::applications"

@@ -37,6 +37,13 @@ define :setup_app_database do
       )
     end
   end
+  if app[:secret_key_base]
+    template "/data/#{app[:name]}/shared/secret_key_base.yml" do
+      source "secret_key_base.yml.erb"
+      owner  deploy_username
+      group  deploy_username
+      mode   "0640"
+    end
   if app[:modules].include?("elasticsearch")
     template "/data/#{app[:name]}/shared/config/elasticsearch.yml" do
       source "elasticsearch.yml.erb"
