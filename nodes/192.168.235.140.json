@@ -53,8 +53,8 @@
       "app_user_password": "Droid123",//OS USER
       "environment": "production",
       "web_urls": "test1.com",
-      "database": "postgresql", 			// mongodb, mysql
-      "server": "passenger", 					// unicorn, thin    //СУБД
+      "database": "postgresql", 			// mongodb, MySQL //СУБД
+      "server": "passenger", 					// unicorn, thin    
       "server_workers_count": 4,
       "server_host_default": false,
       // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
