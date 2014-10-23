@@ -44,18 +44,17 @@
     "database_username": "ninja",                					   //Superuser {postgresql}
     "database_password": "DB_NINJA_PASSWORD",
     "database_root_password": "DB_ROOT_PASSWORD" 						//MySQL root password
-
   },
 
   "applications": [
     {
       "name": "test1",
       "app_user": "appusertest1",
-      "app_user_password": "Droid123",
+      "app_user_password": "Droid123",//OS USER
       "environment": "production",
       "web_urls": "test1.com",
-      "database": "postgresql", // mongodb, mysql
-      "server": "passenger", // unicorn, thin    //СУБД
+      "database": "postgresql", 			// mongodb, mysql
+      "server": "passenger", 					// unicorn, thin    //СУБД
       "server_workers_count": 4,
       "server_host_default": false,
       // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise

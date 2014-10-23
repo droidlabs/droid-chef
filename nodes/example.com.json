@@ -20,7 +20,7 @@
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
     
-    "recipe[droid-mysql]", //wrapper-cookbook, change settings postresql here !!
+    "recipe[droid-mysql]",      //wrapper-cookbook, change settings postresql here !!
     //"recipe[mysql]",
     
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
@@ -29,7 +29,7 @@
     //"recipe[mongodb]",
     //"recipe[faye]",
     //"recipe[newrelic]",
-    //"recipe[backup]",     // don't forget to add configs at the bottom
+    //"recipe[backup]",         // don't forget to add configs at the bottom
     "recipe[java::oracle]",
     "recipe[elasticsearch]",
 
@@ -41,24 +41,27 @@
     "password": "NINJA_PASSWORD",
     "ruby_version": "2.1.2",
     "database_host": "localhost",
-    "database_username": "ninja",
+    "database_username": "ninja",                 //Superuser {postgresql}
     "database_password": "DB_NINJA_PASSWORD",
-    "database_root_password": "DB_ROOT_PASSWORD"
+    "database_root_password": "DB_ROOT_PASSWORD"  //MySQL root password
   },
 
   "applications": [
     {
       "name": "application_name",
+      "app_user": "appusertest1",
+      "app_user_password": "Droid123",//OS USER
       "environment": "production",
       "web_urls": "example.com",
-      "database": "postgresql", // mongodb, mysql
-      "server": "passenger", // unicorn, thin
+      "database": "postgresql",       // mongodb, mysql
+      "server": "passenger",          // unicorn, thin
       "server_workers_count": 4,
       "server_host_default": false,
       // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
-      "modules": []
+      "modules": [],
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
+      "secret_key_base": "555582772a5401ff99e02cfe72d8a63348cf69840a4141b58e8f37f1d2f5524b01458f9065ed22sh8a4d07c97dfd19760bfc82839bfa65abf3d8666e9cff0a21"
     }
   ],
 
