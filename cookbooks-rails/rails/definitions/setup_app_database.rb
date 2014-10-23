@@ -1,3 +1,5 @@
+require 'securerandom'
+
 define :setup_app_database do
   app = node.run_state[:current_app]
   deploy_username = node[:deploy_user][:username]
@@ -37,17 +39,19 @@ define :setup_app_database do
       )
     end
   end
-  if app[:secret_key_base]
-    template "/data/#{app[:name]}/shared/secret_key_base.yml" do
+
+  ################# SECRET KEY BASE ###############################
+  template "/data/#{app[:name]}/shared/config/secret_key_base.yml" do
       source "secret_key_base.yml.erb"
       owner  deploy_username
       group  deploy_username
-      mode   "0640"
+      mode   "0440"
+      action :create_if_missing
       variables(
-        app_secret_key_base: app[:secret_key_base]
+        app_secret_key_base: SecureRandom.hex(128)
       )
-    end
   end
+  ##################################################################
   if app[:modules].include?("elasticsearch")
     template "/data/#{app[:name]}/shared/config/elasticsearch.yml" do
       source "elasticsearch.yml.erb"
