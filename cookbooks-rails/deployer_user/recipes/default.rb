@@ -18,13 +18,13 @@ end
 
 ###############################################
 
-######## Create App Users #####################
+######## Create App_Deploy_Users ##############
 
 node["applications"].each do |app|     
-  deploy_user app[:app_user] do
-    deploy_password = `openssl passwd -1 "#{app[:app_user_password]}"`.chomp
+  deploy_user app[:name]+"_deployer" do
+    deploy_password = `openssl passwd -1 "#{app[:name]}_PASSWORD"`.chomp
     password deploy_password
   end
 end
 
-################################################       
+###############################################       

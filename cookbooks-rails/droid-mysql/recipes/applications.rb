@@ -9,9 +9,9 @@ node["applications"].each do |app|
   
   if app[:database] == 'mysql'
 
-    mysql_user app[:app_user] do
-      password app[:app_user_password]
-    end
+    #mysql_user app[:app_user] do
+    #  password app[:app_user_password]
+    #end
 
     execute "create database for: #{app[:name]}." do
       user node[:deploy_user][:username]

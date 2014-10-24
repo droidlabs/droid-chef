@@ -36,6 +36,7 @@
     "recipe[rails]"
   ],
 
+  //# Super_Deploy_user
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
@@ -46,11 +47,10 @@
     "database_root_password": "DB_ROOT_PASSWORD"  //MySQL root password
   },
 
+  //Auto create APP Deploy User: node[:name]+_deployer  Password: node[:name]+_PASSWORD {need change}
   "applications": [
     {
       "name": "application_name",
-      "app_user": "appusertest1",
-      "app_user_password": "Droid123",//OS USER
       "environment": "production",
       "web_urls": "example.com",
       "database": "postgresql",       // mongodb, mysql
@@ -58,7 +58,7 @@
       "server_workers_count": 4,
       "server_host_default": false,
       // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
-      "modules": [],
+      "modules": []
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
     }

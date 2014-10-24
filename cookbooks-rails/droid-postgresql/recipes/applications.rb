@@ -11,14 +11,15 @@ end
 
 node[:applications].each do |app|
   if app[:database] == 'postgresql'
-    
-    pg_user app[:app_user] do
-    privileges superuser: false, createdb: false, login: true
-    password app[:app_user_password]      
-    end
+  
+  ####  Create APP deploy user in DB Postgresql ##
+  #  pg_user app[:app_user] do
+  #  privileges superuser: false, createdb: false, login: true
+  #  password app[:app_user_password]      
+  #  end
     
     pg_database app[:name] do
-      owner app[:app_user]
+      owner user_name         # app[:app_user]
     end
 
   end

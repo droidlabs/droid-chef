@@ -1,7 +1,7 @@
 define :setup_app_folders do
   app = node.run_state[:current_app]
   deploy_username = node[:deploy_user][:username]
-  app_username    = app[:app_user]
+  #app_username    = app[:app_user]
 
   directory "/data/#{app[:name]}" do
     owner deploy_username         
