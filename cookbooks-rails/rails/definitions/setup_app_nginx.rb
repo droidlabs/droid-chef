@@ -1,11 +1,12 @@
 require 'fileutils'
+
 define :setup_app_nginx do
   app = node.run_state[:current_app]
   using_port = node.run_state[:using_port]
   deploy_username = node[:deploy_user][:username]
 
   ruby_version = app[:ruby_version] || node[:deploy_user][:ruby_version]
-  ruby_dir = "/home/#{deploy_username}/.rbenv/versions/#{ruby_version}"
+  ruby_dir = "#{node['rbenv']['root_path']}/versions/#{ruby_version}"  #"/home/#{deploy_username}/.rbenv/versions/#{ruby_version}"
 
   if app[:modules].include?("ssl")
     local_ssl_path = "#{Chef::Config[:file_cache_path]}/ssl"
@@ -18,9 +19,9 @@ define :setup_app_nginx do
     template "/data/#{app[:name]}/shared/config/thin.yml" do
       servers_count = app[:modules].include?("websockets") ? 6 : 3
       source "thin.yml.erb"
-      owner  deploy_username
-      group  deploy_username
-      mode   "0640"
+      owner  app[:name] #deploy_username
+      group  app[:name] #deploy_username
+      mode   "0660"
       variables(
         app_name: app[:name],
         app_env: app[:environment],
@@ -35,9 +36,9 @@ define :setup_app_nginx do
   if app[:server] == 'unicorn'
     template "/data/#{app[:name]}/shared/config/unicorn.rb" do
       source "unicorn.rb.erb"
-      owner  deploy_username
-      group  deploy_username
-      mode   "0640"
+      owner  app[:name] #deploy_username
+      group  app[:name] #deploy_username
+      mode   "0660"
       variables(
         app_name: app[:name],
         app_env: app[:environment],
@@ -50,9 +51,9 @@ define :setup_app_nginx do
 
   template "#{node[:nginx][:path]}/conf/sites.d/#{app[:name]}.conf" do
     source "nginx_host_#{app[:server] || 'passenger'}.conf.erb"
-    owner  deploy_username
-    group  deploy_username
-    mode   "0640"
+    owner  app[:name] #deploy_username
+    group  app[:name] #deploy_username
+    mode   "0660"
     variables(
       app_name: app[:name],
       app_env: app[:environment],

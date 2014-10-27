@@ -1,6 +1,9 @@
+
+# ALL Ruby versions from node settings #
 main_ruby_version = node[:deploy_user][:ruby_version]
 app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
 ruby_versions = [main_ruby_version] + app_ruby_versions
+
 
 gems_hash = {}
 ruby_versions.each do |version|
@@ -9,12 +12,16 @@ end
 
 deploy_username = node[:deploy_user][:username]
 
-node.set[:rbenv][:user_installs] = [{
-  user: deploy_username,
-  rubies: ruby_versions,
-  global: main_ruby_version,
-  gems: gems_hash
-}]
+node.set['rbenv']['rubies'] = ruby_versions
+node.set['rbenv']['global'] = main_ruby_version
+node['rbenv']['gems'] 		= gems_hash
+
+#node.set[:rbenv][:user_installs] = [{
+#  user: deploy_username,
+#  rubies: ruby_versions,
+#  global: main_ruby_version,
+#  gems: gems_hash
+#}]
 
 ## env variables
 # EC2 server flags

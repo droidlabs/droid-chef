@@ -8,7 +8,7 @@ end
 directory "/data/" do
   owner deploy_username
   group deploy_username
-  mode "0770"
+  mode "0774" # for read app_users
   action :create
 end
 
