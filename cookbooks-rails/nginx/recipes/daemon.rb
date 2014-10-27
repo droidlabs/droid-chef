@@ -15,7 +15,7 @@ major_ruby = case main_ruby_version
              when /2\.1/ then "2.1.0"
              end
 
-ruby_dir = "#{home_path}/.rbenv/versions/#{main_ruby_version}"
+ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"  #{}"#{home_path}/.rbenv/versions/#{main_ruby_version}"
 
 passenger_dir = if node[:nginx][:passenger][:enterprise]
   "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"

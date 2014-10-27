@@ -14,7 +14,7 @@ deploy_username = node[:deploy_user][:username]
 
 node.set['rbenv']['rubies'] = ruby_versions
 node.set['rbenv']['global'] = main_ruby_version
-node['rbenv']['gems'] 		= gems_hash
+node.set['rbenv']['gems'] 	= gems_hash
 
 #node.set[:rbenv][:user_installs] = [{
 #  user: deploy_username,

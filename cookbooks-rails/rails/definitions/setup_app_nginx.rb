@@ -6,7 +6,7 @@ define :setup_app_nginx do
   deploy_username = node[:deploy_user][:username]
 
   ruby_version = app[:ruby_version] || node[:deploy_user][:ruby_version]
-  ruby_dir = "#{node['rbenv']['root_path']}/versions/#{ruby_version}"  #"/home/#{deploy_username}/.rbenv/versions/#{ruby_version}"
+  ruby_dir = "#{node[:rbenv][:root_path]}/versions/#{ruby_version}"  #"/home/#{deploy_username}/.rbenv/versions/#{ruby_version}"
 
   if app[:modules].include?("ssl")
     local_ssl_path = "#{Chef::Config[:file_cache_path]}/ssl"
