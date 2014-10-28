@@ -19,13 +19,10 @@
     "recipe[redis::install_from_package]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
-    
+
     "recipe[droid-mysql]",      //wrapper-cookbook, change settings postresql here !!
-    //"recipe[mysql]",
-    
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
-    //"recipe[postgresql]",
-    
+
     //"recipe[mongodb]",
     //"recipe[faye]",
     //"recipe[newrelic]",
@@ -36,18 +33,23 @@
     "recipe[rails]"
   ],
 
-  //# Super_Deploy_user
+  // Global deploy user
+  //-------------------
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
     "ruby_version": "2.1.2",
     "database_host": "localhost",
-    "database_username": "ninja",                 //Superuser {postgresql}
+    "database_username": "ninja",                 // Superuser {postgresql}
     "database_password": "DB_NINJA_PASSWORD",
-    "database_root_password": "DB_ROOT_PASSWORD"  //MySQL root password
+    "database_root_password": "DB_ROOT_PASSWORD"  // Root password (Only used for MySQL)
   },
 
-  //Auto create APP Deploy User: node[:name]+_deployer  Password: node[:name]+_PASSWORD {need change}
+  // For each application will be created deploy user with
+  //   login: app[:name]
+  //   password: app[:name]_PASSWORD
+  // You can change login/password with options: deploy_username/deploy_password
+  //-------------------
   "applications": [
     {
       "name": "application_name",
@@ -57,7 +59,7 @@
       "server": "passenger",          // unicorn, thin
       "server_workers_count": 4,
       "server_host_default": false,
-      // "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
+      // "ruby_version": "2.1.2", // multiple ruby versions for each app are only supported in passenger enterprise
       "modules": []
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder

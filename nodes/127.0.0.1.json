@@ -1,6 +1,7 @@
 {
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
+    "recipe[locale]",         //add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
     "recipe[deployer_ruby]",
@@ -18,12 +19,14 @@
     "recipe[redis::install_from_package]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
-    "recipe[mysql]",
-    "recipe[postgresql]",
-    "recipe[mongodb]",
+
+    "recipe[droid-mysql]",      //wrapper-cookbook, change settings postresql here !!
+    "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
+
+    //"recipe[mongodb]",
     //"recipe[faye]",
     //"recipe[newrelic]",
-    //"recipe[backup]",     // don't forget to add configs at the bottom
+    //"recipe[backup]",         // don't forget to add configs at the bottom
     "recipe[java::oracle]",
     "recipe[elasticsearch]",
 
@@ -91,7 +94,8 @@
 
   "rails": {
     "packages":[
-      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "nodejs",
+      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev",
+      "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "nodejs",
       "libpq-dev", "postgresql-client-common", "postgresql-client", "libmysqlclient-dev" // remove pg/mysql client dev if not needed
     ]
   },

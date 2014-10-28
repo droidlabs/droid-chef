@@ -12,7 +12,7 @@ node.set[:authorization] = Hash[
 
 ###### Create Super Deploy User [Ninja] ######
 
-deploy_user deploy_username do           
+deploy_user deploy_username do
   password deploy_password
 end
 
@@ -20,11 +20,13 @@ end
 
 ######## Create App_Deploy_Users ##############
 
-node["applications"].each do |app|     
-  app_user app[:name] do
-    deploy_password = `openssl passwd -1 "#{app[:name]}_PASSWORD"`.chomp
+node["applications"].each do |app|
+  username = app[:deploy_username] || app[:name]
+  password = app[:deploy_password] || "#{app[:name]}_PASSWORD"
+  app_user username do
+    deploy_password = `openssl passwd -1 #{password}`.chomp
     password deploy_password
   end
 end
 
-###############################################       
+###############################################
