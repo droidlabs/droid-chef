@@ -77,7 +77,8 @@ if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade
 
   flags = node[:nginx][:configure_flags]
   bash "install passenger/nginx" do
-    code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
+   #code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
+    code %Q{CC=#{cc} sudo -u #{deploy_user} sudo -i rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
 
   # bash "fix issue with passenger installation" do

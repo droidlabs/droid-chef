@@ -7,6 +7,9 @@
 # 
 #
 
-include_recipe "rbenv::system_install"
+include_recipe "rbenv::system"
+
+
+
 
 

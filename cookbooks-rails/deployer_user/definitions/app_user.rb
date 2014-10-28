@@ -1,3 +1,5 @@
+# CREATE APP USERS AND GROUP
+
 define :app_user do
 
 #Chef::Log.debug("# create deploy group and user with name: #{params[:name]}")
