@@ -4,9 +4,11 @@
     "recipe[locale]",         //add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
-    "recipe[deployer_ruby]",
+    //"recipe[deployer_ruby]",
+    
     "recipe[ruby_build]",
-    "recipe[rbenv::user]",
+    //"recipe[rbenv::system_install]", //"recipe[rbenv::user]",
+    "recipe[droid-rbenv]",
 
     "recipe[apt]",
     "recipe[build-essential]",
@@ -63,7 +65,9 @@
       "modules": []
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
-    }
+
+      //"app_user_password": "APP_USER_PASSWORD" else set default app[:name]+'_PASSWORD'  
+      }
   ],
 
   "nginx_redirects": [
