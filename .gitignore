@@ -4,3 +4,5 @@
 cookbooks/*
 .DS_Store
 /nodes/192.168.235.140.json
+/cookbooks-rails/nginx/files/default/passenger-enterprise-license
+/cookbooks-rails/nginx/files/default/passenger-enterprise-server.gem
