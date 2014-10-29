@@ -1,4 +1,4 @@
-default[:nginx][:nginx_version] = '1.6.1'
+default[:nginx][:nginx_version] = '1.6.2'
 default[:nginx][:path] = '/opt/nginx'
 default[:nginx][:configure_flags] = '--with-ipv6 --with-http_stub_status_module --with-http_ssl_module'
 default[:nginx][:log_path] = '/var/log/passenger/'
@@ -12,7 +12,7 @@ default[:nginx][:passenger][:max_instances_per_app] = 0
 # a list of URL's to pre-start.
 default[:nginx][:passenger][:pre_start] = []
 default[:nginx][:passenger][:enterprise] = false
-default[:nginx][:passenger][:version] = "4.0.49"
+default[:nginx][:passenger][:version] = "4.0.53"
 
 default[:nginx][:sendfile] = true
 default[:nginx][:tcp_nopush] = false

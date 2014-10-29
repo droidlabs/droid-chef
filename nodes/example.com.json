@@ -5,7 +5,7 @@
     "recipe[deployer_user]",
     "recipe[sudo]",
     //"recipe[deployer_ruby]",
-    
+
     "recipe[ruby_build]",
     //"recipe[rbenv::system_install]", //"recipe[rbenv::user]",
     "recipe[droid-rbenv]",
@@ -54,7 +54,7 @@
   //-------------------
   "applications": [
     {
-      "name": "application_name",
+      "name": "app_name",
       "environment": "production",
       "web_urls": "example.com",
       "database": "postgresql",       // mongodb, mysql
@@ -66,7 +66,7 @@
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
 
-      //"app_user_password": "APP_USER_PASSWORD" else set default app[:name]+'_PASSWORD'  
+      //"app_user_password": "APP_USER_PASSWORD" else set default app[:name]+'_PASSWORD'
       }
   ],
 

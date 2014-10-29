@@ -45,7 +45,7 @@
 
   "applications": [
     {
-      "name": "application_name1",
+      "name": "app_name1",
       "environment": "production",
       "web_urls": "example1.com",
       "database": "postgresql", // mongodb, mysql
@@ -57,7 +57,7 @@
       // modules needed to add additional configs to shared folder
     },
     {
-      "name": "application_name2",
+      "name": "app_name2",
       "environment": "production",
       "web_urls": "example2.com",
       "database": "mysql", // mongodb, mysql
