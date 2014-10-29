@@ -4,9 +4,11 @@
     "recipe[locale]",         //add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
-    "recipe[deployer_ruby]",
+    //"recipe[deployer_ruby]",
+
     "recipe[ruby_build]",
-    "recipe[rbenv::user]",
+    //"recipe[rbenv::system_install]", //"recipe[rbenv::user]",
+    "recipe[droid-rbenv]",
 
     "recipe[apt]",
     "recipe[build-essential]",
@@ -33,29 +35,42 @@
     "recipe[rails]"
   ],
 
+  // Global deploy user
+  //-------------------
   "deploy_user": {
     "username": "ninja",
-    "password": "sample",
+    "password": "NINJA_PASSWORD",
     "ruby_version": "2.1.2",
     "database_host": "localhost",
-    "database_username": "ninja",
-    "database_password": "sample",
-    "database_root_password": "sample"
+    "database_username": "ninja",                 // Superuser {postgresql}
+    "database_password": "DB_NINJA_PASSWORD",
+    "database_root_password": "DB_ROOT_PASSWORD"  // Root password (Only used for MySQL)
   },
 
+  // For each application will be created deploy user with
+  //   login: app[:name]
+  //   password: app[:name]_PASSWORD
+  // You can change login/password with options: deploy_username/deploy_password
+  //-------------------
   "applications": [
     {
-      "name": "app_name1",
+      "name": "app_name",
       "environment": "production",
-      "web_urls": "example1.com",
-      "database": "postgresql", // mongodb, mysql
-      "server": "passenger", // unicorn, thin
+      "web_urls": "example.com",
+      "database": "postgresql",       // mongodb, mysql
+      "server": "passenger",          // unicorn, thin
       "server_workers_count": 4,
-      "server_host_default": true,
-      "modules": ["sidekiq"]
+     "server_host_default": false,
+      // "ruby_version": "2.1.2", // multiple ruby versions for each app are only supported in passenger enterprise
+      "modules": []
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
+
+      //"app_user_password": "APP_USER_PASSWORD" else set default app[:name]+'_PASSWORD'
     },
+    
+    
+    
     {
       "name": "app_name2",
       "environment": "production",
@@ -82,6 +97,19 @@
   "java": {
     "oracle": { "accept_oracle_download_terms": true }
   },
+
+  // "nginx": {
+  //   "passenger": { "enterprise": true }
+  // },
+
+  // uncomment this line to upgrade ruby version
+  // "ruby_build": {
+  //   "upgrade": "true"
+  // },
+
+  // "elasticsearch": {
+  //   "allocated_memory": "1000m"
+  // },
 
   "security": {
     // 22, 80, 443 ports are included by default, add them only to override
