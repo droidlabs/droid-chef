@@ -48,7 +48,7 @@ SITE
     windows (1.34.6)
       chef_handler (>= 0.0.0)
     yum (3.4.0)
-    yum-epel (0.5.1)
+    yum-epel (0.5.2)
       yum (~> 3.0)
     yum-mysql-community (0.1.10)
       yum (>= 3.0)

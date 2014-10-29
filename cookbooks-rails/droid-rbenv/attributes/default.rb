@@ -19,7 +19,7 @@ end
 
 
 
-default['rbenv']['root_path'] = "/opt/rbenv" #"/usr/local/rbenv"
+default['rbenv']['root_path'] = "/usr/local/rbenv" #"/opt/rbenv"
 default['rbenv']['rubies']    = ruby_versions
 default['rbenv']['global']    = main_ruby_version
 default['rbenv']['gems'] 	  = gems_hash

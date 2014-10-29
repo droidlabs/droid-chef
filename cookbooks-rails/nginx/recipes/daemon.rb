@@ -50,7 +50,7 @@ if node[:nginx][:passenger][:enterprise]
   end
   ruby_versions.each do |version|
     bash "install passenger gem - ruby #{version}" do
-      code "sudo -u #{deploy_user} -i env RBENV_VERSION='#{version}' gem install #{tmp_dir}/passenger-enterprise-server.gem"
+      code "sudo -u #{deploy_user} -i env RBENV_VERSION='#{version}' sudo -i gem install #{tmp_dir}/passenger-enterprise-server.gem"
       not_if { result = `sudo -u #{deploy_user} -i env RBENV_VERSION='#{version}' gem list | grep passenger`; result && result != '' }
     end
   end

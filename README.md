@@ -41,6 +41,6 @@
 
 * 1. adding in deploy.rb: 
 * `$ set :default_environment, {
-	`$	'PATH' => "/opt/rbenv/shims:/opt/rbenv/bin:$PATH"
+	`$	'PATH' => "/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH"
 	`$	}
 * 2. remove require 'capistrano-rbenv'
