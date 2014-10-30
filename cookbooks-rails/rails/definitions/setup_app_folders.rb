@@ -4,8 +4,15 @@ define :setup_app_folders do
   #app_username    = app[:app_user]
 
   directory "/data/#{app[:name]}" do
-    owner app[:name] #deploy_username         
-    group app[:name] #deploy_username  
+    owner app[:name] #deploy_username
+    group app[:name] #deploy_username
+    mode "0770"
+    action :create
+  end
+
+  directory "/data/#{app[:name]}/releases" do
+    owner app[:name] #deploy_username
+    group app[:name] #deploy_username
     mode "0770"
     action :create
   end
@@ -17,25 +24,13 @@ define :setup_app_folders do
     action :create
   end
 
-  directory "/data/#{app[:name]}/shared/config" do
-    owner app[:name] #deploy_username
-    group app[:name] #deploy_username
-    mode "0770"
-    action :create
-  end
-
-  directory "/data/#{app[:name]}/shared/log" do
-    owner app[:name] #deploy_username
-    group app[:name] #deploy_username
-    mode "0770"
-    action :create
-  end
-
-  directory "/data/#{app[:name]}/shared/tmp" do
-    owner app[:name] #deploy_username
-    group app[:name] #deploy_username
-    mode "0770"
-    action :create
+  ["config", "log", "tmp", "pids"].each do |shared_folder|
+    directory "/data/#{app[:name]}/shared/#{shared_folder}" do
+      owner app[:name] #deploy_username
+      group app[:name] #deploy_username
+      mode "0770"
+      action :create
+    end
   end
 
   if app[:server]
