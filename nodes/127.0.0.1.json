@@ -1,7 +1,8 @@
 {
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    "recipe[locale]",         //add locale LC_ALL = en_US.UTF8
+    //"recipe[droid-admin]",  // install mc, htop, and more pkg
+    "recipe[locale]",         // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
     //"recipe[deployer_ruby]",
@@ -55,6 +56,8 @@
   "applications": [
     {
       "name": "app_name",
+      "app_user": "app_user_name",
+      "app_password": "app_user_password",
       "environment": "production",
       "web_urls": "example.com",
       "database": "postgresql",       // mongodb, mysql
@@ -73,6 +76,8 @@
     
     {
       "name": "app_name2",
+      "app_user": "app_user_name",
+      "app_password": "app_user_password",
       "environment": "production",
       "web_urls": "example2.com",
       "database": "mysql", // mongodb, mysql

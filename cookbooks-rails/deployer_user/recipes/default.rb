@@ -25,8 +25,8 @@ def normalize_username(username)
 end
 
 node['applications'].each do |app|
-  username = app[:deploy_username] || normalize_username(app[:name])
-  password = app[:deploy_password] || "#{app[:name]}_PASSWORD"
+  username = app[:app_user]     # app[:deploy_username] || normalize_username(app[:name])
+  password = app[:app_password] # app[:deploy_password] || "#{app[:name]}_PASSWORD"
   app_user username do
     deploy_password = `openssl passwd -1 #{password}`.chomp
     password deploy_password

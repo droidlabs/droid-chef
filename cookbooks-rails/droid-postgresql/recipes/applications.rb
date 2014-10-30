@@ -1,41 +1,37 @@
 # Create Postgresql super user and databases this owner
 # Droid Labs
-# ver 0.0.2
+# ver 0.0.3
 
+# Create Superuser db Postgresql
 user_name = node[:deploy_user][:database_username]
 pg_user user_name do
   privileges superuser: true, createdb: true, login: user_name
   password node[:deploy_user][:database_password]
 end
 
-
 node[:applications].each do |app|
   if app[:database] == 'postgresql'
-  
-  ####  Create APP user in DB Postgresql ##
-    pg_user app[:name] do
+
+    # Create APP user in DB Postgresql #
+    pg_user app[:app_user] do
       privileges superuser: false, createdb: false, login: true
-      password app[:app_user_password] || app[:name]+'_PASSWORD'      
+      password app[:app_password] || app[:name] + '_PASSWORD'
     end
-    
+
     pg_database app[:name] do
-      owner app[:app_user]    #user_name
+      owner app[:app_user]    # user_name
     end
 
   end
 end
 
-
-
-#node[:applications].each do |app|
+# node[:applications].each do |app|
 #  if app[:database] == 'postgresql'
 #    pg_database app[:name] do
 #      owner user_name
 #    end
 #  end
-#end
-
-
+# end
 
 #  create a user with an MD5-encrypted password
 #  pg_user "myuser" do
