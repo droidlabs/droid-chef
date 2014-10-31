@@ -2,19 +2,19 @@
 
 define :app_user do
 
-  #Chef::Log.debug("# create deploy group and user with name: #{params[:name]}")
+  # Chef::Log.debug("# create deploy group and user with name: #{params[:name]}")
 
   group params[:name]
   user params[:name] do
-    comment "Deploy User"
+    comment 'Deploy User'
     home "/home/#{params[:name]}"
     gid params[:name]
-    shell "/bin/bash"
+    shell '/bin/bash'
     password params[:password]
     supports manage_home: true
   end
 
-  #Chef::Log.info("# params[:deploy_username1] = #{params[:deploy_username1]}")
+  # Chef::Log.info("# params[:deploy_username1] = #{params[:deploy_username1]}")
 
   group params[:name] do
     members ["#{params[:name]}", "#{node[:deploy_user][:username]}"]

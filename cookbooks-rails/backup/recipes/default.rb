@@ -65,8 +65,8 @@ template "#{backup_path}/Gemfile" do
   source "Gemfile"
 end
 bash "install backup gems" do
-  code "sudo -u #{deploy_user} -i bundle install --gemfile /home/#{deploy_user}/Backup/Gemfile --path /home/#{deploy_user}/Backup/bundle --no-deployment"
+  code "sudo -u #{deploy_user} sudo -i bundle install --gemfile /home/#{deploy_user}/Backup/Gemfile --path /home/#{deploy_user}/Backup/bundle --no-deployment"
 end
 bash "setup cron jobs" do
-  code "sudo -u #{deploy_user} -i BUNDLE_GEMFILE=/home/#{deploy_user}/Backup/Gemfile bundle exec whenever  --update-crontab --load-file /home/#{deploy_user}/Backup/config/schedule.rb"
+  code "sudo -u #{deploy_user} sudo -i BUNDLE_GEMFILE=/home/#{deploy_user}/Backup/Gemfile bundle exec whenever  --update-crontab --load-file /home/#{deploy_user}/Backup/config/schedule.rb"
 end
