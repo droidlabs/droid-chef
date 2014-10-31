@@ -7,13 +7,12 @@ end
 
 node['applications'].each do |app|
   if app[:database] == 'mysql'
-    mysql_user app[:app_user] do
-      password app[:app_password] || app[:name] + '_PASSWORD'
-    end
-
     execute "create database for: #{app[:name]}." do
       user node[:deploy_user][:username]
       command "mysql -uroot -p#{root_password} -e \"CREATE DATABASE IF NOT EXISTS #{app[:name]}\""
+    end
+    mysql_user app[:app_user] do
+      password app[:app_password] || app[:name] + '_PASSWORD'
     end
   end
 end

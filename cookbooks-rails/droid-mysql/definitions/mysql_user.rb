@@ -27,9 +27,16 @@ define :mysql_user do
       command "#{mysql_cmd} \"SET PASSWORD FOR '#{params[:name]}'@'#{host}' = PASSWORD('#{params[:password]}');\""
     end
 
+    # Change privileges mysql user, node[:deploy_user][:username] = ALL PRIVILEGES, node[:app][:app_user] = PRIVILEGES ONLY APP DB
     execute "grant priveligies for mysql user #{params[:name]}" do
       user "root"
-      command "#{mysql_cmd} \"GRANT ALL PRIVILEGES ON *.* TO '#{params[:name]}'@'#{host}' WITH GRANT OPTION; FLUSH PRIVILEGES;\""
+      
+      if params[:name] == node[:deploy_user][:username]
+        command "#{mysql_cmd} \"GRANT ALL PRIVILEGES ON *.* TO #{params[:name]}@#{host} WITH GRANT OPTION; FLUSH PRIVILEGES;\""
+      else
+        command "#{mysql_cmd} \"GRANT ALL PRIVILEGES ON #{params[:name]}.* TO #{params[:name]}@#{host}; FLUSH PRIVILEGES;\""
+      end
     end
   end
 end
+
