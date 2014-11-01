@@ -17,11 +17,12 @@ major_ruby = case main_ruby_version
 
 ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"  #{}"#{home_path}/.rbenv/versions/#{main_ruby_version}"
 
-passenger_dir = if node[:nginx][:passenger][:enterprise]
-  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
-else
-  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-#{node[:nginx][:passenger][:version]}"
-end
+# Old version: The location to the Phusion Passenger root directory.
+# passenger_dir = if node[:nginx][:passenger][:enterprise]
+#  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
+# else
+#  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-#{node[:nginx][:passenger][:version]}"
+# end
 
 cc='gcc'
 
@@ -55,10 +56,14 @@ if node[:nginx][:passenger][:enterprise]
     end
   end
 else
-  deployer_gem "passenger" do
+  # Install gem in global ruby version [regular passenger]
+  deployer_gem 'passenger' do
     version node[:nginx][:passenger][:version]
   end
 end
+
+# The location to the Phusion Passenger root directory.
+passenger_dir = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp
 
 nginx_version = node[:nginx][:nginx_version]
 
