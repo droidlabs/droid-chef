@@ -42,7 +42,7 @@ define :setup_app_database do
 
   ################# SECRET KEY BASE ###############################
   template "/data/#{app[:name]}/shared/config/secret_key_base.yml" do
-    source 'secret_key_base.yml.erb'
+    source 'secrets.yml.erb'
     owner app[:app_user] # deploy_username
     group app[:app_user] # deploy_username
     mode '0660'
