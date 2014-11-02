@@ -11,7 +11,9 @@ include conf.d/*.conf;
 
 http {
   <% if @use_passenger  %>
-  passenger_root <%= @passenger_dir %>;
+    <% if @passenger_dir  %>
+      passenger_root <%= @passenger_dir %>;
+    <% end %>
   passenger_ruby <%= @ruby_dir %>/bin/ruby;
   passenger_max_pool_size <%= @nginx[:passenger][:max_pool_size] %>;
   passenger_min_instances <%= @nginx[:passenger][:min_instances] %>;

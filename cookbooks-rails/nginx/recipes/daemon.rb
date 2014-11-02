@@ -36,7 +36,7 @@ directory nginx_path do
   action :create
 end
 
-# install enterprise or regular passenger
+# install enterprise or regular passenger gem
 # NOTE: you should copy enterprise passgenger gem and license to /files dir
 if node[:nginx][:passenger][:enterprise]
   cookbook_file "/etc/passenger-enterprise-license" do
@@ -62,9 +62,6 @@ else
   end
 end
 
-# The location to the Phusion Passenger root directory.
-passenger_dir = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp
-
 nginx_version = node[:nginx][:nginx_version]
 
 # INSTALL PASSENGER && NGINX
@@ -83,12 +80,16 @@ if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade
   flags = node[:nginx][:configure_flags]
   bash "install passenger/nginx" do
    #code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
-    code %Q{CC=#{cc} sudo -u #{deploy_user} sudo -i rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
+    code %Q{CC=#{cc} sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
 
   # bash "fix issue with passenger installation" do
   #   code "cd #{passenger_dir}; sudo -u #{deploy_user} -i sudo rake nginx"
   # end
+else
+  # The location to the Phusion Passenger root directory.
+  passenger_dir = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp
+  Chef::Log.info("passenger_dir:#{passenger_dir}")
 end
 
 directory log_path do
