@@ -34,12 +34,3 @@
 * `$ knife solo prepare vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
 * `$ knife solo cook vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
 * `$ vagrant halt`
-
-## CAPISTRANO
-
-* If you are using Capistrano:
-* 1) adding in deploy.rb: 
-* ` set :default_environment, {`
-	`	'PATH' => "/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH"`
-	`}`
-* 2) remove require 'capistrano-rbenv'
