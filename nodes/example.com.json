@@ -1,7 +1,7 @@
 {
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    //"recipe[droid-admin]",    // install mc, htop, and more pkg
+    "recipe[droid-admin]",    // install mc, htop, and more pkg
     "recipe[locale]",         // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
@@ -29,7 +29,7 @@
     //"recipe[newrelic]",
     //"recipe[backup]",         // don't forget to add configs at the bottom
     "recipe[java::oracle]",
-    "recipe[elasticsearch]",
+    "recipe[droid-elasticsearch]",
     "recipe[rails]"
   ],
 
@@ -38,7 +38,7 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "2.1.2",
+    "ruby_version": "2.1.3",
     "database_host": "localhost",
     "database_username": "ninja",                 // Superuser {postgresql}
     "database_password": "DB_NINJA_PASSWORD",
@@ -57,7 +57,7 @@
       "app_password": "app_user_password",	// "app_password": if not set => default app[:name]+'_PASSWORD' 
       "environment": "production", 		// staging
       "web_urls": "example.com",
-      "database": "postgresql", 		// mongodb, MySQL //СУБД
+      "database": "postgresql", 		// mongodb, MySQL
       "server": "passenger",          		// unicorn, thin
       "server_workers_count": 4,
       "server_host_default": false,
@@ -65,11 +65,26 @@
       "modules": ["elasticsearch", "sidekiq"]
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
-      }
+    },
+    {
+      "name": "app_name2",
+      "app_user": "app_user_name",
+      "app_password": "app_user_password",
+      "environment": "production",
+      "web_urls": "example2.com",
+      "database": "mysql", // mongodb, mysql
+      "server": "thin", // unicorn, thin
+      "server_workers_count": 4,
+      "server_host_default": false,
+      "modules": ["elasticsearch"]
+      // available modules: elasticsearch, sidekiq, ssl.
+      // modules needed to add additional configs to shared folder
+    }
   ],
 
   "nginx_redirects": [
-    ["www.example.com", "example.com"]
+    ["www.example1.com", "example1.com"],
+    ["www.example2.com", "example2.com"]
   ],
 
   "newrelic":{

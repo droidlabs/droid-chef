@@ -1,15 +1,13 @@
 {
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    //"recipe[droid-admin]",  // install mc, htop, and more pkg
+    "recipe[droid-admin]",    // install mc, htop, and more pkg
     "recipe[locale]",         // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
-    //"recipe[deployer_ruby]",
-
+ 
     "recipe[ruby_build]",
-    //"recipe[rbenv::system_install]", //"recipe[rbenv::user]",
-    "recipe[droid-rbenv]",
+    "recipe[droid-rbenv]",	
 
     "recipe[apt]",
     "recipe[build-essential]",
@@ -23,7 +21,7 @@
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
 
-    "recipe[droid-mysql]",      //wrapper-cookbook, change settings postresql here !!
+    "recipe[droid-mysql]",      //wrapper-cookbook, change settings MySQL here !!
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
 
     //"recipe[mongodb]",
@@ -31,8 +29,7 @@
     //"recipe[newrelic]",
     //"recipe[backup]",         // don't forget to add configs at the bottom
     "recipe[java::oracle]",
-    "recipe[elasticsearch]",
-
+    "recipe[droid-elasticsearch]",
     "recipe[rails]"
   ],
 
@@ -41,7 +38,7 @@
   "deploy_user": {
     "username": "ninja",
     "password": "NINJA_PASSWORD",
-    "ruby_version": "2.1.2",
+    "ruby_version": "2.1.3",
     "database_host": "localhost",
     "database_username": "ninja",                 // Superuser {postgresql}
     "database_password": "DB_NINJA_PASSWORD",
@@ -49,31 +46,26 @@
   },
 
   // For each application will be created deploy user with
-  //   login: app[:name]
-  //   password: app[:name]_PASSWORD
-  // You can change login/password with options: deploy_username/deploy_password
+  //   login: app[:app_user]
+  //   password: app[:app_user_password] if not set app[:name]+'_PASSWORD'
+  // You can change login/password with options: app_user/app_password
   //-------------------
   "applications": [
     {
       "name": "app_name",
       "app_user": "app_user_name",
-      "app_password": "app_user_password",
-      "environment": "production",
+      "app_password": "app_user_password",	// "app_password": if not set => default app[:name]+'_PASSWORD' 
+      "environment": "production", 		// staging
       "web_urls": "example.com",
-      "database": "postgresql",       // mongodb, mysql
-      "server": "passenger",          // unicorn, thin
+      "database": "postgresql", 		// mongodb, MySQL
+      "server": "passenger",          		// unicorn, thin
       "server_workers_count": 4,
-     "server_host_default": false,
-      // "ruby_version": "2.1.2", // multiple ruby versions for each app are only supported in passenger enterprise
-      "modules": []
+      "server_host_default": false,
+      "ruby_version": "2.1.2", // multiple ruby versions for each app are only supported in passenger enterprise
+      "modules": ["elasticsearch", "sidekiq"]
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
-
-      //"app_user_password": "APP_USER_PASSWORD" else set default app[:name]+'_PASSWORD'
     },
-    
-    
-    
     {
       "name": "app_name2",
       "app_user": "app_user_name",
