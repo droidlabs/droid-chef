@@ -1,5 +1,0 @@
-set :output, "<%= @backup_path %>/log/cron.log"
-
-every 12.hours do
-  command "cd <%= @backup_path %> && bundle exec backup perform --trigger <%= @config[:name] %>"
-end

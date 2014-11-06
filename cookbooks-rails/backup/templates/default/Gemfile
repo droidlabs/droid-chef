@@ -1,8 +1,0 @@
-source 'http://rubygems.org'
-gem 'backup', '3.0.27'
-gem 's3sync'
-gem 'fog', '~> 1.4.0'
-gem 'mail'
-gem 'whenever'
-gem 'popen4'
-gem 'parallel', '~> 0.5.12'

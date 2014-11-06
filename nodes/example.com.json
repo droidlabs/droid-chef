@@ -27,7 +27,8 @@
     //"recipe[mongodb]",
     //"recipe[faye]",
     //"recipe[newrelic]",
-    //"recipe[backup]",         // don't forget to add configs at the bottom
+
+    "recipe[droid-backup]",         // don't forget to add configs at the bottom
     "recipe[java::oracle]",
     "recipe[droid-elasticsearch]",
     "recipe[rails]"
@@ -37,8 +38,8 @@
   //-------------------
   "deploy_user": {
     "username": "ninja",
-    "password": "NINJA_PASSWORD",
-    "ruby_version": "2.1.3",
+    "password": "Droid123",			  // Set new password
+    "ruby_version": "2.1.3",                      // Global rbenv version
     "database_host": "localhost",
     "database_username": "ninja",                 // Superuser {postgresql}
     "database_password": "DB_NINJA_PASSWORD",
@@ -61,8 +62,9 @@
       "server": "passenger",          		// unicorn, thin
       "server_workers_count": 4,
       "server_host_default": false,
-      "ruby_version": "2.1.2", // multiple ruby versions for each app are only supported in passenger enterprise
-      "modules": ["elasticsearch", "sidekiq"]
+      "ruby_version": "2.1.4",            // multiple ruby versions for each app are only supported in passenger enterprise
+      "modules": ["elasticsearch", "sidekiq"],
+      "backup": { "database": true, "files": true } // Default: { database: true, files: true }
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
     },
@@ -76,7 +78,8 @@
       "server": "thin", // unicorn, thin
       "server_workers_count": 4,
       "server_host_default": false,
-      "modules": ["elasticsearch"]
+      "ruby_version": "1.9.3-p550",   // multiple ruby versions are only supported in passenger enterprise
+      "modules": []
       // available modules: elasticsearch, sidekiq, ssl.
       // modules needed to add additional configs to shared folder
     }
@@ -125,11 +128,13 @@
     ]
   },
 
-  "backup": {
-    "s3": {
-      "aws_access_key": "YOUR_ACCESS_KEY",
-      "aws_secret_key": "YOUR_SECRET_KEY",
-      "bucket_name": "BUCKET_NAME"
-    }
+   "backup": {
+     "s3": {
+       "aws_access_key": "YOUR_ACCESS_KEY",
+       "aws_secret_key": "YOUR_SECRET_KEY",
+       "bucket_name": "BUCKET_NAME",
+       "bucket_region": "us-east-1",
+       "keep": "10"
+   }
   }
 }

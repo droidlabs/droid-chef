@@ -22,3 +22,4 @@ cookbook 'postgresql', "0.14.1", git: 'git://github.com/phlipper/chef-postgresql
 cookbook 'locale', git: 'git://github.com/hw-cookbooks/locale/'
 cookbook 'mysql'
 cookbook 'elasticsearch'
+cookbook 'backup', git: 'git://github.com/damm/backup'

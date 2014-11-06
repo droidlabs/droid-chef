@@ -1,6 +1,0 @@
-maintainer       "Blissio"
-maintainer_email "alastair@blissio.com"
-license          "MIT"
-description      "Installs/Configures backup"
-long_description "Installs/Configures backup"
-version          "0.0.1"
