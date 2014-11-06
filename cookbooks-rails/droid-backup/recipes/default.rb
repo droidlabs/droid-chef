@@ -1,12 +1,13 @@
 
 # DROID BACKUP
-deploy_user 		  	= node[:deploy_user][:username]
-database_pwd 		  	= node[:deploy_user][:database_password]
-database_root_pwd		= node[:deploy_user][:database_root_password]
+deploy_user         = node[:deploy_user][:username]
+database_pwd        = node[:deploy_user][:database_password]
+database_root_pwd   = node[:deploy_user][:database_root_password]
 
-cron_hour						= node[:backup][:cron_hour]
-backup_mailto				= node[:backup][:mailto]
-backup_base_dir			= node[:backup][:base_dir]
+backup_gem_bin_dir  = node[:backup][:gem_bin_dir]
+cron_hour           = node[:backup][:cron_hour]
+backup_mailto       = node[:backup][:mailto]
+backup_base_dir     = node[:backup][:base_dir]
 
 # AWS s3 config
 s3_access_key_id      = node[:backup][:s3][:aws_access_key]
@@ -61,6 +62,7 @@ node[:applications].each do |app|
       mailto        backup_mailto
       action        :backup
       hour 					cron_hour
+      gem_bin_dir   backup_gem_bin_dir
     end
   else
   	backup_generate_model "#{app[:name]}_db_pg" do
@@ -85,6 +87,7 @@ node[:applications].each do |app|
       mailto 				backup_mailto
       action 				:backup
       hour 					cron_hour
+      gem_bin_dir   backup_gem_bin_dir
     end
   else
   	backup_generate_model "#{app[:name]}_db_mysql" do
@@ -102,6 +105,7 @@ node[:applications].each do |app|
       mailto 				backup_mailto
       action 				:backup
       hour 					cron_hour
+      gem_bin_dir   backup_gem_bin_dir
     end
   else
   	backup_generate_model "#{app[:name]}_db_mongodb" do
@@ -123,6 +127,7 @@ node[:applications].each do |app|
       mailto backup_mailto
       action :backup
       hour 	 cron_hour
+      gem_bin_dir   backup_gem_bin_dir
     end
   else
   	backup_generate_model "#{app[:name]}_files_backup" do
