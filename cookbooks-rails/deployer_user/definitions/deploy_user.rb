@@ -1,3 +1,5 @@
+# Create SUPER DEPLOY USER in the System
+
 define :deploy_user do
 
 Chef::Log.debug("# create deploy group and user with name: #{params[:name]}")
