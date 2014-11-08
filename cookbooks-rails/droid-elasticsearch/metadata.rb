@@ -4,6 +4,7 @@ version "0.0.1"
 
 depends 'elasticsearch'
 depends 'ark'
+depends 'monit'
 
 recommends 'java'
-recommends 'monit'
+# recommends 'monit'
