@@ -1,0 +1,7 @@
+check process postgresql with pidfile <%= node[:postgresql][:external_pid_file] %>  
+  start program = "/etc/init.d/postgresql start"
+  stop program = "/etc/init.d/postgresql stop"
+  group postgres
+  IF FAILED UNIXSOCKET <%= node[:postgresql][:unix_socket_directories] %>/.s.PGSQL.<%= node[:postgresql][:config][:port] %> PROTOCOL pgsql THEN RESTART
+  IF FAILED HOST 127.0.0.1 PORT <%= node[:postgresql][:config][:port] %> PROTOCOL pgsql THEN RESTART
+  IF 5 RESTARTS WITHIN 5 CYCLES THEN TIMEOUT

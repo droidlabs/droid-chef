@@ -1,19 +1,19 @@
 # Cookbook Name:: nginx
 deploy_user = node[:deploy_user][:username]
-nginx_path = node[:nginx][:path]
-log_path = node[:nginx][:log_path]
-home_path = "/home/#{deploy_user}"
-tmp_dir = "#{home_path}/downloads"
+nginx_path  = node[:nginx][:path]
+log_path    = node[:nginx][:log_path]
+home_path   = "/home/#{deploy_user}"
+tmp_dir     = "#{home_path}/downloads"
 
 main_ruby_version = node[:deploy_user][:ruby_version]
 app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
-ruby_versions = [main_ruby_version] + app_ruby_versions
+ruby_versions     = [main_ruby_version] + app_ruby_versions
 
-major_ruby = case main_ruby_version
-             when /1\.9/ then "1.9.1"
-             when /2\.0/ then "2.0.0"
-             when /2\.1/ then "2.1.0"
-             end
+# major_ruby = case main_ruby_version
+#              when /1\.9/ then "1.9.1"
+#              when /2\.0/ then "2.0.0"
+#              when /2\.1/ then "2.1.0"
+#              end
 
 ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"  #{}"#{home_path}/.rbenv/versions/#{main_ruby_version}"
 
@@ -24,20 +24,21 @@ ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"  #{}"#{h
 #  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-#{node[:nginx][:passenger][:version]}"
 # end
 
-cc='gcc'
+cc = 'gcc'
 
 ['libcurl4-openssl-dev','libpcre3-dev', 'curl'].each do |pkg|
   package pkg
 end
 
+#Create nginx directory Default: '/opt/nginx'
 directory nginx_path do
   user deploy_user
   mode 0755
   action :create
 end
 
-# install enterprise or regular passenger gem
-# NOTE: you should copy enterprise passgenger gem and license to /files dir
+# Install enterprise or regular passenger GEM !
+# NOTE: you should copy enterprise passgenger gem and license to /files/default dir
 if node[:nginx][:passenger][:enterprise]
   cookbook_file "/etc/passenger-enterprise-license" do
     owner 'root'
@@ -137,7 +138,7 @@ template "#{nginx_path}/conf/nginx.conf" do
   variables(
     :log_path => log_path,
     :nginx => node[:nginx],
-    :pidfile => "#{nginx_path}/logs/nginx.pid",
+    :pidfile => "#{node[:nginx][:pid_path]}", # #{nginx_path}/logs/nginx.pid
     :use_passenger => use_passenger,
     :ruby_dir => ruby_dir,
     :passenger_dir => passenger_dir
@@ -159,7 +160,7 @@ template "/etc/init.d/passenger" do
   group "root"
   mode 0755
   variables(
-    :pidfile => "#{nginx_path}/logs/nginx.pid",
+    :pidfile => "#{node[:nginx][:pid_path]}", # #{nginx_path}/logs/nginx.pid
     :nginx_path => nginx_path
   )
 end
@@ -175,9 +176,9 @@ service "passenger" do
   service_name "passenger"
   enabled true
   running true
-  reload_command "if [ -e #{nginx_path}/logs/nginx.pid ]; then #{nginx_path}/sbin/nginx -s reload; fi"
+  reload_command "if [ -e #{node[:nginx][:pid_path]} ]; then #{nginx_path}/sbin/nginx -s reload; fi" # #{nginx_path}/logs/nginx.pid
   start_command "#{nginx_path}/sbin/nginx"
-  stop_command "if [ -e #{nginx_path}/logs/nginx.pid ]; then #{nginx_path}/sbin/nginx -s stop; fi"
+  stop_command "if [ -e #{node[:nginx][:pid_path]} ]; then #{nginx_path}/sbin/nginx -s stop; fi" # #{nginx_path}/logs/nginx.pid
   status_command "curl http://localhost/nginx_status"
   supports [ :start, :stop, :reload, :status, :enable ]
   action [ :enable, :start ]
@@ -190,3 +191,7 @@ logrotate_app "passenger" do
   path "#{node[:nginx][:log_path]}/*.log #{node[:nginx][:log_path]}/*/*.log"
   rotate 12
 end
+
+# Add monit cfg for nginx-passenger service
+# Use after start nginx-passenger and monit service !
+include_recipe 'nginx::nginx-passenger-monit'

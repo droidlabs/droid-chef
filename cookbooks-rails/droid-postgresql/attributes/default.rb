@@ -2,13 +2,16 @@
 # Attributes:: default
 # Author:: Fadeev <fadeev2010@gmail.com>
 
-include_attribute 'postgresql'  #LOAD default attributes for postrgresql
-include_attribute 'postgresql::postgis'     # ????
+# LOAD default attributes for postrgresql
+include_attribute 'postgresql'
+# include_attribute 'postgresql::postgis'
 
 # DROID ATTRIBUTIONS: ---------------------------------------------------------
 default['postgresql']['version']                         = '9.3'
 default['postgresql']['ssl']                             = false
 default['postgresql']['pg_hba_defaults']                 = false
+
+default['postgresql']['config']['port']                  = 5432
 #------------------------------------------------------------------------------
 # FILE LOCATIONS
 #------------------------------------------------------------------------------

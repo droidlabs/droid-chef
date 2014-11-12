@@ -1,7 +1,8 @@
 default[:nginx][:nginx_version] = '1.6.2'
 default[:nginx][:path] = '/opt/nginx'
 default[:nginx][:configure_flags] = '--with-ipv6 --with-http_stub_status_module --with-http_ssl_module'
-default[:nginx][:log_path] = '/var/log/passenger/'
+default[:nginx][:log_path] = '/var/log/passenger'
+default[:nginx][:pid_path] = '/var/run/nginx/nginx.pid'
 
 # Tune these for your environment, see:
 # http://www.modrails.com/documentation/Users%20guide%20Nginx.html#_resource_control_and_optimization_options

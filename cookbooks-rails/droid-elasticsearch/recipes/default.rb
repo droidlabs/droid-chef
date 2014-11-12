@@ -20,4 +20,4 @@ service("elasticsearch") { action :start }
 
 # Add monit cfg for elastic service
 # Use after start elasticsearch and monit service !
-include_recipe 'elasticsearch::monit'
+include_recipe 'droid-monit::elasticsearch'

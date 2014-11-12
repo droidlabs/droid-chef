@@ -6,3 +6,5 @@ cookbooks/*
 /nodes/192.168.235.140.json
 /cookbooks-rails/nginx/files/default/passenger-enterprise-license
 /cookbooks-rails/nginx/files/default/passenger-enterprise-server.gem
+/cookbooks-rails/droid-monit/attributes/mail-setting.rb
+

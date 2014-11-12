@@ -1,0 +1,7 @@
+#Monitoring Nginx/Passenger Service
+
+check process nginx with pidfile <%= node[:nginx][:pid_path] %>
+  start program = "/etc/init.d/passenger start"
+  stop program  = "/etc/init.d/passenger stop"
+  if failed host 127.0.0.1 port 80 then restart
+  if 15 restarts within 15 cycles then timeout and alert
