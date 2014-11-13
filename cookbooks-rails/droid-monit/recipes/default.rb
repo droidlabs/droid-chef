@@ -14,3 +14,9 @@ monitrc 'droid-system' do
    	template_cookbook 'droid-monit'
     template_source   'droid-system.conf.erb'
 end
+
+# Security monit cfg
+monitrc 'droid-security' do
+   	template_cookbook 'droid-monit'
+    template_source   'droid-security.conf.erb'
+end

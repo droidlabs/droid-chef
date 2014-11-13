@@ -11,7 +11,7 @@ default["monit"]["alert_blacklist"]        = %w( action instance pid ppid )
 default["monit"]["logfile"]                = 'syslog facility log_daemon'
 
 default["monit"]["poll_period"]            = 60
-default["monit"]["poll_start_delay"]       = 120
+default["monit"]["poll_start_delay"]       = 240
 
 default["monit"]["mail_format"]["subject"] = "$SERVICE $EVENT"
 default["monit"]["mail_format"]["from"]    = "monit@#{node['fqdn']}"
