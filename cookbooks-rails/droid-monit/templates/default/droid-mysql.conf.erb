@@ -6,7 +6,7 @@
 # 	if 5 restarts within 5 cycles then timeout
 
 
-check process mysql with pidfile /var/run/mysqld/mysqld.pid
+check process mysql with pidfile /var/run/mysqld/mysql.pid
    group database
    start program = "/etc/init.d/mysql start"
    stop program = "/etc/init.d/mysql stop"
