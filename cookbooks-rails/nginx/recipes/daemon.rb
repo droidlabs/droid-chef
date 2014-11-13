@@ -194,4 +194,4 @@ end
 
 # Add monit cfg for nginx-passenger service
 # Use after start nginx-passenger and monit service !
-include_recipe 'nginx::nginx-passenger-monit'
+include_recipe 'droid-monit::nginx-passenger-monit'
