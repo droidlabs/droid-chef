@@ -9,7 +9,7 @@ include_attribute "mysql::default"
 #############################################################################
 #DROID ATTRIBUTES
 
-default['mysql']['data_dir'] 						   = '/opt/local/lib/mysql'
+default['mysql']['data_dir'] 						   = '/opt/mysql' # '/opt/local/lib/mysql'
 
 default['mysql']['tunable']['collation-server']        = 'utf8_unicode_ci'
 default['mysql']['tunable']['character-set-server']    = 'utf8'
