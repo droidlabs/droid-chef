@@ -17,7 +17,7 @@ default['mysql']['tunable']['key_buffer_size']         = '256M'
 default['mysql']['tunable']['myisam-recover']          = 'BACKUP'
 default['mysql']['tunable']['max_allowed_packet']      = '16M'
 default['mysql']['tunable']['innodb_buffer_pool_size'] = '256M'
-default['mysql']['bind_address']                       = nil    # ipadress
+default['mysql']['bind_address']                       = '127.0.0.1' # node.name # ipadress
 
 # used in grants.sql
 default['mysql']['allow_remote_root']				   = false
