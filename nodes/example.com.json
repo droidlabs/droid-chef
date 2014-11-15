@@ -5,6 +5,7 @@
     "recipe[locale]",         // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
+    "recipe[droid-monit]",
  
     "recipe[ruby_build]",
     "recipe[droid-rbenv]",	
@@ -24,13 +25,16 @@
     "recipe[droid-mysql]",      //wrapper-cookbook, change settings MySQL here !!
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
 
-    //"recipe[mongodb]",
     //"recipe[faye]",
     //"recipe[newrelic]",
 
     "recipe[droid-backup]",         // don't forget to add configs at the bottom
+    
+    //"recipe[mongodb]",     
     "recipe[java::oracle]",
     "recipe[droid-elasticsearch]",
+ 
+    "recipe[droid-rabbitmq]",
     "recipe[rails]"
   ],
 
