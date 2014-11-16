@@ -29,7 +29,6 @@
 
 * Download and install Vagrant - http://www.vagrantup.com/downloads.html
 * Download and install VirtualBox - https://www.virtualbox.org/wiki/Downloads
-* `$ vagrant box add ubuntu/trusty64`
 * `$ vagrant up`
 * `$ knife solo prepare vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
 * `$ knife solo cook vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
