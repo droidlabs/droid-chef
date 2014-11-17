@@ -26,8 +26,8 @@ default["monit"]["address"]  = nil
 default["monit"]["ssl"]      = false
 default["monit"]["cert"]     = "/etc/monit/monit.pem"
 default["monit"]["allow"]    = []
-default["monit"]["username"] = nil
-default["monit"]["password"] = nil
+default["monit"]["username"] = "#{node[:deploy_user][:username]}"
+default["monit"]["password"] = "#{node[:deploy_user][:password]}"
 default["monit"]["ssh_port"] = 22
 
 default["monit"]["eventqueue"]["set"]     = true
