@@ -24,13 +24,13 @@ DEPENDENCIES
   openssl
   postgresql
     git: git://github.com/phlipper/chef-postgresql
-    revision: c3d9ab503c63eb4af222aa45cea4243b9879ff5b
+    revision: 17705405a77b2d35c829cceaf99d14534d9c5706
+    tag: 0.14.1
   rabbitmq
   rbenv
     git: git://github.com/fnichol/chef-rbenv.git
     revision: 0a3018634bafe58ad21c6ee271af015220e444b9
   redis
-  runit
   sudo
 
 GRAPH
@@ -85,7 +85,7 @@ GRAPH
   ohai (2.0.1)
   openssl (2.0.0)
     chef-sugar (>= 0.0.0)
-  postgresql (0.15.0)
+  postgresql (0.14.1)
     apt (>= 1.9.0)
   python (1.4.6)
     build-essential (>= 0.0.0)

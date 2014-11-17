@@ -10,7 +10,7 @@
 ### bundle and update cookbooks
 
 * `$ bundle install`
-* `$ librarian-chef install`
+* `$ berks install`
 
 ### Prepare server first time
 
