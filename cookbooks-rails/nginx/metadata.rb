@@ -4,6 +4,7 @@ license "MIT"
 description "Installs passenger via rubygems. Explicity uses system-wide RVM if present."
 version "0.0.1"
 
+depends "build-essential"
 depends "logrotate"
 depends "droid-rbenv"
 depends "ruby_build"
