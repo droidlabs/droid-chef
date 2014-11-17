@@ -20,3 +20,9 @@ monitrc 'droid-security' do
    	template_cookbook 'droid-monit'
     template_source   'droid-security.conf.erb'
 end
+
+# Add logrotate cfg for monit
+logrotate_app "droid-monit" do
+  path "/var/log/syslog.log"
+  rotate 12
+end

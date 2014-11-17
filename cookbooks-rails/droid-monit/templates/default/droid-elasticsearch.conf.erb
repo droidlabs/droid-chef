@@ -2,8 +2,6 @@
 # Monit configuration file for ElasticSearch
 # ------------------------------------------
 
-set alert alerts@droidlabs.pro
-
 check process elasticsearch with pidfile <%= node.elasticsearch[:pid_file] %>
   start program = "/etc/init.d/elasticsearch start" with timeout 60 seconds
   stop program  = "/etc/init.d/elasticsearch stop"
@@ -23,7 +21,7 @@ check host elasticsearch_cluster_health with address 0.0.0.0
      with timeout 60 seconds
      then alert
      alert <%= node.monit[:notify_email] %> with mail-format {
-       subject:  [monit] elasticsearch: CLUSTER HEALTH PROBLEM at <%= node.hostname %>
+       subject:  [Monit] elasticsearch: CLUSTER HEALTH PROBLEM $EVENT at <%= node.hostname %>
        message:  [<%= node.hostname %>] $SERVICE $ACTION
                  <% if node.monit[:http_auth] && node.cloud %>
                  --
