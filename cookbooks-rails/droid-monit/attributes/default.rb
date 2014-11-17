@@ -35,7 +35,7 @@ default["monit"]["eventqueue"]["basedir"] = "/var/monit"
 default["monit"]["eventqueue"]["slots"]   = 1000
 
 # Load mail settings from attribute file (this file added in .gitignore)
-include_attribute "droid-monit::mail_settings"
+include_attribute "droid-monit::mail-settings"
 
 # # Mail settings for monit alerts
 # default["monit"]["mailserver"]["host"]            = 'smtp.gmail.com'
