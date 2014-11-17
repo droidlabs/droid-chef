@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 gem 'knife-solo'
 gem 'chef'
-gem 'librarian-chef'
+gem 'berkshelf', '~> 3'
+# gem 'librarian-chef'
 
 #travis settings
 #group :development do
