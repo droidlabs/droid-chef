@@ -1,5 +1,7 @@
 source "https://supermarket.getchef.com"
 
+metadata
+
 cookbook 'apt'
 cookbook 'ark'
 cookbook 'build-essential'
@@ -15,7 +17,7 @@ cookbook 'logrotate'
 cookbook 'mongodb'
 cookbook 'runit'
 cookbook 'rbenv', git: 'git://github.com/fnichol/chef-rbenv.git'
-cookbook 'postgresql', "0.14.1", git: 'git://github.com/phlipper/chef-postgresql'
+cookbook 'postgresql', "0.15.0", git: 'git://github.com/phlipper/chef-postgresql'
 cookbook 'locale', git: 'git://github.com/hw-cookbooks/locale/'
 cookbook 'mysql'
 cookbook 'elasticsearch'
