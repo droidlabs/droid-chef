@@ -34,21 +34,14 @@ default["monit"]["eventqueue"]["set"]     = true
 default["monit"]["eventqueue"]["basedir"] = "/var/monit"
 default["monit"]["eventqueue"]["slots"]   = 1000
 
-# Load mail settings from attribute file (this file added in .gitignore)
-include_attribute "droid-monit::mail-settings"
+# Mail settings for monit alerts
 
-# # Mail settings for monit alerts
+# From nodelist
 # default["monit"]["mailserver"]["host"]            = 'smtp.gmail.com'
-# default["monit"]["mailserver"]["hostname"]        = nil
 # default["monit"]["mailserver"]["port"]            = 587
-# default["monit"]["mailserver"]["username"]        = 'User@gmail.com'
-# default["monit"]["mailserver"]["password"]        = 'User_PASSWORD'
-# default["monit"]["mailserver"]["password_suffix"] = nil
+# default["monit"]["mailserver"]["username"]        = 'alerts@hostname.pro'
+# default["monit"]["mailserver"]["password"]        = 'MAIL_PASSWORD'
 # default["monit"]["mailserver"]["encryption"]      = 'tlsv1'
-# default["monit"]["mailserver"]["timeout"]         = 60
-
-# set mailserver smtp.gmail.com port 587 
-#     username "MYUSER" 
-#     password "MYPASSWORD"
-#     using tlsv1
-
+default["monit"]["mailserver"]["timeout"]         = 60
+default["monit"]["mailserver"]["hostname"]        = nil
+default["monit"]["mailserver"]["password_suffix"] = nil

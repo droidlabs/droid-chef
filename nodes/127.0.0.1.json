@@ -6,14 +6,14 @@
     "recipe[deployer_user]",
     "recipe[sudo]",
     "recipe[droid-monit]",
- 
+
     "recipe[ruby_build]",
     "recipe[droid-rbenv]",	
 
     "recipe[apt]",
     "recipe[build-essential]",
     "recipe[ohai]",
-    "recipe[runit]",
+    //"recipe[runit]",
     "recipe[git]",
     "recipe[openssl]",
     "recipe[security]",
@@ -29,11 +29,11 @@
     //"recipe[newrelic]",
 
     "recipe[droid-backup]",         // don't forget to add configs at the bottom
-    
-    //"recipe[mongodb]",     
+
     "recipe[java::oracle]",
     "recipe[droid-elasticsearch]",
- 
+    //"recipe[mongodb]",
+
     "recipe[droid-rabbitmq]",
     "recipe[rails]"
   ],
@@ -64,7 +64,7 @@
       "web_urls": "example.com",
       "database": "postgresql", 		// mongodb, MySQL
       "server": "passenger",          		// unicorn, thin
-      "server_workers_count": 4,
+      "server_workers_count": 4,                // for passenger, thin, unicorn
       "server_host_default": false,
       "ruby_version": "2.1.4",            // multiple ruby versions for each app are only supported in passenger enterprise
       "modules": ["elasticsearch", "sidekiq"],
@@ -140,5 +140,16 @@
        "bucket_region": "us-east-1",
        "keep": "10"
    }
+  },
+
+  //Monit mail settings
+  "monit": {
+    "mailserver": {
+      "username": "alerts@hostname.pro",
+      "password": "MAIL_PASSWORD",
+      "host": "smtp.gmail.com",
+      "port": "587",
+      "encryption": "tlsv1"
+    }
   }
 }
