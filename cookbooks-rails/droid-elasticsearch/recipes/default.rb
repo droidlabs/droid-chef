@@ -3,6 +3,13 @@
 # Execute default recipe
 include_recipe 'elasticsearch::default'
 
+# Override service config
+template "/etc/init.d/elasticsearch" do
+  cookbook "droid-elasticsearch"	
+  source "elasticsearch.init.erb"
+  owner 'root' and mode 0755
+end
+
 # Change shell for elsticsearch user 
 user node.elasticsearch[:user] do
   comment "ElasticSearch User"
