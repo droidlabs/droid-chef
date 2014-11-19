@@ -1,9 +1,0 @@
-[
-    {
-    "name" : "<%= node['hostname'] %>.<%= node['domain'] %>",
-    "host" : "<%= node['mysql']['bind_address'] %>",
-    "metrics" : "status,newrelic",
-    "user" : "<%= node[:deploy_user][:database_username] %>",
-    "passwd" : "<%= node[:deploy_user][:database_password] %>"
-    },
-]
