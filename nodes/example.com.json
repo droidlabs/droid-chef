@@ -35,7 +35,8 @@
     //"recipe[mongodb]",
 
     "recipe[droid-rabbitmq]",
-    "recipe[rails]"
+    "recipe[rails]",
+    "recipe[droid-newrelic]"
   ],
 
   // Global deploy user
@@ -95,7 +96,13 @@
   ],
 
   "newrelic":{
-    "license_key": "YOUR_LICENSE_KEY"
+    "license_key": "YOUR_LICENSE_KEY",
+    "plugins": { "mysql": true, 
+                 "nginx": true,
+                 "postgresql": true, 
+                 "elasticsearch": true,
+                 "rabbitmq": false
+                }
   },
 
   "java": {
@@ -132,14 +139,14 @@
     ]
   },
 
-   "backup": {
-     "s3": {
-       "aws_access_key": "YOUR_ACCESS_KEY",
-       "aws_secret_key": "YOUR_SECRET_KEY",
-       "bucket_name": "BUCKET_NAME",
-       "bucket_region": "us-east-1",
-       "keep": "10"
-   }
+  "backup": {
+    "s3": {
+      "aws_access_key": "YOUR_ACCESS_KEY",
+      "aws_secret_key": "YOUR_SECRET_KEY",
+      "bucket_name": "BUCKET_NAME",
+      "bucket_region": "us-east-1",
+      "keep": "10"
+    }
   },
 
   //Monit mail settings
