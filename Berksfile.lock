@@ -23,8 +23,11 @@ DEPENDENCIES
   mongodb
   monit
   mysql
-  newrelic
   newrelic-ng
+  newrelic_meetme_plugin
+  newrelic_plugins
+    git: git://github.com/rackspace-cookbooks/newrelic_plugins_chef.git
+    revision: b4dd7827f653eb3e8bbc1f69608ae37933bfc84c
   ohai
   openssl
   postgresql
@@ -52,7 +55,6 @@ GRAPH
   chef-sugar (2.4.1)
   chef_handler (1.1.6)
   cron (1.6.1)
-  curl (2.0.1)
   dmg (2.2.2)
   elasticsearch (0.3.11)
     ark (>= 0.2.4)
@@ -90,14 +92,14 @@ GRAPH
   monit (0.7.5)
   mysql (5.6.1)
     yum-mysql-community (>= 0.0.0)
-  newrelic (2.4.0)
-    curl (>= 0.0.0)
-    python (>= 0.0.0)
-  newrelic-ng (0.5.2)
+  newrelic-ng (0.5.3)
     apt (>= 0.0.0)
     build-essential (>= 0.0.0)
     php (>= 0.0.0)
     python (>= 0.0.0)
+  newrelic_meetme_plugin (0.0.3)
+    python (>= 0.0.0)
+  newrelic_plugins (1.1.0)
   ohai (2.0.1)
   openssl (2.0.0)
     chef-sugar (>= 0.0.0)
