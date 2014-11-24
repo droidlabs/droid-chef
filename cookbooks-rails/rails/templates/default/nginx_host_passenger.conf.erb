@@ -33,7 +33,8 @@ server {
 
   passenger_enabled on;
   passenger_min_instances <%= @app_workers %>;
-  <%- if node[:nginx][:passenger][:enterprise] %>
+  <%- token = node['nginx']['passenger']['enterprise']['token'] %>
+  <%- if token != '' && token != nil %>
   passenger_ruby <%= @ruby_dir %>/bin/ruby;
   <% end -%>
 
@@ -73,7 +74,7 @@ server {
 
   passenger_enabled on;
   passenger_min_instances 1;
-  <%- if node[:nginx][:passenger][:enterprise] %>
+  <%- if token != '' && token != nil %>
   passenger_ruby <%= @ruby_dir %>/bin/ruby;
   <% end -%>
 

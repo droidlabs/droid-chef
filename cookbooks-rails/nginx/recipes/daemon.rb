@@ -5,6 +5,9 @@ log_path    = node[:nginx][:log_path]
 home_path   = "/home/#{deploy_user}"
 tmp_dir     = "#{home_path}/downloads"
 
+pass_version = node['nginx']['passenger']['version']
+token        = node['nginx']['passenger']['enterprise']['token']
+
 main_ruby_version = node[:deploy_user][:ruby_version]
 app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
 ruby_versions     = [main_ruby_version] + app_ruby_versions
@@ -39,20 +42,23 @@ end
 
 # Install enterprise or regular passenger GEM !
 # NOTE: you should copy enterprise passgenger gem and license to /files/default dir
-if node[:nginx][:passenger][:enterprise]
+if token != '' && token != nil
   cookbook_file "/etc/passenger-enterprise-license" do
     owner 'root'
     group 'root'
     mode 0755
   end
-  cookbook_file "#{tmp_dir}/passenger-enterprise-server.gem" do
-    owner deploy_user
-    group deploy_user
-    mode 0755
-  end
+  # cookbook_file "#{tmp_dir}/passenger-enterprise-server.gem" do
+  # remote_file "#{tmp_dir}/passenger-enterprise-server.gem" do
+  #   source "http://www.example.org/large-file.tar.gz"
+  #   owner deploy_user
+  #   group deploy_user
+  #   mode 0755
+  # end
   ruby_versions.each do |version|
     bash "install passenger gem - ruby #{version}" do
-      code "sudo -u #{deploy_user} -i sudo -i env RBENV_VERSION='#{version}' gem install #{tmp_dir}/passenger-enterprise-server.gem"
+      # code "sudo -u #{deploy_user} -i sudo -i env RBENV_VERSION='#{version}' gem install #{tmp_dir}/passenger-enterprise-server.gem"      not_if { result = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{version}' gem list | grep passenger`; result && result != '' }
+      code "sudo -u #{deploy_user} -i sudo -i env RBENV_VERSION='#{version}' gem install --source https://download:#{token}@www.phusionpassenger.com/enterprise_gems/ passenger-enterprise-server -v #{pass_version}"      
       not_if { result = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{version}' gem list | grep passenger`; result && result != '' }
     end
   end
