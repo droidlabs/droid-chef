@@ -6,14 +6,11 @@
     "recipe[deployer_user]",
     "recipe[sudo]",
     "recipe[droid-monit]",
-
     "recipe[ruby_build]",
-    "recipe[droid-rbenv]",	
-
+    "recipe[droid-rbenv]",
     "recipe[apt]",
     "recipe[build-essential]",
     "recipe[ohai]",
-    //"recipe[runit]",
     "recipe[git]",
     "recipe[openssl]",
     "recipe[security]",
@@ -26,10 +23,7 @@
     "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
 
     //"recipe[faye]",
-    //"recipe[newrelic]",
-
     "recipe[droid-backup]",         // don't forget to add configs at the bottom
-
     "recipe[java::oracle]",
     "recipe[droid-elasticsearch]",
     //"recipe[mongodb]",
@@ -90,10 +84,10 @@
     }
   ],
 
-  "nginx_redirects": [
-    ["www.example1.com", "example1.com"],
-    ["www.example2.com", "example2.com"]
-  ],
+    "nginx_redirects": [
+      ["www.example1.com", "example1.com"],
+      ["www.example2.com", "example2.com"]
+    ],
 
   "newrelic":{
     "license_key": "YOUR_LICENSE_KEY",
@@ -105,18 +99,22 @@
                 }
   },
 
-  "java": {
-    "oracle": { "accept_oracle_download_terms": true }
-  },
+    "java": {
+      "oracle": { "accept_oracle_download_terms": true }
+    },
 
-  // "nginx": {
-  //   "passenger": { "enterprise": true }
-  // },
+    //add passenger enterprise token, and set versions
+    "nginx": { "nginx_version": "1.6.2",
+      "passenger": { "version": "4.0.53",
+        "enterprise": { "token": "" 
+        }
+      }
+    },
 
-  // uncomment this line to upgrade ruby version
-  // "ruby_build": {
-  //   "upgrade": "true"
-  // },
+    // uncomment this line to upgrade ruby version
+    // "ruby_build": {
+    //   "upgrade": "true"
+    // },
 
   // "elasticsearch": {
   //   "allocated_memory": "1000m"
@@ -131,23 +129,23 @@
     }
   },
 
-  "rails": {
-    "packages":[
-      "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev",
-      "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "nodejs",
-      "libpq-dev", "postgresql-client-common", "postgresql-client", "libmysqlclient-dev" // remove pg/mysql client dev if not needed
-    ]
-  },
+    "rails": {
+      "packages":[
+        "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev",
+        "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "nodejs",
+        "libpq-dev", "postgresql-client-common", "postgresql-client", "libmysqlclient-dev" // remove pg/mysql client dev if not needed
+      ]
+    },
 
-   "backup": {
-     "s3": {
-       "aws_access_key": "YOUR_ACCESS_KEY",
-       "aws_secret_key": "YOUR_SECRET_KEY",
-       "bucket_name": "BUCKET_NAME",
-       "bucket_region": "us-east-1",
-       "keep": "10"
-   }
-  },
+    "backup": {
+      "s3": {
+        "aws_access_key": "YOUR_ACCESS_KEY",
+        "aws_secret_key": "YOUR_SECRET_KEY",
+        "bucket_name": "BUCKET_NAME",
+        "bucket_region": "us-east-1",
+        "keep": "10"
+      }
+    },
 
   //Monit mail settings
   "monit": {
