@@ -1,0 +1,10 @@
+# redis
+check process redis with pidfile /var/run/redis/redis-server.pid
+  start program = "/usr/sbin/service redis-server start"
+  stop  program = "/usr/sbin/service redis-server stop"
+  if failed host localhost port <%= node[:redis][:server][:port] %> then restart
+  if 5 restarts within 5 cycles then timeout
+  group redis
+
+check file dump.rdb with path /var/lib/redis/dump.rdb
+  if size > 100 MB then alert
