@@ -43,9 +43,9 @@ end
 
 if node['newrelic']['plugins']['elasticsearch']
   meetme_config['elasticsearch'] = {
-    name:    'elasticsearch',
+    name:    "#{node.name} #{node.elasticsearch[:cluster][:name]}",
     host:    'localhost',
-    port:    '9200',
+    port:    "#{node.elasticsearch[:http][:port]}",
     scheme:  'http'
   }
 end
