@@ -13,7 +13,7 @@ default[:nginx][:passenger][:pool_idle_time]        = 0
 default[:nginx][:passenger][:max_instances_per_app] = 0
 # a list of URL's to pre-start.
 default[:nginx][:passenger][:pre_start]  = []
-default[:nginx][:passenger][:enterprise] = false
+# default[:nginx][:passenger][:enterprise] = false
 default[:nginx][:passenger][:version]    = '4.0.53'
 
 default[:nginx][:sendfile]   = true
