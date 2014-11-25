@@ -1,0 +1,25 @@
+# Newrelic sysmond monitor {nrsysmond}
+
+check process newrelic-sysmond with pidfile /var/run/newrelic/nrsysmond.pid
+  start program = "/usr/sbin/service newrelic-sysmond start" with timeout 20 seconds
+  stop  program = "/usr/sbin/service newrelic-sysmond stop"
+  if totalmem is greater than 250 MB for 2 cycles then restart
+  group newrelic
+
+<% if node.newrelic[:plugins][:mysql] %>
+  # newrelic-mysql-plugin
+  check process newrelic-mysql-plugin with pidfile /var/run/newrelic-mysql-plugin.pid
+    start program = "/usr/sbin/service newrelic-mysql-plugin start" with timeout 20 seconds
+    stop  program = "/usr/sbin/service newrelic-mysql-plugin stop"
+    if totalmem is greater than 250 MB for 2 cycles then restart
+    group newrelic
+<% end %>  
+
+<% if node.newrelic[:plugins][:nginx] || node.newrelic[:plugins][:postgresql] || node.newrelic[:plugins][:elasticsearch] || node.newrelic[:plugins][:rabbitmq] %>
+  # newrelic-plugin-agent
+  check process newrelic-plugin-agent with pidfile /var/run/newrelic/newrelic-plugin-agent.pid
+    start program = "/usr/sbin/service newrelic-plugin-agent start" with timeout 20 seconds
+    stop  program = "/usr/sbin/service newrelic-plugin-agent stop"
+    if totalmem is greater than 250 MB for 2 cycles then restart
+    group newrelic
+<% end %>

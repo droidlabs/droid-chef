@@ -90,4 +90,4 @@ include_recipe 'newrelic_meetme_plugin'
 # NEWRELIC MEETME PLUGIN END  
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+include_recipe 'droid-monit::newrelic'
