@@ -15,7 +15,7 @@
     "recipe[openssl]",
     "recipe[security]",
     "recipe[imagemagick::devel]",
-    "recipe[redis::install_from_package]",
+    "recipe[droid-redis]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
 
@@ -120,14 +120,15 @@
   //   "allocated_memory": "1000m"
   // },
 
-  "security": {
-    // 22, 80, 443 ports are included by default, add them only to override
-    "ports": {
-      "2222": "all"
-      //"9200": "127.0.0.1"
-      //"9201": ["127.0.0.1", "8.8.8.8"]
-    }
-  },
+    "security": {
+      // 22, 80, 443 ports are included by default, add them only to override
+      "ports": {
+        "3737": "all"  //monit
+        "2222": "all"
+        //"9200": "127.0.0.1"
+        //"9201": ["127.0.0.1", "8.8.8.8"]
+      }
+    },
 
     "rails": {
       "packages":[
