@@ -41,8 +41,8 @@ end
 
 # GENERATE MODEL BACKUP DATABASES AND FILES
 node[:applications].each do |app|
-	
-	backup = app[:backup] || {}
+
+  backup = app[:backup] || {}
   db_backup_enabled = !backup.has_key?(:database) || backup[:database]
   files_backup_enabled = !backup.has_key?(:files) || backup[:files]
 
@@ -52,22 +52,22 @@ node[:applications].each do |app|
       backup_type   'database'
       database_type 'PostgreSQL'
       # split_into_chunks_of 2048
-			store_with 		settings_s3
+      store_with    settings_s3
       options       ({
-      									'db.name' 		=> "\"#{app[:name]}\"",
-										  	'db.username' => "\"#{deploy_user}\"",
-      							  	'db.password' => "\"#{database_pwd}\"",
-      							  	'db.host' 		=> "\"localhost\""
-      							 })
+                        'db.name'     => "\"#{app[:name]}\"",
+                        'db.username' => "\"#{deploy_user}\"",
+                        'db.password' => "\"#{database_pwd}\"",
+                        'db.host' 		=> "\"localhost\""
+                    })
       mailto        backup_mailto
       action        :backup
       hour 					cron_hour
       gem_bin_dir   backup_gem_bin_dir
     end
   else
-  	backup_generate_model "#{app[:name]}_db_pg" do
-  		action :disable
-  	end	
+    backup_generate_model "#{app[:name]}_db_pg" do
+      action :disable
+    end
   end
 
   if app[:database] == 'mysql' && db_backup_enabled
@@ -78,21 +78,21 @@ node[:applications].each do |app|
       # split_into_chunks_of 2048
       store_with    ( settings_s3 )
       options 			({
-      									"db.name" => "\"#{app[:name]}\"",
-      									"db.username" => "\"#{deploy_user}\"",
-      									"db.password" => "\"#{database_root_pwd}\"",
-      									"db.host" => "\"localhost\""
-      								}
-      							)  
-      mailto 				backup_mailto
-      action 				:backup
-      hour 					cron_hour
+                        "db.name" => "\"#{app[:name]}\"",
+                        "db.username" => "\"#{deploy_user}\"",
+                        "db.password" => "\"#{database_root_pwd}\"",
+                        "db.host" => "\"localhost\""
+                      }
+                    )  
+      mailto        backup_mailto
+      action        :backup
+      hour          cron_hour
       gem_bin_dir   backup_gem_bin_dir
     end
   else
-  	backup_generate_model "#{app[:name]}_db_mysql" do
-  		action :disable
-  	end
+    backup_generate_model "#{app[:name]}_db_mysql" do
+      action :disable
+    end
   end
   if app[:database] == 'mongodb' && db_backup_enabled
     backup_generate_model "#{app[:name]}_db_mongodb" do  
