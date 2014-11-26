@@ -138,9 +138,9 @@
     //   "upgrade": "true"
     // },
 
-    // "elasticsearch": {
-    //   "allocated_memory": "1000m"
-    // },
+    "elasticsearch": {
+      "allocated_memory": "300m"  // for test
+    },
 
     "security": {
       // 22, 80, 443 ports are included by default, add them only to override
@@ -161,6 +161,7 @@
     },
 
     "backup": {
+      "mailto" : "CHANGE ME",
       "s3": {
         "aws_access_key": "YOUR_ACCESS_KEY",
         "aws_secret_key": "YOUR_SECRET_KEY",
