@@ -28,13 +28,16 @@ settings_s3 = {
   }
 }
 
+after_hook_notifier = 'notify_by Mail'
+
 # INSTALL BACKUP GEM
 backup_install node.name
 
 # GENERATE CONFIG
 backup_generate_config node.name do
-	base_dir backup_base_dir
-end	
+  base_dir backup_base_dir
+  cookbook 'droid-backup'
+end
 gem_package 'fog' do
   version '~> 1.4.0'
 end
@@ -48,10 +51,10 @@ node[:applications].each do |app|
 
   if app[:database] == 'postgresql' && db_backup_enabled
     backup_generate_model "#{app[:name]}_db_pg" do
-      description   'backup of postgres'
+      description   "#{node.name} backup of postgres"
       backup_type   'database'
       database_type 'PostgreSQL'
-      # split_into_chunks_of 2048
+            # split_into_chunks_of 2048
       store_with    settings_s3
       options       ({
                         'db.name'     => "\"#{app[:name]}\"",
@@ -61,8 +64,9 @@ node[:applications].each do |app|
                     })
       mailto        backup_mailto
       action        :backup
-      hour 					cron_hour
+      hour          cron_hour
       gem_bin_dir   backup_gem_bin_dir
+      after_hook    after_hook_notifier
     end
   else
     backup_generate_model "#{app[:name]}_db_pg" do
@@ -72,7 +76,7 @@ node[:applications].each do |app|
 
   if app[:database] == 'mysql' && db_backup_enabled
     backup_generate_model "#{app[:name]}_db_mysql" do
-      description 'backup of mysql'
+      description "#{node.name} backup of mysql"
       backup_type 'database'
       database_type 'MySQL'
       # split_into_chunks_of 2048
@@ -88,6 +92,7 @@ node[:applications].each do |app|
       action        :backup
       hour          cron_hour
       gem_bin_dir   backup_gem_bin_dir
+      after_hook    after_hook_notifier
     end
   else
     backup_generate_model "#{app[:name]}_db_mysql" do
@@ -96,7 +101,7 @@ node[:applications].each do |app|
   end
   if app[:database] == 'mongodb' && db_backup_enabled
     backup_generate_model "#{app[:name]}_db_mongodb" do  
-      description "Our shard mongodb"  
+      description "#{node.name} Our shard mongodb"  
       backup_type "database"  
       database_type "MongoDB"  
       # split_into_chunks_of 2048  
@@ -106,6 +111,7 @@ node[:applications].each do |app|
       action 				:backup
       hour 					cron_hour
       gem_bin_dir   backup_gem_bin_dir
+      after_hook    after_hook_notifier
     end
   else
   	backup_generate_model "#{app[:name]}_db_mongodb" do
@@ -115,7 +121,7 @@ node[:applications].each do |app|
   # Archiving files to S3
   if files_backup_enabled
     backup_generate_model "#{app[:name]}_files_backup" do
-      description "backup #{app[:name]} files"
+      description "#{node.name} backup #{app[:name]} files"
       backup_type 'archive'
       # split_into_chunks_of 250
       store_with	( settings_s3 )
@@ -128,6 +134,7 @@ node[:applications].each do |app|
       action :backup
       hour 	 cron_hour
       gem_bin_dir   backup_gem_bin_dir
+      after_hook    after_hook_notifier
     end
   else
   	backup_generate_model "#{app[:name]}_files_backup" do
