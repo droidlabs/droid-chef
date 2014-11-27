@@ -2,8 +2,8 @@ DEPENDENCIES
   apt
   ark
   backup
-    git: git://github.com/damm/backup
-    revision: a12c962d815bb2f98290dd8224d7eaf0caac171d
+    git: git://github.com/fadeev2010/backup
+    revision: 9916f0f97d7de0032f88a5194273cf481f97e674
   build-essential
   elasticsearch
     git: git://github.com/elasticsearch/cookbook-elasticsearch

@@ -20,7 +20,8 @@ cookbook 'postgresql',    git: 'git://github.com/phlipper/chef-postgresql', tag:
 cookbook 'locale',        git: 'git://github.com/hw-cookbooks/locale/'
 cookbook 'mysql'
 cookbook 'elasticsearch', git: 'git://github.com/elasticsearch/cookbook-elasticsearch', tag: "0.3.11"
-cookbook 'backup',        git: 'git://github.com/damm/backup'
+# cookbook 'backup',        git: 'git://github.com/damm/backup'
+cookbook 'backup',        git: 'git://github.com/fadeev2010/backup'
 cookbook 'monit'
 cookbook 'rabbitmq'
 # cookbook 'newrelic'
