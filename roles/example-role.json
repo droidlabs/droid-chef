@@ -161,7 +161,24 @@
     },
 
     "backup": {
-      "mailto" : "CHANGE ME",
+      "mailto" : "alerts@hostname.pro",    //for Crontab
+      "notifiers": {
+        "mail": {
+          "on_success": "false",
+          "on_warning": "true",
+          "on_failure": "true",
+          "from": "alerts@hostname.pro",
+          "to": "alerts@hostname.pro",
+          "address": "smtp.gmail.com",
+          "port": "587",
+          "domain": "hostname.pro",
+          "user_name": "alerts@hostname.pro",
+          "password": "Change password",
+          "authentication": "plain",
+          "encryption": ":starttls"
+
+        }
+      },
       "s3": {
         "aws_access_key": "YOUR_ACCESS_KEY",
         "aws_secret_key": "YOUR_SECRET_KEY",
