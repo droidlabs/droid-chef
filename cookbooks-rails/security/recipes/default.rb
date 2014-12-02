@@ -1,6 +1,6 @@
-if node[:security][:additional_ports] && node[:security][:additional_ports].any?
-  raise "security[additional_ports] is deprecated. please use security[ports] with reverted hash syntax."
-end
+# if node[:security][:additional_ports] && node[:security][:additional_ports].any?
+#   raise "security[additional_ports] is deprecated. please use security[ports] with reverted hash syntax."
+# end
 
 ports = node[:security][:default_ports].merge(node[:security][:ports])
 
