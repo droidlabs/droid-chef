@@ -10,10 +10,23 @@ define :setup_app_nginx do
             # "/home/#{deploy_username}/.rbenv/versions/#{ruby_version}"
 
   if app[:modules].include?('ssl')
-    local_ssl_path = "#{Chef::Config[:file_cache_path]}/ssl"
-    ssl_path = "#{node[:nginx][:path]}/ssl"
-    FileUtils.cp "#{local_ssl_path}/#{app[:name]}.key", "#{ssl_path}/#{app[:name]}.key"
-    FileUtils.cp "#{local_ssl_path}/#{app[:name]}.crt", "#{ssl_path}/#{app[:name]}.crt"
+    # ssl_path = "#{node[:nginx][:path]}/ssl"
+    # local_ssl_path = "#{Chef::Config[:file_cache_path]}/ssl"
+    # FileUtils.cp "#{local_ssl_path}/#{app[:name]}.key", "#{ssl_path}/#{app[:name]}.key"
+    # FileUtils.cp "#{local_ssl_path}/#{app[:name]}.crt", "#{ssl_path}/#{app[:name]}.crt"
+
+    cookbook_file "#{node[:nginx][:path]}/ssl/#{app[:name]}.crt" do
+      source "/ssl/#{app[:name]}.crt"
+      owner 'root'
+      group 'root'
+      mode 0755
+    end
+    cookbook_file "#{node[:nginx][:path]}/ssl/#{app[:name]}.key" do
+      source "/ssl/#{app[:name]}.key"
+      owner 'root'
+      group 'root'
+      mode 0755
+    end
   end
 
   if app[:server] == 'thin'
