@@ -6,7 +6,7 @@ cookbooks/*
 /nodes/192.168.235.140.json
 /cookbooks-rails/nginx/files/default/passenger-enterprise-license
 /cookbooks-rails/nginx/files/default/passenger-enterprise-server.gem
-/cookbooks-rails/nginx/files/default/ssl/*
+/cookbooks-rails/rails/files/default/ssl/*
 roles/irails-dev.json
 roles/prod-*
 
