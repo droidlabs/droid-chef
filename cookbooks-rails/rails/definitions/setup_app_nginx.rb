@@ -16,13 +16,13 @@ define :setup_app_nginx do
     # FileUtils.cp "#{local_ssl_path}/#{app[:name]}.crt", "#{ssl_path}/#{app[:name]}.crt"
 
     cookbook_file "#{node[:nginx][:path]}/ssl/#{app[:name]}.crt" do
-      source "/ssl/#{app[:name]}.crt"
+      source "ssl/#{app[:name]}.crt"
       owner 'root'
       group 'root'
       mode 0755
     end
     cookbook_file "#{node[:nginx][:path]}/ssl/#{app[:name]}.key" do
-      source "/ssl/#{app[:name]}.key"
+      source "ssl/#{app[:name]}.key"
       owner 'root'
       group 'root'
       mode 0755
