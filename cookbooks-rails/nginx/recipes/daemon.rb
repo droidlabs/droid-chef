@@ -12,28 +12,15 @@ main_ruby_version = node[:deploy_user][:ruby_version]
 app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
 ruby_versions     = [main_ruby_version] + app_ruby_versions
 
-# major_ruby = case main_ruby_version
-#              when /1\.9/ then "1.9.1"
-#              when /2\.0/ then "2.0.0"
-#              when /2\.1/ then "2.1.0"
-#              end
-
-ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"  #{}"#{home_path}/.rbenv/versions/#{main_ruby_version}"
-
-# Old version: The location to the Phusion Passenger root directory.
-# passenger_dir = if node[:nginx][:passenger][:enterprise]
-#  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-enterprise-server-#{node[:nginx][:passenger][:version]}"
-# else
-#  "#{ruby_dir}/lib/ruby/gems/#{major_ruby}/gems/passenger-#{node[:nginx][:passenger][:version]}"
-# end
+ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"
 
 cc = 'gcc'
 
-['libcurl4-openssl-dev','libpcre3-dev', 'curl'].each do |pkg|
+['libcurl4-openssl-dev', 'libpcre3-dev', 'curl'].each do |pkg|
   package pkg
 end
 
-#Create nginx directory Default: '/opt/nginx'
+# Create nginx directory Default: '/opt/nginx'
 directory nginx_path do
   user deploy_user
   mode 0755
@@ -43,22 +30,14 @@ end
 # Install enterprise or regular passenger GEM !
 # NOTE: you should copy enterprise passgenger gem and license to /files/default dir
 if token != '' && token != nil
-  cookbook_file "/etc/passenger-enterprise-license" do
+  cookbook_file '/etc/passenger-enterprise-license' do
     owner 'root'
     group 'root'
     mode 0755
   end
-  # cookbook_file "#{tmp_dir}/passenger-enterprise-server.gem" do
-  # remote_file "#{tmp_dir}/passenger-enterprise-server.gem" do
-  #   source "http://www.example.org/large-file.tar.gz"
-  #   owner deploy_user
-  #   group deploy_user
-  #   mode 0755
-  # end
   ruby_versions.each do |version|
     bash "install passenger gem - ruby #{version}" do
-      # code "sudo -u #{deploy_user} -i sudo -i env RBENV_VERSION='#{version}' gem install #{tmp_dir}/passenger-enterprise-server.gem"      not_if { result = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{version}' gem list | grep passenger`; result && result != '' }
-      code "sudo -u #{deploy_user} -i sudo -i env RBENV_VERSION='#{version}' gem install --source https://download:#{token}@www.phusionpassenger.com/enterprise_gems/ passenger-enterprise-server -v #{pass_version}"      
+      code "sudo -u #{deploy_user} -i sudo -i env RBENV_VERSION='#{version}' gem install --source https://download:#{token}@www.phusionpassenger.com/enterprise_gems/ passenger-enterprise-server -v #{pass_version}"
       not_if { result = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{version}' gem list | grep passenger`; result && result != '' }
     end
   end
@@ -80,19 +59,14 @@ if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade
     action :create_if_missing
   end
 
-  bash "extract nginx" do
+  bash 'extract nginx' do
     code "cd #{tmp_dir}; sudo -u #{deploy_user} tar -xzf nginx-#{nginx_version}.tar.gz"
   end
 
   flags = node[:nginx][:configure_flags]
   bash "install passenger/nginx" do
-   #code %Q{CC=#{cc} sudo -u #{deploy_user} -i sudo rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
     code %Q{CC=#{cc} sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
-
-  # bash "fix issue with passenger installation" do
-  #   code "cd #{passenger_dir}; sudo -u #{deploy_user} -i sudo rake nginx"
-  # end
 else
   # The location to the Phusion Passenger root directory.
   passenger_dir = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp
@@ -109,8 +83,8 @@ directory "#{nginx_path}/logs" do
   mode 0755
   action :create
   recursive true
-  owner "nobody"
-  group "root"
+  owner 'nobody'
+  group 'root'
 end
 
 directory "#{nginx_path}/ssl" do
@@ -166,7 +140,7 @@ template "/etc/init.d/passenger" do
   group "root"
   mode 0755
   variables(
-    :pidfile => "#{node[:nginx][:pid_path]}", # #{nginx_path}/logs/nginx.pid
+    :pidfile => "#{node[:nginx][:pid_path]}",
     :nginx_path => nginx_path
   )
 end
@@ -182,9 +156,9 @@ service "passenger" do
   service_name "passenger"
   enabled true
   running true
-  reload_command "if [ -e #{node[:nginx][:pid_path]} ]; then #{nginx_path}/sbin/nginx -s reload; fi" # #{nginx_path}/logs/nginx.pid
+  reload_command "if [ -e #{node[:nginx][:pid_path]} ]; then #{nginx_path}/sbin/nginx -s reload; fi"
   start_command "#{nginx_path}/sbin/nginx"
-  stop_command "if [ -e #{node[:nginx][:pid_path]} ]; then #{nginx_path}/sbin/nginx -s stop; fi" # #{nginx_path}/logs/nginx.pid
+  stop_command "if [ -e #{node[:nginx][:pid_path]} ]; then #{nginx_path}/sbin/nginx -s stop; fi"
   status_command "curl http://localhost/nginx_status"
   supports [ :start, :stop, :reload, :status, :enable ]
   action [ :enable, :start ]
