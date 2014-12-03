@@ -84,6 +84,7 @@
         "server": "double",       // unicorn, thin, double
           "frontend_folder": "frontend",
           "backend_folder": "backend",
+          "thin_folder": "backend/application/web",
         "server_workers_count": 2,
         "server_host_default": false,
         "ruby_version": "2.0.0-p598", // multiple ruby versions are only supported in passenger enterprise

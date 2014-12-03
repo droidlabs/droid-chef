@@ -35,7 +35,7 @@ define :setup_app_nginx do
         default: app[:server_host_default] || false,
         using_port: using_port,
         servers_count: app[:server_workers_count] || 2,
-        backend_folder: app[:backend_folder]
+        thin_folder: app[:thin_folder]
       )
     end
   end
@@ -70,7 +70,8 @@ define :setup_app_nginx do
       ssl_support: app[:modules].include?('ssl'),
       using_port: using_port,
       ruby_dir: ruby_dir,
-      frontend_folder: app[:frontend_folder]
+      frontend_folder: app[:frontend_folder],
+      backend_folder: app[:backend_folder]
     )
     notifies :restart, 'service[passenger]'
   end
