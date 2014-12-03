@@ -4,7 +4,7 @@ timeout: 30
 max_conns: 1024
 port: <%= @using_port %>
 max_persistent_conns: 512
-chdir: /data/<%= @app_name %>/current/backend/application/web
+chdir: /data/<%= @app_name %>/current/<%= @backend_folder %>/application/web
 environment: <%= @app_env %>
 servers: <%= @servers_count %>
 address: 0.0.0.0
