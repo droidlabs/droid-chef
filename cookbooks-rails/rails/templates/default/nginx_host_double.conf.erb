@@ -1,4 +1,4 @@
-# BACKEND: <%= @app_name %> - <%= @api_urls %>
+# BACKEND: <%= @app_name %> - <%= @backend_urls %>
 upstream proxy_<%= @app_name %> {
   server 127.0.0.1:<%= @using_port %>;
   server 127.0.0.1:<%= @using_port + 1 %>;
@@ -6,7 +6,7 @@ upstream proxy_<%= @app_name %> {
 server {
   listen 80;
   client_max_body_size 4G;
-  server_name <%= @api_urls %>;
+  server_name <%= @backend_urls %>;
   root /data/<%= @app_name %>/current/<%= @frontend_folder %>/public;
 
   # Block bots who like track urls (php usually)
