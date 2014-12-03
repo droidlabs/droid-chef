@@ -75,23 +75,25 @@
         // modules needed to add additional configs to shared folder
       },
       {
-        "name": "doseego",
-        "app_user": "doseego",
+        "name": "test_double",
+        "app_user": "test_double",
         "app_password": "Droid123",
         "environment": "staging",
-        "web_urls": "doseego-test.com",
+        "web_urls": "test_double.com",
         "database": "postgresql", // mongodb, mysql    //СУБД
-        "server": "passenger", // unicorn, thin
+        "server": "double",       // unicorn, thin, double
+          "frontend_folder": "frontend",
+          "backend_folder": "backend",
         "server_workers_count": 2,
         "server_host_default": false,
-        "ruby_version": "2.1.2", // multiple ruby versions are only supported in passenger enterprise
+        "ruby_version": "2.0.0-p598", // multiple ruby versions are only supported in passenger enterprise
         "modules": []
         // available modules: elasticsearch, sidekiq, ssl.
         // modules needed to add additional configs to shared folder
       },
       {
-        "name": "test2",
-        "app_user": "test2",
+        "name": "roadchange",
+        "app_user": "roadchange",
         "app_password": "Droid123",
         "environment": "production",
         "web_urls": "test2.com",
@@ -100,7 +102,7 @@
         "server_workers_count": 2,
         "server_host_default": false,
         "ruby_version": "1.9.3-p550",   // multiple ruby versions are only supported in passenger enterprise
-        "modules": []
+        "modules": ["ssl"]
         // available modules: elasticsearch, sidekiq, ssl.
         // modules needed to add additional configs to shared folder
       }
@@ -139,14 +141,14 @@
     // },
 
     "elasticsearch": {
-      "allocated_memory": "300m"  // for test
+      "allocated_memory": "300m"
     },
 
     "security": {
       // 22, 80, 443 ports are included by default, add them only to override
       "ports": {
-        //"3737": "all"  //web monit
-        //"2222": "all"
+        "3737": "all"    //web monit
+        //"2222": "all"  //Vagrant
         //"9200": "127.0.0.1"
         //"9201": ["127.0.0.1", "8.8.8.8"]
       }
