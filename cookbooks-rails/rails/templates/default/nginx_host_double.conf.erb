@@ -1,0 +1,80 @@
+# BACKEND: <%= @app_name %> - <%= @api_urls %>
+upstream proxy_<%= @app_name %> {
+  server 127.0.0.1:<%= @using_port %>;
+  server 127.0.0.1:<%= @using_port + 1 %>;
+}
+server {
+  listen 80;
+  client_max_body_size 4G;
+  server_name <%= @api_urls %>;
+  root /data/<%= @app_name %>/current/frontend/public;
+
+  # Block bots who like track urls (php usually)
+  location ~ \.php$ {
+    deny  all;
+  }
+  location = /500.html {
+    root /data/<%= @app_name %>/current/frontend/public;
+  }
+
+  access_log  /data/<%= @app_name %>/shared/log/nginx-backend.access.log;
+  error_log   /data/<%= @app_name %>/shared/log/nginx-backend.error.log;
+
+  location / {
+    try_files $uri @app;
+  }
+
+  location /nginx_stub_status {
+    stub_status on;
+  }
+
+  location @app {
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://proxy_<%= @app_name %>;
+  }
+}
+
+# FRONTEND: <%= @app_name %> - <%= @web_urls %>
+server {
+  listen 80<%= ' default' if @default %>;
+  client_max_body_size 4G;
+  server_name <%= @web_urls %>;
+  root /data/<%= @app_name %>/current/frontend/public;
+
+  # Block bots who like track urls (php usually)
+  location ~ \.php$ {
+    deny  all;
+  }
+  location = /500.html {
+    root /data/<%= @app_name %>/current/frontend/public;
+  }
+  location ~ ^/assets/.*\.(jpg|jpeg|png|bmp|gif|css|js)$  {
+    root /data/<%= @app_name %>/current/frontend/public;
+
+    <%- if node[:nginx][:gzip] %>
+      gzip_static on;
+      gzip_http_version 1.0;
+    <% end -%>
+
+    expires max;
+    add_header Cache-Control public;
+    add_header Access-Control-Allow-Origin *;
+
+    error_page 404 /404.html;
+  }
+
+  location /nginx_stub_status {
+    stub_status on;
+  }
+
+  passenger_enabled on;
+  passenger_ruby <%= @ruby_dir %>/bin/ruby;
+  passenger_min_instances <%= @app_workers %>;
+  rails_env <%= @app_env %>;
+
+  access_log  /data/<%= @app_name %>/shared/log/nginx-frontend.access.log;
+  error_log   /data/<%= @app_name %>/shared/log/nginx-frontend.error.log;
+}
