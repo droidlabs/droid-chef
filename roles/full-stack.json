@@ -39,7 +39,7 @@
   ],
 
   "default_attributes": {
-    
+
     // Global deploy user
     //-------------------
     "deploy_user": {
@@ -61,11 +61,11 @@
       {
         "name": "irails",
         "app_user": "irails",
-        "app_password": "Droid123",	  // "app_password": if not set => default app[:name]+'_PASSWORD'  
+        "app_password": "Droid123",	  // "app_password": if not set => default app[:name]+'_PASSWORD'
         "environment": "staging",		  // staging
         "web_urls": "irails-test.com",
         "database": "postgresql", 	  // mongodb, MySQL
-        "server": "passenger", 		  // unicorn, thin    
+        "server": "passenger", 		  // unicorn, thin
         "server_workers_count": 4,          // for passenger, thin, unicorn
         "server_host_default": false,
         "ruby_version": "2.1.4",            // multiple ruby versions for each app are only supported in passenger enterprise
@@ -93,8 +93,8 @@
         // modules needed to add additional configs to shared folder
       },
       {
-        "name": "test2",
-        "app_user": "test2",
+        "name": "roadchange",
+        "app_user": "roadchange",
         "app_password": "Droid123",
         "environment": "production",
         "web_urls": "test2.com",
@@ -103,7 +103,7 @@
         "server_workers_count": 2,
         "server_host_default": false,
         "ruby_version": "1.9.3-p550",   // multiple ruby versions are only supported in passenger enterprise
-        "modules": []
+        "modules": ["ssl"]
         // available modules: elasticsearch, sidekiq, ssl.
         // modules needed to add additional configs to shared folder
       }
@@ -116,9 +116,9 @@
 
     "newrelic":{
       "license_key": "CHANGE ME",
-      "plugins": { "mysql": true, 
+      "plugins": { "mysql": true,
                    "nginx": true,
-                   "postgresql": true, 
+                   "postgresql": true,
                    "elasticsearch": true,
                    "rabbitmq": false
                   }
@@ -131,7 +131,7 @@
     //add passenger enterprise token, and set versions
     "nginx": { "nginx_version": "1.6.2",
       "passenger": { "version": "4.0.53",
-        "enterprise": { "token": ""  
+        "enterprise": { "token": ""
         }
       }
     },
@@ -201,5 +201,5 @@
         "encryption": "tlsv1"
       }
     }
-  }  
+  }
 }
