@@ -29,13 +29,32 @@ define :setup_app_nginx do
     end
   end
 
-  if app[:server] == 'thin'
+  # if app[:server] == 'thin'
+  #   template "/data/#{app[:name]}/shared/config/thin.yml" do
+  #     servers_count = app[:modules].include?('websockets') ? 6 : 3
+  #     source 'thin.yml.erb'
+  #     owner app[:app_user] # deploy_username
+  #     group app[:app_user] # deploy_username
+  #     mode '0660'
+  #     variables(
+  #       app_name: app[:name],
+  #       app_env: app[:environment],
+  #       web_urls: app[:web_urls],
+  #       default: app[:server_host_default] || false,
+  #       using_port: using_port,
+  #       servers_count: servers_count
+  #     )
+  #   end
+  # end
+
+  if app[:server] == 'thin' || app[:server] == 'double'
+    template_name =  app[:server] == 'thin' ? "thin.yml.erb" : "thin.double.yml.erb"
     template "/data/#{app[:name]}/shared/config/thin.yml" do
-      servers_count = app[:modules].include?('websockets') ? 6 : 3
-      source 'thin.yml.erb'
-      owner app[:app_user] # deploy_username
-      group app[:app_user] # deploy_username
-      mode '0660'
+      servers_count = app[:modules].include?("websockets") ? 4 : 2   #  6 : 3 ?????
+      source template_name
+      owner app[:app_user]
+      group app[:app_user]
+      mode   "0660"
       variables(
         app_name: app[:name],
         app_env: app[:environment],
