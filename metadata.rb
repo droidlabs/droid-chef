@@ -1,4 +1,4 @@
-name "irails-chef"
+name "droid-chef"
 description "install server"
 version "0.2.3"
 

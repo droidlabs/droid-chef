@@ -1,6 +1,6 @@
 {
   "name": "full-stack",
-  "description": "Example role irails-chef recipes and attributes",
+  "description": "Example role droid-chef recipes and attributes",
   "chef_type": "role",
   "json_class": "Chef::Role",
 
