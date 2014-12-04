@@ -102,6 +102,7 @@
         "frontend_folder": "frontend",
         "backend_folder": "backend",
         "thin_folder": "backend/application/web",
+        "backend_urls": "api.test-double.com",
         "server_workers_count": 2,
         "server_host_default": false,
         "ruby_version": "2.0.0-p598",
