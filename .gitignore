@@ -9,5 +9,6 @@ cookbooks/*
 /cookbooks-rails/rails/files/default/ssl/*
 roles/irails-dev.json
 roles/prod-*
+.rubocop_todo.yml
 
 
