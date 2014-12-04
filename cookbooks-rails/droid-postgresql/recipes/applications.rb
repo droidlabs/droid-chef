@@ -15,7 +15,7 @@ node[:applications].each do |app|
     # Create APP user in DB Postgresql #
     pg_user app[:app_user] do
       privileges superuser: false, createdb: false, login: true
-      password app[:app_password] || app[:name] + '_PASSWORD'
+      password app[:app_password]
     end
 
     pg_database app[:name] do
@@ -24,16 +24,3 @@ node[:applications].each do |app|
 
   end
 end
-
-# node[:applications].each do |app|
-#  if app[:database] == 'postgresql'
-#    pg_database app[:name] do
-#      owner user_name
-#    end
-#  end
-# end
-
-#  create a user with an MD5-encrypted password
-#  pg_user "myuser" do
-#  privileges superuser: false, createdb: false, login: true
-#  encrypted_password "667ff118ef6d196c96313aeaee7da519"

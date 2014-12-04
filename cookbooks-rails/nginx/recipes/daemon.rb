@@ -166,7 +166,6 @@ service "passenger" do
 end
 
 include_recipe "logrotate"
-
 logrotate_app "passenger" do
   path "#{node[:nginx][:log_path]}/*.log #{node[:nginx][:log_path]}/*/*.log"
   rotate 12

@@ -6,8 +6,8 @@
 
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    "recipe[droid-admin]",    // install mc, htop, and more pkg
-    "recipe[locale]",         // add locale LC_ALL = en_US.UTF8
+    "recipe[droid-admin]",          // install mc, htop, and more pkg
+    "recipe[locale]",               // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
     "recipe[sudo]",
     "recipe[droid-monit]",
@@ -24,8 +24,8 @@
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
 
-    "recipe[droid-mysql]",      //wrapper-cookbook, change settings MySQL here !!
-    "recipe[droid-postgresql]", //wrapper-cookbook, change settings postresql here !!
+    "recipe[droid-mysql]",          // wrapper-cookbook, change settings MySQL here
+    "recipe[droid-postgresql]",     // wrapper-cookbook, change settings postresql here
 
     //"recipe[faye]",
     "recipe[droid-backup]",         // don't forget to add configs at the bottom
@@ -34,8 +34,8 @@
     //"recipe[mongodb]",
 
     "recipe[droid-rabbitmq]",
-    "recipe[rails]",
-    "recipe[droid-newrelic]"
+    "recipe[rails]"
+    // "recipe[droid-newrelic]"
   ],
 
   "default_attributes": {
@@ -44,68 +44,85 @@
     //-------------------
     "deploy_user": {
       "username": "ninja",
-      "password": "Droid123",			  // Set new password, don't use special symbol
+      "password": "Droid123",			                  // Set new password, don't use special symbol
       "ruby_version": "2.1.3",                      // Global rbenv version
       "database_host": "localhost",
-      "database_username": "ninja",                 // Superuser {postgresql}
+      "database_username": "ninja",
       "database_password": "DB_NINJA_PASSWORD",
       "database_root_password": "DB_ROOT_PASSWORD"  // Root password (Only used for MySQL)
     },
 
-    // For each application will be created deploy user with
-    //   login: app[:app_user]
-    //   password: app[:app_user_password] if not set app[:name]+'_PASSWORD'
-    // You can change login/password with options: app_user/app_password
+    // For each application in this list will be created following items:
+    // -- Database with app[:name]
+    // -- Nginx server record with app[:web_urls]
+    // -- Folder with Capistrano basic structure on /data/app[:name]
+    // -- User with username: app[:app_user], password: app[:app_password]
+
     //-------------------
     "applications": [
+      // THIS IS MAIN EXAMPLE APP, use it in all general cases
       {
-        "name": "irails",
-        "app_user": "irails",
-        "app_password": "Droid123",	  // "app_password": if not set => default app[:name]+'_PASSWORD'
-        "environment": "staging",		  // staging
-        "web_urls": "irails-test.com",
-        "database": "postgresql", 	  // mongodb, MySQL
-        "server": "passenger", 		  // unicorn, thin
-        "server_workers_count": 4,          // for passenger, thin, unicorn
-        "server_host_default": false,
-        "ruby_version": "2.1.4",            // multiple ruby versions for each app are only supported in passenger enterprise
-        "modules": ["elasticsearch", "sidekiq"],
-        "backup": { "database": true, "files": false } // Default: { database: true, files: true }
+        "name": "example_app",
+        // -- User
+        // For each application will be created deploy user with
+        //   login: app[:app_user]
+        //   password: app[:app_user_password]
+        "app_user": "example_app",
+        "app_password": "Droid123",
+        "environment": "staging",
+        // -- Database
+        // available options: postgresql, mongodb, mysql
+        "database": "postgresql",
+        // -- Server
+        // available options: passenger, unicorn, thin, double
+        "server": "passenger",
+        "server_workers_count": 4,
+        "server_host_default": true,
+        "web_urls": "example.com",
+        // -- Backup
+        // default: { database: true, files: true }
+        "backup": { "database": true, "files": false },
+        // -- Ruby
+        // multiple ruby versions for each app are only supported in passenger enterprise
+        "ruby_version": "2.1.4",
+        // --- Modules
         // available modules: elasticsearch, sidekiq, ssl.
-        // modules needed to add additional configs to shared folder
+        // modules are required to add additional configs to shared folder
+        "modules": ["elasticsearch", "sidekiq"]
       },
       {
         "name": "test_double",
         "app_user": "test_double",
         "app_password": "Droid123",
         "environment": "staging",
-        "web_urls": "test_double.com",
-        "database": "postgresql", // mongodb, mysql    //СУБД
-        "server": "double",       // unicorn, thin, double
-          "frontend_folder": "frontend",
-          "backend_folder": "backend",
-          "thin_folder": "backend/application/web",
+        "backend_urls": "api.test-double.com",
+        "web_urls": "test-double.com",
+        "database": "postgresql",
+        "server": "double",
+        "frontend_folder": "frontend",
+        "backend_folder": "backend",
+        "thin_folder": "backend/application/web",
         "server_workers_count": 2,
         "server_host_default": false,
-        "ruby_version": "2.0.0-p598", // multiple ruby versions are only supported in passenger enterprise
+        "ruby_version": "2.0.0-p598",
         "modules": []
-        // available modules: elasticsearch, sidekiq, ssl.
-        // modules needed to add additional configs to shared folder
       },
       {
-        "name": "roadchange",
-        "app_user": "roadchange",
+        // This app requires adding following files:
+        //   cookbooks-rails/rails/files/default/ssl/test_ssl.crt
+        //   cookbooks-rails/rails/files/default/ssl/test_ssl.key
+        // Please create that files or comment out this app.
+        "name": "test_ssl",
+        "app_user": "test_ssl",
         "app_password": "Droid123",
         "environment": "production",
-        "web_urls": "test2.com",
-        "database": "mysql", // mongodb, mysql    //СУБД
-        "server": "passenger", // unicorn, thin
+        "web_urls": "test-ssl.com",
+        "database": "mysql",
+        "server": "passenger",
         "server_workers_count": 2,
         "server_host_default": false,
-        "ruby_version": "1.9.3-p550",   // multiple ruby versions are only supported in passenger enterprise
+        "ruby_version": "1.9.3-p550",
         "modules": ["ssl"]
-        // available modules: elasticsearch, sidekiq, ssl.
-        // modules needed to add additional configs to shared folder
       }
     ],
 
@@ -128,11 +145,10 @@
       "oracle": { "accept_oracle_download_terms": true }
     },
 
-    //add passenger enterprise token, and set versions
+    // Add passenger enterprise token, otherwise free version of passenger will be user
     "nginx": { "nginx_version": "1.6.2",
       "passenger": { "version": "4.0.53",
-        "enterprise": { "token": ""
-        }
+        "enterprise": { "token": "" }
       }
     },
 
@@ -148,23 +164,24 @@
     "security": {
       // 22, 80, 443 ports are included by default, add them only to override
       "ports": {
-        //"3737": "all"    //Web monit
-        //"2222": "all"  //Vagrant ssh
-        //"9200": "127.0.0.1"
-        //"9201": ["127.0.0.1", "8.8.8.8"]
+        // "3737": "all"  // Web monit
+        // "2222": "all"  // Vagrant ssh
+        // "9200": "127.0.0.1"
+        // "9201": ["127.0.0.1", "8.8.8.8"]
       }
     },
 
     "rails": {
       "packages":[
+        // remove pg/mysql client dev if not needed
         "libxml2-dev", "libxslt1-dev", "libncurses5-dev", "libncurses5-dev",
         "libcurl4-gnutls-dev", "wkhtmltopdf", "vim", "nodejs",
-        "libpq-dev", "postgresql-client-common", "postgresql-client", "libmysqlclient-dev" // remove pg/mysql client dev if not needed
+        "libpq-dev", "postgresql-client-common", "postgresql-client", "libmysqlclient-dev"
       ]
     },
 
     "backup": {
-      "mailto" : "alerts@hostname.pro",    //for Crontab
+      "mailto" : "alerts@hostname.pro",
       "notifiers": {
         "mail": {
           "on_success": "false",
@@ -191,7 +208,7 @@
       }
     },
 
-    //Monit mail settings
+    // Monit mail settings
     "monit": {
       "mailserver": {
         "username": "alerts@hostname.pro",
