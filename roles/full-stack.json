@@ -44,7 +44,7 @@
     //-------------------
     "deploy_user": {
       "username": "ninja",
-      "password": "Droid123",			                  // Set new password, don't use special symbol
+      "password": "Droid123",                       // Set new password, don't use special symbol
       "ruby_version": "2.1.3",                      // Global rbenv version
       "database_host": "localhost",
       "database_username": "ninja",
