@@ -13,8 +13,8 @@ default["monit"]["logfile"]                = 'syslog facility log_daemon'
 default["monit"]["poll_period"]            = 60
 default["monit"]["poll_start_delay"]       = 240
 
-default["monit"]["mail_format"]["subject"] = "[Monit #{node.fqdn}] $SERVICE $EVENT"
-default["monit"]["mail_format"]["from"]    = "monit@#{node['fqdn']}"
+default["monit"]["mail_format"]["subject"] = "Monit #{ node.name } $SERVICE $EVENT"
+default["monit"]["mail_format"]["from"]    = node["monit"]["mailserver"]["username"]
 default["monit"]["mail_format"]["message"] = <<-EOS
 Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
 Yours sincerely,
