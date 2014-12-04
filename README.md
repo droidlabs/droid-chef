@@ -15,6 +15,7 @@
 ### Prepare server first time
 
 * `$ cp nodes/example.com.json nodes/yourserver.com.json`
+* # edit roles/full-stack.json and enable only required recipes.
 * `$ knife solo prepare root@yourserver.com`
 
 ### Cook
