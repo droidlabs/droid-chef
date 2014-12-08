@@ -1,33 +1,31 @@
 define :setup_app_folders do
   app = node.run_state[:current_app]
-  # deploy_username = node[:deploy_user][:username]
-  # app_username    = app[:app_user]
 
   directory "/data/#{app[:name]}" do
-    owner app[:app_user] # deploy_username
-    group app[:app_user] # deploy_username
+    owner app[:app_user]
+    group app[:app_user]
     mode '0770'
     action :create
   end
 
   directory "/data/#{app[:name]}/releases" do
-    owner app[:app_user] # deploy_username
-    group app[:app_user] # deploy_username
+    owner app[:app_user]
+    group app[:app_user]
     mode '0770'
     action :create
   end
 
   directory "/data/#{app[:name]}/shared" do
-    owner app[:app_user] # deploy_username
-    group app[:app_user] # deploy_username
+    owner app[:app_user]
+    group app[:app_user]
     mode '0770'
     action :create
   end
 
-  ['config', 'log', 'tmp', 'pids'].each do |shared_folder|
+  ['config', 'log', 'tmp', 'pids', 'system'].each do |shared_folder|
     directory "/data/#{app[:name]}/shared/#{shared_folder}" do
-      owner app[:app_user] # deploy_username
-      group app[:app_user] # deploy_username
+      owner app[:app_user]
+      group app[:app_user]
       mode '0770'
       action :create
     end
