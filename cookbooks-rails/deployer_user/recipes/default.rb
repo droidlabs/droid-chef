@@ -23,6 +23,7 @@ end
 node['applications'].each do |app|
   username = app[:app_user]
   password = app[:app_password]
+  node.run_state[:current_app] = app
   app_user username do
     password `openssl passwd -1 #{password}`.chomp
   end
