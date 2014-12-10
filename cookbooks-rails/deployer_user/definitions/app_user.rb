@@ -3,7 +3,8 @@
 define :app_user do
 
   # Chef::Log.debug("# create deploy group and user with name: #{params_name}")
-  params_name = params[:name]  
+  params_name = params[:name] 
+  app = node.run_state[:current_app] 
 
   group params_name
   user params_name do
@@ -43,10 +44,13 @@ define :app_user do
   end
 
   # create ".bash_profile"
-  file "/home/#{params_name}/.bash_profile" do
+  template "/home/#{params_name}/.bash_profile" do
+    source "bash_profile.erb"
     user params_name
     group params_name
-    action :touch
+    variables(
+        app_env: app[:environment]
+      )
   end
 
   # directory for file downloads
