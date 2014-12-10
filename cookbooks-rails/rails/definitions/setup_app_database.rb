@@ -35,6 +35,7 @@ define :setup_app_database do
         database: database,
         database_host: database_host,
         database_username: database_username,
+        database_adapter:  app[:database_adapter],
         database_password: database_password
       )
     end

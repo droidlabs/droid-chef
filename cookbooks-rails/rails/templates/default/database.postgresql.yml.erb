@@ -1,5 +1,5 @@
 <%= @app_env %>:
-  adapter: postgresql
+  adapter: <%= @database_adapter || "postgresql" %>
   encoding: utf8
   database: <%= @app_name %>
   host: <%= @database_host %>

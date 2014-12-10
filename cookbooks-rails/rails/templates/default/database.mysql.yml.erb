@@ -1,5 +1,5 @@
 <%= @app_env %>:
-  adapter: mysql2
+  adapter:  <%= @database_adapter || "mysql2" %>
   encoding: utf8
   database: <%= @app_name %>
   host: <%= @database_host %>
