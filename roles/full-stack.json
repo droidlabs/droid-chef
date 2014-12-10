@@ -45,7 +45,7 @@
     "deploy_user": {
       "username": "ninja",
       "password": "Droid123",                       // Set new password, don't use special symbol
-      "ruby_version": "2.1.3",                      // Global rbenv version
+      "ruby_version": "2.1.5",                      // Global rbenv version
       "database_host": "localhost",
       "database_username": "ninja",
       "database_password": "DB_NINJA_PASSWORD",
@@ -84,7 +84,7 @@
         "backup": { "database": true, "files": false },
         // -- Ruby
         // multiple ruby versions for each app are only supported in passenger enterprise
-        "ruby_version": "2.1.4",
+        "ruby_version": "2.1.5",
         // --- Modules
         // available modules: elasticsearch, sidekiq, ssl.
         // modules are required to add additional configs to shared folder
@@ -122,7 +122,7 @@
         "server_workers_count": 2,
         "server_host_default": false,
         "ruby_version": "1.9.3-p550",
-        "modules": ["ssl"]
+        "modules": [] // "ssl"
       }
     ],
 
