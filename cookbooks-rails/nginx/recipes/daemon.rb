@@ -121,7 +121,8 @@ template "#{nginx_path}/conf/nginx.conf" do
     :pidfile => "#{node[:nginx][:pid_path]}", # #{nginx_path}/logs/nginx.pid
     :use_passenger => use_passenger,
     :ruby_dir => ruby_dir,
-    :passenger_dir => passenger_dir
+    :passenger_dir => passenger_dir,
+    :worker_connections => node[:nginx][:worker_connections]
   )
   notifies :restart, 'service[passenger]'
 end
