@@ -1,15 +1,18 @@
 user  <%= node[:deploy_user][:username] %>;
-worker_processes  2;
+worker_processes <%= @nginx[:worker_processes] %>;
 error_log  <%= @log_path %>/error.log;
 pid <%= @pidfile %>;
 
 events {
-  worker_connections  <%= @nginx[:worker_connections] %>;
+  worker_connections <%= @nginx[:worker_connections] %>;
 }
 
 include conf.d/*.conf;
 
 http {
+  # don't send the nginx version number in error pages and Server header
+  server_tokens off;
+
   <% if @use_passenger  %>
     <% if @passenger_dir  %>
       passenger_root <%= @passenger_dir %>;

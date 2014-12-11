@@ -22,6 +22,7 @@ default[:nginx][:tcp_nopush] = false
 default[:nginx][:keepalive_timeout] = 65
 default[:nginx][:gzip] = true
 default[:nginx][:worker_connections] = 1024
+default[:nginx][:worker_processes] = 2
 
 # Enable the status server on 127.0.0.1
 default[:nginx][:status_server] = false
