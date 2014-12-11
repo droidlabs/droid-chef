@@ -73,4 +73,17 @@ define :setup_app_nginx do
     )
     notifies :restart, 'service[passenger]'
   end
+
+  if app[:server] == 'static'
+    template "#{node[:nginx][:path]}/conf/sites.d/#{app[:name]}.conf" do
+      source 'nginx_host_static.conf.erb'
+      owner app[:app_user]
+      group app[:app_user]
+      mode '0660'
+      variables(
+        app_name: app[:name],
+        web_urls: app[:web_urls]
+      )
+    end
+  end
 end
