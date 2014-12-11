@@ -6,11 +6,9 @@ define :app_user do
   app_user = params[:name]
 
   # Crete group and app_user
-  group app_user
   user app_user do
     comment 'Deploy User'
     home "/home/#{app_user}"
-    gid app_user
     shell '/bin/bash'
     password params[:password]
     supports manage_home: true
@@ -18,7 +16,7 @@ define :app_user do
 
   # Change app_user groups, add to it a group deploy_user
   group app_user do
-    members ["#{app_user}", "#{node[:deploy_user][:username]}"]
+    members [app_user, node[:deploy_user][:username]]
     action :create
   end
 
@@ -32,7 +30,7 @@ define :app_user do
   # Add github, bitbucket in ssh known hosts
   keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
   hosts_path = "/home/#{app_user}/.ssh/known_hosts"
-  file "ssh_known_hosts" do
+  file "ssh_known_hosts for #{app_user}" do
     user app_user
     group app_user
     path hosts_path
@@ -47,8 +45,8 @@ define :app_user do
     user app_user
     group app_user
     variables(
-        app_env: app[:environment]
-      )
+      app_env: app[:environment]
+    )
   end
 
   # Directory for file downloads

@@ -1,7 +1,9 @@
 deploy_username = node[:deploy_user][:username]
 
 node[:rails][:packages].map do |pkg|
-  package pkg
+  package "rails:#{pkg}" do
+    package_name pkg
+  end
 end
 
 # create applications directory
@@ -11,8 +13,6 @@ directory '/data/' do
   mode '0771' # for read app_users
   action :create
 end
-
-# using_port = 3010  Rubo: Useless assignment to variable - using_port.
 
 # setup for each application
 node[:applications].each_with_index do |app, index|

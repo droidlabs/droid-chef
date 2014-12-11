@@ -15,7 +15,6 @@
     "recipe[ruby_build]",
     "recipe[droid-rbenv]",
     "recipe[apt]",
-    "recipe[build-essential]",
     "recipe[ohai]",
     "recipe[git]",
     "recipe[openssl]",
