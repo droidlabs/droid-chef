@@ -131,6 +131,7 @@
       "app_password": "Droid123",
       "web_urls": "static.host.com",
       "server": "static",
+      "modules": []
       }
 
     ],
