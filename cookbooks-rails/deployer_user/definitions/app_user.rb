@@ -2,61 +2,59 @@
 
 define :app_user do
 
-  # Chef::Log.debug("# create deploy group and user with name: #{params_name}")
-  params_name = params[:name] 
-  app = node.run_state[:current_app] 
+  app = node.run_state[:current_app]
+  app_user = params[:name]
 
-  group params_name
-  user params_name do
+  # Crete group and app_user
+  group app_user
+  user app_user do
     comment 'Deploy User'
-    home "/home/#{params_name}"
-    gid params_name
+    home "/home/#{app_user}"
+    gid app_user
     shell '/bin/bash'
     password params[:password]
     supports manage_home: true
   end
 
-  # Chef::Log.info("# params[:deploy_username1] = #{params[:deploy_username1]}")
-
-  group params_name do
-    members ["#{params_name}", "#{node[:deploy_user][:username]}"]
+  # Change app_user groups, add to it a group deploy_user
+  group app_user do
+    members ["#{app_user}", "#{node[:deploy_user][:username]}"]
     action :create
   end
 
-
-  #Chef::Log.debug("generate ssh keys for: #{params_name}")
-
-  execute "generate ssh keys for: #{params_name}." do
-    user params_name
-    creates "/home/#{params_name}/.ssh/id_rsa.pub"
-    command "ssh-keygen -t rsa -q -f /home/#{params_name}/.ssh/id_rsa -P \"\""
+  # Generate RSA keys
+  execute "generate ssh keys for: #{app_user}." do
+    user app_user
+    creates "/home/#{app_user}/.ssh/id_rsa.pub"
+    command "ssh-keygen -t rsa -q -f /home/#{app_user}/.ssh/id_rsa -P \"\""
   end
 
+  # Add github, bitbucket in ssh known hosts
   keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
-  hosts_path = "/home/#{params_name}/.ssh/known_hosts"
+  hosts_path = "/home/#{app_user}/.ssh/known_hosts"
   file "ssh_known_hosts" do
-    user params_name
-    group params_name
+    user app_user
+    group app_user
     path hosts_path
     action :create
     content "#{keys.join($/)}#{$/}"
     not_if { File.exists?(hosts_path) }
   end
 
-  # create ".bash_profile"
-  template "/home/#{params_name}/.bash_profile" do
+  # Create ".bash_profile"
+  template "/home/#{app_user}/.bash_profile" do
     source "bash_profile.erb"
-    user params_name
-    group params_name
+    user app_user
+    group app_user
     variables(
         app_env: app[:environment]
       )
   end
 
-  # directory for file downloads
-  directory "/home/#{params_name}/downloads" do
-    user params_name
-    group params_name
+  # Directory for file downloads
+  directory "/home/#{app_user}/downloads" do
+    user app_user
+    group app_user
     action :create
   end
 
