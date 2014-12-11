@@ -156,7 +156,8 @@
     },
 
     // Add passenger enterprise token, otherwise free version of passenger will be user
-    "nginx": { "nginx_version": "1.6.2",
+    "nginx": { 
+               "nginx_version": "1.6.2",
                "worker_connections": "2048",
                "passenger": { "version": "4.0.53",
                               "enterprise": { "token": "" }
