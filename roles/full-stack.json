@@ -123,7 +123,16 @@
         "server_host_default": false,
         "ruby_version": "1.9.3-p550",
         "modules": [] // "ssl"
+      },
+      {
+      // Example static app
+      "name": "static",
+      "app_user": "static",
+      "app_password": "Droid123",
+      "web_urls": "static.host.com",
+      "server": "static",
       }
+
     ],
 
     "nginx_redirects": [
