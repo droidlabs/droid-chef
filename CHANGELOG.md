@@ -3,3 +3,4 @@
 * Chef will add RUBY_ENV and RAILS_ENV to app user
 * Support chef 12
 * Ability to setup nginx workers count
+* Refactored nginx host templates

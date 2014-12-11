@@ -3,17 +3,17 @@ server {
   listen 80<%= ' default' if @default %>;
   client_max_body_size 4G;
   server_name <%= @web_urls %>;
-  root /data/<%= @app_name %>/current/public;
+  root /data/<%= @app_name %>/current/<%= @public_folder %>;
 
   # Block bots who like track urls (php usually)
   location ~ \.php$ {
     deny  all;
   }
   location = /500.html {
-    root /data/<%= @app_name %>/current/public;
+    root /data/<%= @app_name %>/current/<%= @public_folder %>;
   }
   location ~ ^/assets/.*\.(jpg|jpeg|png|bmp|gif|css|js|svg|woff|otf|ttf)$  {
-    root /data/<%= @app_name %>/current/public;
+    root /data/<%= @app_name %>/current/<%= @public_folder %>;
 
     <%- if node[:nginx][:gzip] %>
       gzip_static on;
@@ -48,17 +48,17 @@ server {
   listen 443;
   client_max_body_size 4G;
   server_name <%= @web_urls %>;
-  root /data/<%= @app_name %>/current/public;
+  root /data/<%= @app_name %>/current/<%= @public_folder %>;
 
   # Block bots who like track urls (php usually)
   location ~ \.php$ {
     deny  all;
   }
   location = /500.html {
-    root /data/<%= @app_name %>/current/public;
+    root /data/<%= @app_name %>/current/<%= @public_folder %>;
   }
   location ~ ^/assets/.*\.(jpg|jpeg|png|bmp|gif|css|js|svg|woff|otf|ttf)$  {
-    root /data/<%= @app_name %>/current/public;
+    root /data/<%= @app_name %>/current/<%= @public_folder %>;
 
     <%- if node[:nginx][:gzip] %>
       gzip_static on;

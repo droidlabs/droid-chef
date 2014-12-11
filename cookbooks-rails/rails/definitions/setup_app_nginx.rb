@@ -6,7 +6,6 @@ define :setup_app_nginx do
   ruby_dir = "#{node[:rbenv][:root_path]}/versions/#{ruby_version}"
 
   if app[:modules].include?('ssl')
-
     cookbook_file "#{node[:nginx][:path]}/ssl/#{app[:name]}.crt" do
       source "ssl/#{app[:name]}.crt"
       owner 'root'
@@ -22,9 +21,8 @@ define :setup_app_nginx do
   end
 
   if app[:server] == 'thin' || app[:server] == 'double'
-    template_name =  app[:server] == 'thin' ? 'thin.yml.erb' : 'thin.double.yml.erb'
     template "/data/#{app[:name]}/shared/config/thin.yml" do
-      source template_name
+      source 'thin.yml.erb'
       owner app[:app_user]
       group app[:app_user]
       mode 0660
@@ -35,7 +33,7 @@ define :setup_app_nginx do
         default: app[:server_host_default] || false,
         using_port: using_port,
         servers_count: app[:server_workers_count] || 2,
-        thin_folder: app[:thin_folder]
+        thin_folder: app[:thin_folder] || ''
       )
     end
   end
@@ -70,8 +68,7 @@ define :setup_app_nginx do
       ssl_support: app[:modules].include?('ssl'),
       using_port: using_port,
       ruby_dir: ruby_dir,
-      frontend_folder: app[:frontend_folder] || "frontend",
-      backend_folder: app[:backend_folder] || "backend",
+      public_folder: app[:public_folder] || "public",
       backend_urls: app[:backend_urls] || "api.#{app[:web_urls]}"
     )
     notifies :restart, 'service[passenger]'
