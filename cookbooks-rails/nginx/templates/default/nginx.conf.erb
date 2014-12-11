@@ -4,7 +4,7 @@ error_log  <%= @log_path %>/error.log;
 pid <%= @pidfile %>;
 
 events {
-  worker_connections  <%= @nginx[:worker_connections] %>;
+  worker_connections <%= @worker_connections %>;
 }
 
 include conf.d/*.conf;

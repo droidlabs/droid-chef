@@ -147,9 +147,10 @@
 
     // Add passenger enterprise token, otherwise free version of passenger will be user
     "nginx": { "nginx_version": "1.6.2",
-      "passenger": { "version": "4.0.53",
-        "enterprise": { "token": "" }
-      }
+               "worker_connections": "2048",
+               "passenger": { "version": "4.0.53",
+                              "enterprise": { "token": "" }
+                }
     },
 
     // uncomment this line to upgrade ruby version
