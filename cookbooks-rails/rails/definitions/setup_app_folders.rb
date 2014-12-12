@@ -11,7 +11,7 @@ define :setup_app_folders do
   # Create symlink for app_user
   bash  "create symlink app -> ~/app" do
     code <<-EOH
-      ln -s /data/#{app[:name]} /home/#{app[:app_user]}/#{app[:name]}
+      ln -s /data/#{app[:name]} /home/#{app[:app_user]}
     EOH
   end
 
