@@ -6,6 +6,7 @@
 
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
+    "recipe[droid-hipchat::start]", 
     "recipe[droid-admin]",          // install mc, htop, and more pkg
     "recipe[locale]",               // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
@@ -34,8 +35,10 @@
     //"recipe[mongodb]",
 
     "recipe[droid-rabbitmq]",
-    "recipe[rails]"
+    "recipe[rails]",
     // "recipe[droid-newrelic]"
+
+    "recipe[droid-hipchat::stop]"
   ],
 
   "default_attributes": {
@@ -229,6 +232,9 @@
         "port": "587",
         "encryption": "tlsv1"
       }
+    },
+    "hipchat": {
+      "hip_token": "SET TOKEN HIPCHAT"
     }
   }
 }
