@@ -1,0 +1,13 @@
+hip_message = "Server+#{node.fqdn}+Chef+Recipies+STARTED" # use plus instead of a space
+hip_color   = "red" # "yellow", "red", "green", "purple", "gray", or "random". (default: yellow)
+hip_from    = "ChefBot"
+hip_room    = "Servers"
+
+package "curl"
+
+hipchat hip_message do
+  hip_color   hip_color 
+  hip_token   node[:hipchat][:hip_token]
+  hip_from    hip_from
+  hip_room    hip_room
+end	
