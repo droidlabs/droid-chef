@@ -5,9 +5,11 @@ hip_room    = "Servers"
 
 package "curl"
 
-hipchat hip_message do
-  hip_color   hip_color 
-  hip_token   node[:hipchat][:hip_token]
-  hip_from    hip_from
-  hip_room    hip_room
-end	
+if node[:hipchat][:hip_token]
+  hipchat hip_message do
+    hip_color   hip_color 
+    hip_token   node[:hipchat][:hip_token]
+    hip_from    hip_from
+    hip_room    hip_room
+  end	
+end
