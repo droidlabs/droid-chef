@@ -52,6 +52,7 @@ server {
   }
 }
 <%- if @ssl_support %>
+server {
   listen 443;
   client_max_body_size 4G;
   server_name <%= @web_urls %>;
@@ -108,4 +109,5 @@ server {
   # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
   ssl_session_cache shared:SSL:50m;
   ssl_session_timeout 5m;
+}
 <% end %>
