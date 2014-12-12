@@ -4,3 +4,5 @@
 * Support chef 12
 * Ability to setup nginx workers count
 * Refactored nginx host templates
+* Added "static" nginx host
+* Added hipchat message support
