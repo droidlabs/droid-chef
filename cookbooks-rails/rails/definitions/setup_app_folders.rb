@@ -8,6 +8,13 @@ define :setup_app_folders do
     action :create
   end
 
+  # Create symlink for app_user
+  bash  "create symlink app -> ~/app" do
+    code <<-EOH
+      ln -s /data/#{app[:name]} /home/#{app[:app_user]}/#{app[:name]}
+    EOH
+  end
+
   directory "/data/#{app[:name]}/releases" do
     owner app[:app_user]
     group app[:app_user]
