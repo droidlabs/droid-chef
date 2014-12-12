@@ -50,12 +50,4 @@ define :app_user do
         app_env: app[:environment]
       )
   end
-
-  # Directory for file downloads
-  directory "/home/#{app_user}/downloads" do
-    user app_user
-    group app_user
-    action :create
-  end
-
 end
