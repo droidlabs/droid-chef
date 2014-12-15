@@ -17,7 +17,7 @@ cookbook 'logrotate'
 cookbook 'mongodb'
 # cookbook 'rbenv',         git: 'git://github.com/fnichol/chef-rbenv.git'
 cookbook 'rbenv',         git: 'git://github.com/calorie/chef-rbenv.git' 
-cookbook 'postgresql',    git: 'git://github.com/phlipper/chef-postgresql', tag: "0.14.1"
+cookbook 'postgresql',    git: 'git://github.com/phlipper/chef-postgresql', tag: "0.15.0"
 cookbook 'locale',        git: 'git://github.com/hw-cookbooks/locale/'
 cookbook 'mysql'
 cookbook 'elasticsearch', git: 'git://github.com/elasticsearch/cookbook-elasticsearch', tag: "0.3.11"
