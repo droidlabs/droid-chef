@@ -4,7 +4,7 @@ Vagrant.configure(2) do |config|
   # online.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/ubuntu-14.04" # "ubuntu/trusty64"
+  config.vm.box = "ubuntu/trusty64"
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
