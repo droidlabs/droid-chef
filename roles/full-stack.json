@@ -127,15 +127,25 @@
         "modules": [] // "ssl"
       },
       {
-      // Example static app
-      "name": "static",
-      "app_user": "static",
-      "app_password": "Droid123",
-      "web_urls": "static.host.com",
-      "server": "static",
-      "modules": []
-      }
-
+        // Example static app
+        "name": "static",
+        "app_user": "static",
+        "app_password": "Droid123",
+        "web_urls": "static.host.com",
+        "server": "static",
+        "modules": []
+      },
+      { "name": "extension_pg",
+        "app_user": "extension_pg",
+        "app_password": "Droid123",
+        "environment": "staging",
+        "web_urls": "extension_pg.com",
+        "database": "postgresql",
+        "pg_extensions": ["hstore"],
+        "server": "passenger",
+        "ruby_version": "2.0.0-p598",
+        "modules": []
+      } 
     ],
 
     "nginx_redirects": [
