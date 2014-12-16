@@ -34,3 +34,5 @@
 * `$ knife solo prepare vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
 * `$ knife solo cook vagrant@127.0.0.1 --ssh-port 2222 --identity-file ~/.vagrant.d/insecure_private_key`
 * `$ vagrant halt`
+
+Correct path to identity file might be picked from `vagrant ssh-config` output
