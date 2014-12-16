@@ -19,7 +19,7 @@ cookbook 'mongodb'
 cookbook 'rbenv',         git: 'git://github.com/calorie/chef-rbenv.git' 
 cookbook 'postgresql',    git: 'git://github.com/phlipper/chef-postgresql', tag: "0.14.1"
 cookbook 'locale',        git: 'git://github.com/hw-cookbooks/locale/'
-cookbook 'mysql'
+cookbook 'mysql', '6.0.0'
 cookbook 'elasticsearch', git: 'git://github.com/elasticsearch/cookbook-elasticsearch', tag: "0.3.11"
 # cookbook 'backup',        git: 'git://github.com/damm/backup'
 cookbook 'backup',        git: 'git://github.com/fadeev2010/backup'

@@ -4,7 +4,7 @@
 # Droid Labs LLC
 # faeev2010@gmail.com
 
-include_attribute "mysql::default"
+# include_attribute "mysql::default"
 
 #############################################################################
 #DROID ATTRIBUTES

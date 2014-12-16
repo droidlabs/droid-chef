@@ -3,7 +3,7 @@ DEPENDENCIES
   ark
   backup
     git: git://github.com/fadeev2010/backup
-    revision: 9916f0f97d7de0032f88a5194273cf481f97e674
+    revision: 49c9b12d67822ac17e9bd7e86d2e2478391dc44e
   build-essential
   droid-chef
     path: .
@@ -22,7 +22,7 @@ DEPENDENCIES
   logrotate
   mongodb
   monit
-  mysql
+  mysql (= 6.0.0)
   newrelic-ng
   newrelic_meetme_plugin
   newrelic_plugins
@@ -48,7 +48,7 @@ GRAPH
   ark (0.9.0)
     7-zip (>= 0.0.0)
     windows (>= 0.0.0)
-  backup (0.2.1)
+  backup (0.2.2)
     build-essential (>= 0.0.0)
     cron (>= 0.0.0)
   build-essential (2.1.3)
@@ -90,7 +90,8 @@ GRAPH
     runit (>= 1.5.0)
     yum (>= 3.0)
   monit (0.7.5)
-  mysql (5.6.1)
+  mysql (6.0.0)
+    smf (>= 0.0.0)
     yum-mysql-community (>= 0.0.0)
   newrelic-ng (0.5.3)
     apt (>= 0.0.0)
@@ -117,6 +118,7 @@ GRAPH
     yum-epel (>= 0.0.0)
   rabbitmq (3.6.0)
     erlang (>= 0.9)
+  rbac (1.0.2)
   rbenv (0.7.3)
     java (> 1.4.0)
     ruby_build (>= 0.0.0)
@@ -125,10 +127,13 @@ GRAPH
     metachef (>= 0.0.0)
     runit (>= 0.0.0)
   ruby_build (0.8.0)
-  runit (1.5.10)
+  runit (1.5.12)
     build-essential (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  smf (2.2.1)
+    rbac (>= 1.0.1)
+    resource-control (>= 0.0.0)
   sudo (2.7.1)
   windows (1.34.8)
     chef_handler (>= 0.0.0)
