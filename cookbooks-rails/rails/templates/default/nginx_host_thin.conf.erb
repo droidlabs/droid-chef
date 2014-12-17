@@ -2,7 +2,7 @@
 
 upstream proxy_<%= @app_name %> {
 <%- @app_workers.times do |n| %>
-  server unix:/data/<%= @app_name %>/shared/tmp/pids/thin.<%= n %>.sock max_fails=1 fail_timeout=15s;
+  server unix:/data/<%= @app_name %>/shared/pids/thin.<%= n %>.sock max_fails=1 fail_timeout=15s;
 <%- end %>
 }
 
