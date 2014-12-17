@@ -1,9 +1,11 @@
 # <%= @app_name %> - <%= @web_urls %>
+
 upstream proxy_<%= @app_name %> {
-  server 127.0.0.1:<%= @using_port %>;
-  server 127.0.0.1:<%= @using_port + 1 %>;
-  server 127.0.0.1:<%= @using_port + 2 %>;
+<%- @app_workers.times do |n| %>
+  server unix:/data/<%= @app_name %>/shared/tmp/pids/thin.<%= n %>.sock max_fails=1 fail_timeout=15s;
+<%- end %>
 }
+
 server {
   listen 80<%= ' default' if @default %>;
   client_max_body_size 4G;

@@ -31,7 +31,7 @@ define :setup_app_nginx do
         app_env: app[:environment],
         web_urls: app[:web_urls],
         default: app[:server_host_default] || false,
-        using_port: using_port,
+        # using_port: using_port,
         servers_count: app[:server_workers_count] || 2,
         thin_folder: app[:thin_folder] || ''
       )
