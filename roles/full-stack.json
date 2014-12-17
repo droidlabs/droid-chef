@@ -6,7 +6,7 @@
 
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    "recipe[droid-hipchat::start]", 
+    "recipe[droid-hipchat::start]",
     "recipe[droid-admin]",          // install mc, htop, and more pkg
     "recipe[locale]",               // add locale LC_ALL = en_US.UTF8
     "recipe[deployer_user]",
@@ -80,7 +80,7 @@
         // available options: passenger, unicorn, thin, double
         "server": "passenger",
         "server_workers_count": 4,
-        "server_host_default": true,
+        "server_host_default": false,
         "web_urls": "example.com",
         // -- Backup
         // default: { database: true, files: true }
@@ -135,7 +135,9 @@
         "server": "static",
         "modules": []
       },
-      { "name": "extension_pg",
+      {
+        // Example app with postgres extensions
+        "name": "extension_pg",
         "app_user": "extension_pg",
         "app_password": "Droid123",
         "environment": "staging",
@@ -145,7 +147,21 @@
         "server": "passenger",
         "ruby_version": "2.0.0-p598",
         "modules": []
-      } 
+      },
+      {
+        // Example thin server
+        "name": "irails",
+        "app_user": "irails",
+        "app_password": "Droid123",
+        "environment": "staging",
+        "web_urls": "thin_server.com",
+        "database": "postgresql",
+        "server": "thin",
+        "server_workers_count": 4,
+        "ruby_version": "2.1.5",
+        "server_host_default": true,
+        "modules": []
+      }
     ],
 
     "nginx_redirects": [
@@ -168,10 +184,10 @@
     },
 
     // Add passenger enterprise token, otherwise free version of passenger will be user
-    "nginx": { 
+    "nginx": {
       "nginx_version": "1.6.2",
       "worker_connections": "2048",
-      "passenger": { 
+      "passenger": {
         "version": "4.0.53",
         "enterprise": { "token": "" }
       }
