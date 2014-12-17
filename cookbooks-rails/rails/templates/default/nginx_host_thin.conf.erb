@@ -32,6 +32,8 @@ server {
     error_page 404 /404.html;
   }
 
+  include sites.d/custom/<%= @app_name %>.custom.conf;
+
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
 
@@ -50,8 +52,6 @@ server {
     proxy_redirect off;
     proxy_pass http://proxy_<%= @app_name %>;
   }
-
-  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <%- if @ssl_support %>
 server {
@@ -82,6 +82,8 @@ server {
     error_page 404 /404.html;
   }
 
+  include sites.d/custom/<%= @app_name %>.custom.conf;
+
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
 
@@ -111,7 +113,5 @@ server {
   # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
   ssl_session_cache shared:SSL:50m;
   ssl_session_timeout 5m;
-
-  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% end %>

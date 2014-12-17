@@ -27,6 +27,8 @@ server {
     error_page 404 /404.html;
   }
 
+  include sites.d/custom/<%= @app_name %>.custom.conf;
+
   location /nginx_stub_status {
     stub_status on;
   }
@@ -42,8 +44,6 @@ server {
 
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
-
-  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% if @ssl_support %>
 server {
@@ -73,6 +73,7 @@ server {
 
     error_page 404 /404.html;
   }
+  include sites.d/custom/<%= @app_name %>.custom.conf;
 
   passenger_enabled on;
   passenger_min_instances 1;
@@ -95,7 +96,5 @@ server {
   # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
   ssl_session_cache shared:SSL:50m;
   ssl_session_timeout 5m;
-
-  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% end %>

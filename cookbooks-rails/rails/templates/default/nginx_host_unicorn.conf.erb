@@ -31,6 +31,8 @@ server {
     error_page 404 /404.html;
   }
 
+  include sites.d/custom/<%= @app_name %>.custom.conf;
+
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
 
@@ -52,8 +54,6 @@ server {
     proxy_buffers       6 256k;
     proxy_busy_buffers_size   256k;
   }
-
-  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% if @ssl_support %>
 server {
@@ -84,6 +84,8 @@ server {
     error_page 404 /404.html;
   }
 
+  include sites.d/custom/<%= @app_name %>.custom.conf;
+
   ssl on;
   ssl_certificate <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.crt;
   ssl_certificate_key <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.key;
@@ -109,7 +111,5 @@ server {
     proxy_buffers       6 256k;
     proxy_busy_buffers_size   256k;
   }
-
-  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% end %>
