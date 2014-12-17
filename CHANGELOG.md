@@ -1,3 +1,7 @@
+## 0.2.5.beta
+* Create custom nginx config for each app at sites.d/custom/app_name.custom.conf
+* Support adding pg_extensions on cook
+
 ## 0.2.4
 * Chef will generate "system" folder in shared for Rails
 * Chef will add RUBY_ENV and RAILS_ENV to app user

@@ -42,6 +42,8 @@ server {
 
   access_log  /data/<%= @app_name %>/shared/log/nginx.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.error.log;
+
+  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% if @ssl_support %>
 server {
@@ -93,5 +95,7 @@ server {
   # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
   ssl_session_cache shared:SSL:50m;
   ssl_session_timeout 5m;
+
+  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 <% end %>

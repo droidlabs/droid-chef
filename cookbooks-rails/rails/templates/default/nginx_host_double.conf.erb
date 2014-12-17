@@ -35,6 +35,8 @@ server {
     proxy_redirect off;
     proxy_pass http://proxy_<%= @app_name %>;
   }
+
+  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
 
 # FRONTEND: <%= @app_name %> - <%= @web_urls %>
@@ -77,4 +79,6 @@ server {
 
   access_log  /data/<%= @app_name %>/shared/log/nginx-frontend.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx-frontend.error.log;
+
+  include sites.d/custom/<%= @app_name %>.custom.conf;
 }

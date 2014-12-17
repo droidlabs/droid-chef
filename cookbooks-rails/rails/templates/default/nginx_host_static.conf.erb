@@ -6,4 +6,6 @@ server {
     root /data/<%= @app_name %>/current/public;
     index  index.html index.html;
   }
+
+  include sites.d/custom/<%= @app_name %>.custom.conf;
 }
