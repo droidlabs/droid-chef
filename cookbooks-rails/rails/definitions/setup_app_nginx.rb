@@ -1,6 +1,5 @@
 define :setup_app_nginx do
   app = node.run_state[:current_app]
-  using_port = node.run_state[:using_port]
 
   ruby_version = app[:ruby_version] || node[:deploy_user][:ruby_version]
   ruby_dir = "#{node[:rbenv][:root_path]}/versions/#{ruby_version}"
@@ -31,7 +30,6 @@ define :setup_app_nginx do
         app_env: app[:environment],
         web_urls: app[:web_urls],
         default: app[:server_host_default] || false,
-        # using_port: using_port,
         servers_count: app[:server_workers_count] || 2,
         thin_folder: app[:thin_folder] || ''
       )
@@ -80,7 +78,6 @@ define :setup_app_nginx do
       web_urls: app[:web_urls],
       default: app[:server_host_default] || false,
       ssl_support: app[:modules].include?('ssl'),
-      using_port: using_port,
       ruby_dir: ruby_dir,
       public_folder: app[:public_folder] || "public",
       backend_urls: app[:backend_urls] || "api.#{app[:web_urls]}"
