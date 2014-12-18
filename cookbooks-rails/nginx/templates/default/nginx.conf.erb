@@ -13,6 +13,16 @@ http {
   # don't send the nginx version number in error pages and Server header
   server_tokens off;
 
+  # various settings
+  include mime.types;
+  default_type application/octet-stream;
+  client_max_body_size 200m;
+  sendfile <%= @nginx[:sendfile] ? 'on' : 'off' %>;
+  tcp_nopush <%= @nginx[:tcp_nopush] ? 'on' : 'off' %>;
+  keepalive_timeout <%= @nginx[:keepalive_timeout] %>;
+  server_names_hash_bucket_size 64;
+
+  # passenger setup
   <% if @use_passenger  %>
     <% if @passenger_dir  %>
       passenger_root <%= @passenger_dir %>;
@@ -29,14 +39,8 @@ http {
     <% end %>
   <% end %>
 
-  include mime.types;
-  default_type application/octet-stream;
-  client_max_body_size 200m;
-
-  sendfile <%= @nginx[:sendfile] ? 'on' : 'off' %>;
-  tcp_nopush <%= @nginx[:tcp_nopush] ? 'on' : 'off' %>;
-  keepalive_timeout <%= @nginx[:keepalive_timeout] %>;
   <%- if @nginx[:gzip] %>
+    # Gzip setup
     gzip on;
     gzip_min_length  1000;
     gzip_proxied     expired no-cache no-store private auth;
@@ -44,7 +48,7 @@ http {
                      text/css
                      text/xml
                      text/javascript
-                     application/x-javascript
+                     application/javascript
                      font/ttf
                      font/eot
                      font/otf
@@ -56,7 +60,12 @@ http {
     gzip off;
   <% end -%>
 
-  server_names_hash_bucket_size 64;
+  # proxy cache setup
+  proxy_cache_path proxy_cache levels=1:2 keys_zone=cache:30m max_size=1G;
+  proxy_ignore_headers Expires Cache-Control;
+  proxy_cache_use_stale error timeout invalid_header http_502;
+  proxy_cache_bypass $cookie_session;
+  proxy_no_cache $cookie_session;
 
   include sites.d/*.conf;
 

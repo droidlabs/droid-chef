@@ -95,6 +95,14 @@ directory "#{nginx_path}/ssl" do
   group "root"
 end
 
+directory "#{nginx_path}/proxy_cache" do
+  mode 0755
+  action :create
+  recursive true
+  owner "nobody"
+  group "root"
+end
+
 directory "#{nginx_path}/conf/conf.d" do
   mode 0755
   action :create
