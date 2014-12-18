@@ -7,6 +7,11 @@
 # include_recipe "mysql::client"
 # include_recipe "mysql::server_deprecated"
 
+# uninstall client software, for update path and configs
+package "mysql-client-#{node['mysql']['version']}" do
+  action :purge
+end
+
 # Install MySQL server
 mysql_service 'default' do
   version node['mysql']['version']
@@ -14,14 +19,14 @@ mysql_service 'default' do
   initial_root_password node['mysql']['server_root_password']
   data_dir '/var/lib/mysql'
   provider Chef::Provider::MysqlService::Sysvinit
-  action [:create, :start]
+  action [:create]
 end
 
 # Load MySQL configuration
 mysql_config 'default' do
   cookbook 'droid-mysql'
   source 'droid.cnf.erb'
-  notifies :restart, 'mysql_service[default]'
+  # notifies :restart, 'mysql_service[default]'
 end
 
 # Install client software
