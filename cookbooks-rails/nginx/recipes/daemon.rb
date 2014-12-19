@@ -152,7 +152,7 @@ template "#{nginx_path}/conf/nginx_module_assets.conf" do
 end
 
 template "#{nginx_path}/conf/nginx_module_ssl.conf" do
-  source "nginx_module_assets.conf.erb"
+  source "nginx_module_ssl.conf.erb"
   owner "root"
   group "root"
   mode 0644
