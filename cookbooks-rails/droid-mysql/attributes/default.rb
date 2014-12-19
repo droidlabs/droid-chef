@@ -29,7 +29,7 @@ default['mysql']['remove_test_database']			   = true
 #############################################################################
 
 # passwords
-default['mysql']['server_root_password']   = node[:deploy_user][:database_root_password]
+# default['mysql']['server_root_password']   = node[:deploy_user][:database_root_password] || 'Change_me'
 default['mysql']['server_debian_password'] = nil
 default['mysql']['server_repl_password']   = nil
 

@@ -7,36 +7,46 @@
 # include_recipe "mysql::client"
 # include_recipe "mysql::server_deprecated"
 
-# uninstall client software, for update path and configs
-package "mysql-client-#{node['mysql']['version']}" do
-  action :purge
-end
+
 
 # Install MySQL server
+# mysql_service 'default' do
+#   version node['mysql']['version']
+#   port node['mysql']['port']
+#   initial_root_password node['mysql']['server_root_password']
+#   data_dir '/var/lib/mysql'
+#   provider Chef::Provider::MysqlService::Sysvinit
+#   action [:create]
+# end
+
 mysql_service 'default' do
-  version node['mysql']['version']
-  port node['mysql']['port']
-  initial_root_password node['mysql']['server_root_password']
-  data_dir '/var/lib/mysql'
-  provider Chef::Provider::MysqlService::Sysvinit
-  action [:create]
+  # bind_address '0.0.0.0'
+  port '3306'
+  version '5.6'
+  initial_root_password 'change_me'
+  action [:create, :start]
 end
 
-# Load MySQL configuration
-mysql_config 'default' do
-  cookbook 'droid-mysql'
-  source 'droid.cnf.erb'
-  # notifies :restart, 'mysql_service[default]'
-end
+# # Load MySQL configuration
+# mysql_config 'default' do
+#   cookbook 'droid-mysql'
+#   source 'droid.cnf.erb'
+#   # notifies :restart, 'mysql_service[default]'
+# end
+
+# # uninstall client software, for update path and configs
+# package "mysql-client-#{node['mysql']['version']}" do
+#   action :purge
+# end
 
 # Install client software
 mysql_client 'default' do
-  version node['mysql']['version']
+  version '5.6' # 'node['mysql']['version']
   action :create
 end
 
 # Create DB and users
-include_recipe "droid-mysql::applications"
+#include_recipe "droid-mysql::applications"
 
 # Monitoring cfg
-include_recipe 'droid-monit::mysql'
+#include_recipe 'droid-monit::mysql'
