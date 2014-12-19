@@ -60,17 +60,7 @@ server {
   }
   location ~ ^/assets/.*\.(jpg|jpeg|png|bmp|gif|css|js|svg|woff|otf|ttf)$  {
     root /data/<%= @app_name %>/current/<%= @public_folder %>;
-
-    <%- if node[:nginx][:gzip] %>
-      gzip_static on;
-      gzip_http_version 1.0;
-    <% end -%>
-
-    expires max;
-    add_header Cache-Control public;
-    add_header Access-Control-Allow-Origin *;
-
-    error_page 404 /404.html;
+    include nginx_module_assets.conf;
   }
 
   location /nginx_stub_status {

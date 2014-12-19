@@ -88,10 +88,13 @@
         // -- Ruby
         // multiple ruby versions for each app are only supported in passenger enterprise
         "ruby_version": "2.1.5",
-        // --- Modules
+        // -- Modules
         // available modules: elasticsearch, sidekiq, ssl.
         // modules are required to add additional configs to shared folder
-        "modules": ["elasticsearch", "sidekiq"]
+        "modules": ["elasticsearch", "sidekiq"],
+        // -- Pg Extensions
+        // this extensions will be added to application using "create extension"
+        "pg_extensions": ["hstore"]
       },
       {
         "name": "test_double",
@@ -136,19 +139,6 @@
         "modules": []
       },
       {
-        // Example app with postgres extensions
-        "name": "extension_pg",
-        "app_user": "extension_pg",
-        "app_password": "Droid123",
-        "environment": "staging",
-        "web_urls": "extension_pg.com",
-        "database": "postgresql",
-        "pg_extensions": ["hstore"],
-        "server": "passenger",
-        "ruby_version": "2.0.0-p598",
-        "modules": []
-      },
-      {
         // Example thin server
         "name": "irails",
         "app_user": "irails",
@@ -186,6 +176,9 @@
     // Add passenger enterprise token, otherwise free version of passenger will be user
     "nginx": {
       "nginx_version": "1.6.2",
+      // Find out best value for workers processes using:
+      //   grep processor /proc/cpuinfo | wc -l
+      "worker_processes": "2",
       "worker_connections": "2048",
       "passenger": {
         "version": "4.0.53",

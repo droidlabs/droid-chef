@@ -1,0 +1,10 @@
+<%- if node[:nginx][:gzip] %>
+gzip_static on;
+gzip_http_version 1.0;
+<% end -%>
+
+expires max;
+add_header Cache-Control public;
+add_header Access-Control-Allow-Origin *;
+
+error_page 404 /404.html;

@@ -64,8 +64,6 @@ http {
   proxy_cache_path proxy_cache levels=1:2 keys_zone=cache:30m max_size=1G;
   proxy_ignore_headers Expires Cache-Control;
   proxy_cache_use_stale error timeout invalid_header http_502;
-  proxy_cache_bypass $cookie_session;
-  proxy_no_cache $cookie_session;
 
   include sites.d/*.conf;
 

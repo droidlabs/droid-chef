@@ -143,6 +143,22 @@ template "#{nginx_path}/conf/mime.types" do
   notifies :restart, 'service[passenger]'
 end
 
+template "#{nginx_path}/conf/nginx_module_assets.conf" do
+  source "nginx_module_assets.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, 'service[passenger]'
+end
+
+template "#{nginx_path}/conf/nginx_module_ssl.conf" do
+  source "nginx_module_assets.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, 'service[passenger]'
+end
+
 template "/etc/init.d/passenger" do
   source "passenger.init.erb"
   owner "root"
