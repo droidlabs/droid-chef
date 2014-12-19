@@ -6,6 +6,7 @@ database_root_pwd   = node[:deploy_user][:database_root_password]
 
 backup_gem_bin_dir  = node[:backup][:gem_bin_dir]
 cron_hour           = node[:backup][:cron_hour]
+cron_path           = node[:backup][:cron_path]
 backup_mailto       = node[:backup][:mailto]
 backup_base_dir     = node[:backup][:base_dir]
 
@@ -65,6 +66,7 @@ node[:applications].each do |app|
       mailto        backup_mailto
       action        :backup
       hour          cron_hour
+      cron_path     cron_path
       gem_bin_dir   backup_gem_bin_dir
       after_hook    after_hook_notifier
     end
@@ -91,6 +93,7 @@ node[:applications].each do |app|
       mailto        backup_mailto
       action        :backup
       hour          cron_hour
+      cron_path     cron_path
       gem_bin_dir   backup_gem_bin_dir
       after_hook    after_hook_notifier
     end
@@ -110,6 +113,7 @@ node[:applications].each do |app|
       mailto 				backup_mailto
       action 				:backup
       hour 					cron_hour
+      cron_path     cron_path
       gem_bin_dir   backup_gem_bin_dir
       after_hook    after_hook_notifier
     end
@@ -130,9 +134,10 @@ node[:applications].each do |app|
       					 'tar_options' => '-p'
       					}
       				)
-      mailto backup_mailto
-      action :backup
-      hour 	 cron_hour
+      mailto        backup_mailto
+      action        :backup
+      hour 	        cron_hour
+      cron_path     cron_path
       gem_bin_dir   backup_gem_bin_dir
       after_hook    after_hook_notifier
     end

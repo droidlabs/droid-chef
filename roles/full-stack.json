@@ -215,7 +215,7 @@
     },
 
     "backup": {
-      "mailto" : "alerts@hostname.pro",
+      //"mailto" : "alerts@hostname.pro",
       "notifiers": {
         "mail": {
           "on_success": "false",
