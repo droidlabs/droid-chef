@@ -34,7 +34,7 @@ DEPENDENCIES
     git: git://github.com/phlipper/chef-postgresql
     revision: 2a19dd9c91ec2a33e495f99ca42022129e26fc9f
     tag: 0.15.0
-  rabbitmq
+  rabbitmq (= 3.6.0)
   rbenv
     git: git://github.com/calorie/chef-rbenv.git
     revision: 937577523b67a5d36713024e9d0ccd522c6f880b
@@ -115,7 +115,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  rabbitmq (3.7.0)
+  rabbitmq (3.6.0)
     erlang (>= 0.9)
   rbenv (0.7.3)
     java (> 1.4.0)
