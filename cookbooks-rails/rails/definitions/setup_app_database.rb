@@ -49,7 +49,7 @@ define :setup_app_database do
     mode '0660'
     action :create_if_missing
     variables(
-      app_secret_key_base: SecureRandom.hex(128)
+      app_secret_key_base: SecureRandom.hex(64)
     )
   end
   ##################################################################
