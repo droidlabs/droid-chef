@@ -38,6 +38,8 @@
     "recipe[rails]",
     // "recipe[droid-newrelic]"
 
+    "recipe[droid-screengun]",
+
     "recipe[droid-hipchat::stop]"
   ],
 

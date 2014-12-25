@@ -3,11 +3,14 @@ DEPENDENCIES
   ark
   backup
     git: git://github.com/fadeev2010/backup
-    revision: 49c9b12d67822ac17e9bd7e86d2e2478391dc44e
+    revision: e80dcee1966fb6dedd5b07d48187f2bde9c2429d
   build-essential
   droid-chef
     path: .
     metadata: true
+  droid-screengun
+    git: git://github.com/fadeev2010/droid-screengun.git
+    revision: fc26e03690c609cf3be7deb70a87fd037d3b04ab
   elasticsearch
     git: git://github.com/elasticsearch/cookbook-elasticsearch
     revision: 256bfe63107b245cb9454dc24518b7898875dcc9
@@ -22,7 +25,7 @@ DEPENDENCIES
   logrotate
   mongodb
   monit
-  mysql
+  mysql (= 5.6.1)
   newrelic-ng
   newrelic_meetme_plugin
   newrelic_plugins
@@ -57,6 +60,9 @@ GRAPH
   cron (1.6.1)
   dmg (2.2.2)
   droid-chef (0.2.4)
+  droid-screengun (0.0.4)
+    apt (>= 0.0.0)
+    imagemagick (>= 0.0.0)
   elasticsearch (0.3.11)
     ark (>= 0.2.4)
     build-essential (>= 0.0.0)
@@ -69,10 +75,10 @@ GRAPH
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
     yum-erlang_solutions (>= 0.0.0)
-  git (4.0.2)
+  git (4.1.0)
     build-essential (>= 0.0.0)
     dmg (>= 0.0.0)
-    runit (>= 1.0.0)
+    runit (>= 1.0)
     windows (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
@@ -115,7 +121,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  rabbitmq (3.6.0)
+  rabbitmq (3.7.0)
     erlang (>= 0.9)
   rbenv (0.7.3)
     java (> 1.4.0)
@@ -125,20 +131,20 @@ GRAPH
     metachef (>= 0.0.0)
     runit (>= 0.0.0)
   ruby_build (0.8.0)
-  runit (1.5.10)
+  runit (1.5.12)
     build-essential (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
   sudo (2.7.1)
-  windows (1.34.8)
+  windows (1.36.1)
     chef_handler (>= 0.0.0)
   xml (1.2.9)
     build-essential (>= 0.0.0)
     chef-sugar (>= 0.0.0)
-  yum (3.5.1)
+  yum (3.5.2)
   yum-epel (0.5.3)
     yum (~> 3.0)
   yum-erlang_solutions (0.2.0)
     yum (~> 3.0)
-  yum-mysql-community (0.1.10)
+  yum-mysql-community (0.1.11)
     yum (>= 3.0)
