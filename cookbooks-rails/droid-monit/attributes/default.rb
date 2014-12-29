@@ -8,7 +8,7 @@ include_attribute "monit::default"
 default["monit"]["notify_email"]           = 'alerts@droidlabs.pro'
 default["monit"]["alert_blacklist"]        = %w( action instance pid ppid )
 
-default["monit"]["logfile"]                = 'syslog facility log_daemon'
+default["monit"]["logfile"]                = '/var/log/monit.log'
 
 default["monit"]["poll_period"]            = 60
 default["monit"]["poll_start_delay"]       = 240
