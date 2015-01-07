@@ -56,7 +56,7 @@ GRAPH
   chef_handler (1.1.6)
   cron (1.6.1)
   dmg (2.2.2)
-  droid-chef (0.2.4)
+  droid-chef (0.2.5)
   elasticsearch (0.3.11)
     ark (>= 0.2.4)
     build-essential (>= 0.0.0)
