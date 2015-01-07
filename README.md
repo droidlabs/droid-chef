@@ -1,4 +1,4 @@
-<a href="//roadchange.com/droidlabs/droid-chef" target="_blank"><img src="//roadchange.com/droidlabs/cyrax/badge.png" alt="Roadmap & Changelog"></a>
+<a href="//roadchange.com/droidlabs/droid-chef" target="_blank"><img src="https://roadchange.com/droidlabs/droid-chef/badge.png" alt="Roadmap & Changelog"></a>
 
 # Chef recipes bundle for Ruby applications
 
