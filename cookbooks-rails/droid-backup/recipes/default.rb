@@ -47,8 +47,8 @@ end
 node[:applications].each do |app|
 
   backup = app[:backup] || {}
-  db_backup_enabled = !backup.has_key?(:database) || backup[:database]
-  files_backup_enabled = !backup.has_key?(:files) || backup[:files]
+  db_backup_enabled = backup.fetch(:database, true) && node[:backup].fetch(:backup_database, true)
+  files_backup_enabled = backup.fetch(:files, true) && node[:backup].fetch(:backup_files, true)
 
   if app[:database] == 'postgresql' && db_backup_enabled
     backup_generate_model "#{app[:name]}_db_pg" do
@@ -89,7 +89,7 @@ node[:applications].each do |app|
                         "db.password" => "\"#{database_root_pwd}\"",
                         "db.host" => "\"localhost\""
                       }
-                    )  
+                    )
       mailto        backup_mailto
       action        :backup
       hour          cron_hour
@@ -102,12 +102,13 @@ node[:applications].each do |app|
       action :disable
     end
   end
+
   if app[:database] == 'mongodb' && db_backup_enabled
-    backup_generate_model "#{app[:name]}_db_mongodb" do  
-      description "#{node.name} Our shard mongodb"  
-      backup_type "database"  
-      database_type "MongoDB"  
-      # split_into_chunks_of 2048  
+    backup_generate_model "#{app[:name]}_db_mongodb" do
+      description "#{node.name} Our shard mongodb"
+      backup_type "database"
+      database_type "MongoDB"
+      # split_into_chunks_of 2048
       store_with    ( settings_s3 )
       options({"db.host" => "\"localhost\"", "db.lock" => true})
       mailto 				backup_mailto
@@ -120,7 +121,7 @@ node[:applications].each do |app|
   else
   	backup_generate_model "#{app[:name]}_db_mongodb" do
   		action :disable
-  	end  
+  	end
   end
   # Archiving files to S3
   if files_backup_enabled
@@ -144,7 +145,7 @@ node[:applications].each do |app|
   else
   	backup_generate_model "#{app[:name]}_files_backup" do
   		action :disable
-  	end  
+  	end
 	end
 end
 
