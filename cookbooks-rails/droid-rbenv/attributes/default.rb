@@ -1,32 +1,21 @@
-
 include_attribute "rbenv::default"
-
-
 
 default['deployer_ruby']['gems'] = ["bundler", "daemons"]
 
 # ALL Ruby versions from node settings #
 main_ruby_version = node[:deploy_user][:ruby_version]
 app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
-ruby_versions = [main_ruby_version] + app_ruby_versions
+ruby_versions = ([main_ruby_version] + app_ruby_versions).uniq
 
 gems_hash = {}
 ruby_versions.each do |version|
   gems_hash[version] = node[:deployer_ruby][:gems].map{ |g| {name: g} }
 end
 
-#Delete -> deploy_username = node[:deploy_user][:username]
-
-
-
 default['rbenv']['root_path'] = "/usr/local/rbenv" #"/opt/rbenv"
 default['rbenv']['rubies']    = ruby_versions
 default['rbenv']['global']    = main_ruby_version
 default['rbenv']['gems'] 	  = gems_hash
-
-
-
-
 
 ## env variables
 # EC2 server flags
