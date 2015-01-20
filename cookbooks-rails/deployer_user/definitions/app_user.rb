@@ -30,7 +30,7 @@ define :app_user do
   # Add github, bitbucket in ssh known hosts
   keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
   hosts_path = "/home/#{app_user}/.ssh/known_hosts"
-  file "ssh_known_hosts" do
+  file "ssh_known_hosts for #{app_user}" do
     user app_user
     group app_user
     path hosts_path
