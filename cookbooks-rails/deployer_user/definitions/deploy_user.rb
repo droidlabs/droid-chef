@@ -2,7 +2,7 @@
 
 define :deploy_user do
 
-Chef::Log.debug("# create deploy group and user with name: #{params[:name]}")
+  Chef::Log.debug("# create deploy group and user with name: #{params[:name]}")
 
   group params[:name]
   user params[:name] do

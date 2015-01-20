@@ -45,7 +45,7 @@ define :app_user do
     user app_user
     group app_user
     variables(
-        app_env: app[:environment]
-      )
+      app_env: app[:environment]
+    )
   end
 end

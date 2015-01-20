@@ -1,3 +1,5 @@
+include_recipe "build-essential"
+
 # Cookbook Name:: nginx
 deploy_user = node[:deploy_user][:username]
 nginx_path  = node[:nginx][:path]
@@ -10,14 +12,14 @@ token        = node['nginx']['passenger']['enterprise']['token']
 
 main_ruby_version = node[:deploy_user][:ruby_version]
 app_ruby_versions = node[:applications].map { |a| a[:ruby_version] }.compact
-ruby_versions     = [main_ruby_version] + app_ruby_versions
+ruby_versions     = ([main_ruby_version] + app_ruby_versions).uniq
 
 ruby_dir =  "#{node[:rbenv][:root_path]}/versions/#{main_ruby_version}"
 
-cc = 'gcc'
-
 ['libcurl4-openssl-dev', 'libpcre3-dev', 'curl'].each do |pkg|
-  package pkg
+  package "nginx:#{pkg}" do
+    package_name pkg
+  end
 end
 
 # Create nginx directory Default: '/opt/nginx'
@@ -28,7 +30,7 @@ directory nginx_path do
 end
 
 # Install enterprise or regular passenger GEM !
-# NOTE: you should copy enterprise passgenger gem and license to /files/default dir
+# NOTE: you should copy enterprise passenger license to /files/default dir
 if token != '' && token != nil
   cookbook_file '/etc/passenger-enterprise-license' do
     owner 'root'
@@ -65,7 +67,7 @@ if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade
 
   flags = node[:nginx][:configure_flags]
   bash "install passenger/nginx" do
-    code %Q{CC=#{cc} sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
+    code %Q{CC=gcc sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
   end
 else
   # The location to the Phusion Passenger root directory.

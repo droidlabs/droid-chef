@@ -4,7 +4,7 @@
 #
 # Author:: Fadeev <fadeev2010@gmail.com>
 #
-# 
+#
 #
 
 include_recipe "rbenv::system"

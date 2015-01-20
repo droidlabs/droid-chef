@@ -29,8 +29,8 @@ default[:ruby_build][:default_ruby_base_path] = "/usr/local/ruby"
 # ruby-build upgrade action
 default[:ruby_build][:upgrade] = "none"
 
-default[:ruby_build][:install_pkgs] = %w{ tar bash curl git-core 
-      build-essential bison openssl libreadline6 libreadline6-dev
+default[:ruby_build][:install_pkgs] = %w{ tar bash curl git-core
+      openssl libreadline6 libreadline6-dev
       zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0
-      libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf
+      libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev
       libc6-dev ssl-cert subversion }

@@ -1,7 +1,9 @@
 deploy_username = node[:deploy_user][:username]
 
 node[:rails][:packages].map do |pkg|
-  package pkg
+  package "rails:#{pkg}" do
+    package_name pkg
+  end
 end
 
 # create applications directory
