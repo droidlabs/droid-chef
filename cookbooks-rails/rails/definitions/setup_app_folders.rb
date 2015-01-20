@@ -43,7 +43,8 @@ define :setup_app_folders do
 
     logrotate_app "rails_#{app[:name]}" do
       path "/data/#{app[:name]}/shared/log/*.log /data/#{app[:name]}/shared/log/*/*.log"
-      rotate 12
+      frequency 'daily'
+      rotate 14
     end
   end
 end
