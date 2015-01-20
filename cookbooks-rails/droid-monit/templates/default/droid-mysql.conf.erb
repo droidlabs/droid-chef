@@ -1,7 +1,7 @@
 check process mysql with pidfile /var/run/mysqld/mysql.pid
    group mysql
-   start program = "/etc/init.d/mysql start"
-   stop program = "/etc/init.d/mysql stop"
+   start program = "/usr/sbin/service mysql start"
+   stop program = "/usr/sbin/service stop"
    if failed unixsocket /var/run/mysqld/mysqld.sock protocol mysql THEN RESTART
    if failed host 127.0.0.1 port <%= node['mysql']['port'] %> protocol mysql then restart
    if 5 restarts within 5 cycles then timeout
