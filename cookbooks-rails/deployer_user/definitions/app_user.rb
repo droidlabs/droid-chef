@@ -6,11 +6,9 @@ define :app_user do
   app_user = params[:name]
 
   # Crete group and app_user
-  group app_user
   user app_user do
     comment 'Deploy User'
     home "/home/#{app_user}"
-    gid app_user
     shell '/bin/bash'
     password params[:password]
     supports manage_home: true
@@ -18,7 +16,7 @@ define :app_user do
 
   # Change app_user groups, add to it a group deploy_user
   group app_user do
-    members ["#{app_user}", "#{node[:deploy_user][:username]}"]
+    members [app_user, node[:deploy_user][:username]]
     action :create
   end
 
