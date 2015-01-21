@@ -8,6 +8,7 @@ define :setup_app_database do
   database_host = app[:database_host] || node[:deploy_user][:database_host] || 'localhost'
   database_username = app[:app_user] || 'set_node_app_user'
   database_password = app[:app_password] || 'set_node_app_password'
+  database_pool = app[:database_pool] || node[:deploy_user][:database_pool] || 5
 
   if database.to_sym == :mongodb
     template "/data/#{app[:name]}/shared/config/mongoid.yml" do
@@ -36,7 +37,8 @@ define :setup_app_database do
         database_host: database_host,
         database_username: database_username,
         database_adapter:  app[:database_adapter],
-        database_password: database_password
+        database_password: database_password,
+        database_pool: database_pool
       )
     end
   end
