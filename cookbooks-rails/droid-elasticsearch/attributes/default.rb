@@ -7,23 +7,25 @@ include_attribute "elasticsearch::default"
 
 default.elasticsearch[:version]       = "0.90.13"
 
+# === NAMING
+#
+default.elasticsearch[:cluster][:name] = 'elasticsearch090'
+default.elasticsearch[:node][:name]    = 'elasticsearch090'
+
 # === USER & PATHS
 #
-default.elasticsearch[:dir]       = "/usr/local"
-default.elasticsearch[:bindir]    = "/usr/local/bin"
-default.elasticsearch[:user]      = "elasticsearch"
+default.elasticsearch[:dir]       = "/opt/elasticsearch090"
+default.elasticsearch[:bindir]    = "/opt/elasticsearch090/elasticsearch-#{node.elasticsearch[:version]}/bin"
+default.elasticsearch[:user]      = "elasticsearch090"
 default.elasticsearch[:uid]       = nil
 default.elasticsearch[:gid]       = nil
 
-default.elasticsearch[:path][:conf] = "/usr/local/etc/elasticsearch"
-default.elasticsearch[:path][:data] = "/usr/local/var/data/elasticsearch"
-default.elasticsearch[:path][:logs] = "/var/log/elasticsearch"
-# default.elasticsearch[:path][:logs] = "/usr/local/var/log/elasticsearch" # Default
+default.elasticsearch[:path][:conf] = "/opt/elasticsearch090"
+default.elasticsearch[:path][:data] = "/var/data/elasticsearch090"
+default.elasticsearch[:path][:logs] = "/var/log/elasticsearch090"
 
-default.elasticsearch[:pid_path]  = "/var/run"   # ???? /usr/local/var/run/elasticsearch
-# default.elasticsearch[:pid_path]  = "/usr/local/var/run" # Default
-# default.elasticsearch[:pid_file]  = "#{node.elasticsearch[:pid_path]}/#{node.elasticsearch[:node][:name].to_s.gsub(/\W/, '_')}.pid"
-default.elasticsearch[:pid_file]  = "#{node.elasticsearch[:pid_path]}/elasticsearch.pid"
+default.elasticsearch[:pid_path]  = "/var/run"
+default.elasticsearch[:pid_file]  = "#{node.elasticsearch[:pid_path]}/elasticsearch090.pid"
 
 default.elasticsearch[:templates][:elasticsearch_env] = "elasticsearch-env.sh.erb"
 default.elasticsearch[:templates][:elasticsearch_yml] = "elasticsearch.yml.erb"
@@ -84,6 +86,7 @@ default.elasticsearch[:skip_start] = false
 # === PORT
 #
 default.elasticsearch[:http][:port] = 9200
+default.elasticsearch[:transport][:tcp][:port] = 9300
 
 # === CUSTOM CONFIGURATION
 #
