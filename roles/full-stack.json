@@ -21,7 +21,7 @@
     "recipe[openssl]",
     "recipe[security]",
     "recipe[imagemagick::devel]",
-    "recipe[droid-redis]",
+    //"recipe[droid-redis]",
     "recipe[nginx::daemon]",
     "recipe[nginx::redirects]",
 
@@ -31,10 +31,13 @@
     //"recipe[faye]",
     "recipe[droid-backup]",         // don't forget to add configs at the bottom
     "recipe[java::oracle]",
+    "recipe[droid-elasticsearch142]",
     "recipe[droid-elasticsearch]",
+    
+    
     //"recipe[mongodb]",
 
-    "recipe[droid-rabbitmq]",
+    //"recipe[droid-rabbitmq]",
     "recipe[rails]",
     // "recipe[droid-newrelic]"
 
@@ -42,6 +45,8 @@
   ],
 
   "default_attributes": {
+
+  
 
     // Global deploy user
     //-------------------
@@ -170,6 +175,8 @@
     },
 
     "java": {
+      "install_flavor": "openjdk",
+      "jdk_version": "7",
       "oracle": { "accept_oracle_download_terms": true }
     },
 
@@ -193,6 +200,10 @@
 
     "elasticsearch": {
       "allocated_memory": "300m"
+    },
+
+    "elasticsearch142": {
+      "allocated_memory": "600m"
     },
 
     "security": {
