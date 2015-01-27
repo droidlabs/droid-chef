@@ -66,13 +66,7 @@ if !File.exists?("#{nginx_path}/conf/nginx.conf") || node['ruby_build']['upgrade
   flags = node[:nginx][:configure_flags]
   bash "install passenger/nginx" do
     code %Q{CC=#{cc} sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-install-nginx-module --auto --nginx-source-dir="#{tmp_dir}/nginx-#{nginx_version}" --prefix="#{nginx_path}" --extra-configure-flags="#{flags}"}
-  
-  first_install = true
   end
- else
-   # The location to the Phusion Passenger root directory.
-   passenger_dir = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp
-   first_install = false
 end
 
 directory log_path do
@@ -81,42 +75,23 @@ directory log_path do
   action :create
 end
 
-directory "#{nginx_path}/logs" do
-  mode 0755
-  action :create
-  recursive true
-  owner 'nobody'
-  group 'root'
+["logs", "ssl", "proxy_cache"].each do |dir|
+  directory "#{nginx_path}/#{dir}" do
+    mode 0755
+    action :create
+    recursive true
+    owner 'nobody'
+    group 'root'
+  end
 end
 
-directory "#{nginx_path}/ssl" do
-  mode 0755
-  action :create
-  recursive true
-  owner "nobody"
-  group "root"
-end
-
-directory "#{nginx_path}/proxy_cache" do
-  mode 0755
-  action :create
-  recursive true
-  owner "nobody"
-  group "root"
-end
-
-directory "#{nginx_path}/conf/conf.d" do
-  mode 0755
-  action :create
-  recursive true
-  notifies :reload, 'service[passenger]'
-end
-
-directory "#{nginx_path}/conf/sites.d" do
-  mode 0755
-  action :create
-  recursive true
-  notifies :reload, 'service[passenger]'
+["conf.d", "sites.d"].each do |dir|
+  directory "#{nginx_path}/conf/#{dir}" do
+    mode 0755
+    action :create
+    recursive true
+    notifies :reload, 'service[passenger]'
+  end
 end
 
 use_passenger = node[:applications].any?{ |a| a[:server] == 'passenger'}
@@ -126,13 +101,17 @@ template "#{nginx_path}/conf/nginx.conf" do
   group "root"
   mode 0644
   variables(
+    lazy {
+      {
     :log_path => log_path,
     :nginx => node[:nginx],
-    :pidfile => "#{node[:nginx][:pid_path]}", # #{nginx_path}/logs/nginx.pid
+    :pidfile => "#{node[:nginx][:pid_path]}",
     :use_passenger => use_passenger,
     :ruby_dir => ruby_dir,
-    :passenger_dir => passenger_dir,
+    :passenger_dir => `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp,
     :worker_connections => node[:nginx][:worker_connections]
+      }
+    }  
   )
   notifies :restart, 'service[passenger]'
 end
@@ -191,32 +170,6 @@ service "passenger" do
   action [ :enable, :start ]
   pattern "nginx: master"
 end
-
-#========= First install include root_passenger =========
-
-if first_install == true
-  # The location to the Phusion Passenger root directory.
-  passenger_dir = `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp
-  
-  use_passenger = node[:applications].any?{ |a| a[:server] == 'passenger'}
-  template "#{nginx_path}/conf/nginx.conf" do
-    source "nginx.conf.erb"
-    owner "root"
-    group "root"
-    mode 0644
-    variables(
-      :log_path => log_path,
-      :nginx => node[:nginx],
-      :pidfile => "#{node[:nginx][:pid_path]}", # #{nginx_path}/logs/nginx.pid
-      :use_passenger => use_passenger,
-      :ruby_dir => ruby_dir,
-      :passenger_dir => passenger_dir,
-      :worker_connections => node[:nginx][:worker_connections]
-    )
-    notifies :restart, 'service[passenger]'
-  end
-end
-#========================================================
 
 include_recipe "logrotate"
 logrotate_app "passenger" do
