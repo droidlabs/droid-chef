@@ -2,7 +2,6 @@ require 'securerandom'
 
 define :setup_app_database do
   app = node.run_state[:current_app]
-  # deploy_username = node[:deploy_user][:username]
 
   database = app[:database] || node[:deploy_user][:database] || 'mysql'
   database_host = app[:database_host] || node[:deploy_user][:database_host] || 'localhost'
@@ -51,15 +50,17 @@ define :setup_app_database do
     mode '0660'
     action :create_if_missing
     variables(
-      app_secret_key_base: SecureRandom.hex(64)
+      app_secret_key_base: SecureRandom.hex(64),
+      app_env: app[:environment]
     )
   end
   ##################################################################
+
   if app[:modules].include?('elasticsearch')
     template "/data/#{app[:name]}/shared/config/elasticsearch.yml" do
       source 'elasticsearch.yml.erb'
-      owner app[:app_user] # deploy_username
-      group app[:app_user] # deploy_username
+      owner app[:app_user]
+      group app[:app_user]
       mode '0640'
       variables(app_name: app[:name], app_env: app[:environment])
     end
@@ -67,8 +68,8 @@ define :setup_app_database do
   if app[:modules].include?('sidekiq')
     template "/data/#{app[:name]}/shared/config/sidekiq.yml" do
       source 'sidekiq.yml.erb'
-      owner app[:app_user] # deploy_username
-      group app[:app_user] # deploy_username
+      owner app[:app_user]
+      group app[:app_user]
       mode '0640'
       variables(app_name: app[:name], app_env: app[:environment])
     end
