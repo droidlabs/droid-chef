@@ -9,7 +9,8 @@ default[:hipchat][:message_stop]  = "Server+#{node.fqdn}+Chef+Recipies+FINISHED"
 
 
 # hip_color  # "yellow", "red", "green", "purple", "gray", or "random". (default: yellow)
-default[:hipchat][:hip_color] = "red"
+default[:hipchat][:hip_color_start] = "red"
+default[:hipchat][:hip_color_stop]  = "green"
 
 # hip_from   
 default[:hipchat][:hip_from]  = "ChefBot"
