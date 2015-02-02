@@ -41,7 +41,7 @@
     "recipe[droid-hipchat::stop]"
   ],
 
-  "default_attributes": {
+  "override_attributes": {
 
     // Global deploy user
     //-------------------
@@ -253,7 +253,7 @@
       }
     },
     "hipchat": {
-      "hip_token": "SET TOKEN HIPCHAT"
+      "hip_token": "" // SETUP TOKEN HIPCHAT
     }
   }
 }
