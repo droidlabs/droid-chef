@@ -42,6 +42,7 @@ server {
   }
 
   include sites.d/custom/<%= @app_name %>.custom.conf;
+  include nginx_module_maintenance.conf;
 }
 
 # FRONTEND: <%= @app_name %> - <%= @web_urls %>
@@ -76,4 +77,5 @@ server {
   error_log   /data/<%= @app_name %>/shared/log/nginx-frontend.error.log;
 
   include sites.d/custom/<%= @app_name %>.custom.conf;
+  include nginx_module_maintenance.conf;
 }
