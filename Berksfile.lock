@@ -10,7 +10,7 @@ DEPENDENCIES
     metadata: true
   droid-elasticsearch142
     git: git://github.com/fadeev2010/droid-elasticsearch142.git
-    revision: cb8d23841ac97a8efd156c4a95f2cb94eee27981
+    revision: 603c5fd3ae74adb3436dc4409c054d6f6948526c
   elasticsearch
     git: git://github.com/elasticsearch/cookbook-elasticsearch
     revision: 256bfe63107b245cb9454dc24518b7898875dcc9
