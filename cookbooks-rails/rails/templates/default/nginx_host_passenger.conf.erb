@@ -18,6 +18,7 @@ server {
   }
 
   include sites.d/custom/<%= @app_name %>.custom.conf;
+  include nginx_module_maintenance.conf;
 
   location /nginx_stub_status {
     stub_status on;
@@ -54,6 +55,7 @@ server {
     include nginx_module_assets.conf;
   }
   include sites.d/custom/<%= @app_name %>.custom.conf;
+  include nginx_module_maintenance.conf;
 
   passenger_enabled on;
   passenger_min_instances 1;

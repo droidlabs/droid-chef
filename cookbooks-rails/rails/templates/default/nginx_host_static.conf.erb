@@ -8,4 +8,5 @@ server {
   }
 
   include sites.d/custom/<%= @app_name %>.custom.conf;
+  include nginx_module_maintenance.conf;
 }

@@ -111,7 +111,7 @@ template "#{nginx_path}/conf/nginx.conf" do
     :passenger_dir => `sudo -u #{deploy_user} sudo -i env RBENV_VERSION='#{main_ruby_version}' rbenv exec passenger-config --root`.chomp,
     :worker_connections => node[:nginx][:worker_connections]
       }
-    }  
+    }
   )
   notifies :restart, 'service[passenger]'
 end
@@ -124,20 +124,14 @@ template "#{nginx_path}/conf/mime.types" do
   notifies :restart, 'service[passenger]'
 end
 
-template "#{nginx_path}/conf/nginx_module_assets.conf" do
-  source "nginx_module_assets.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-  notifies :restart, 'service[passenger]'
-end
-
-template "#{nginx_path}/conf/nginx_module_ssl.conf" do
-  source "nginx_module_ssl.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-  notifies :restart, 'service[passenger]'
+["nginx_module_assets", "nginx_module_ssl", "nginx_module_maintenance"].each do |module_name|
+  template "#{nginx_path}/conf/#{module_name}.conf" do
+    source "#{module_name}.conf.erb"
+    owner "root"
+    group "root"
+    mode 0644
+    notifies :restart, 'service[passenger]'
+  end
 end
 
 template "/etc/init.d/passenger" do
