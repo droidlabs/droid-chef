@@ -203,7 +203,7 @@
     },
 
     "elasticsearch142": {
-      "allocated_memory": "600m"
+      "allocated_memory": "300m"
     },
 
     "security": {
