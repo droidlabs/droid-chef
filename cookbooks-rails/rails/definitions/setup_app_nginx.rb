@@ -18,6 +18,15 @@ define :setup_app_nginx do
       mode 0755
     end
   end
+  # Generate dhparam: sudo openssl dhparam -rand - 4096 >> dhparam.pem
+  if app[:modules].include?('dhparam')
+    cookbook_file "#{node[:nginx][:path]}/ssl/#{app[:name]}-dhparam.pem" do
+      source "ssl/#{app[:name]}-dhparam.pem"
+      owner 'root'
+      group 'root'
+      mode 0755
+    end
+  end
 
   if app[:server] == 'thin' || app[:server] == 'double'
     template "/data/#{app[:name]}/shared/config/thin.yml" do
@@ -78,6 +87,7 @@ define :setup_app_nginx do
       web_urls: app[:web_urls],
       default: app[:server_host_default] || false,
       ssl_support: app[:modules].include?('ssl'),
+      dhparam_support: app[:modules].include?('dhparam'),
       ruby_dir: ruby_dir,
       public_folder: app[:public_folder] || "public",
       backend_urls: app[:backend_urls] || "api.#{app[:web_urls]}"

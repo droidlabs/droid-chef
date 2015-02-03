@@ -68,11 +68,6 @@ server {
   include sites.d/custom/<%= @app_name %>.custom.conf;
   include nginx_module_maintenance.conf;
 
-  ssl on;
-  ssl_certificate <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.crt;
-  ssl_certificate_key <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.key;
-  include nginx_module_ssl.conf;
-
   access_log  /data/<%= @app_name %>/shared/log/nginx.ssl.access.log;
   error_log   /data/<%= @app_name %>/shared/log/nginx.ssl.error.log;
 
@@ -91,5 +86,13 @@ server {
     proxy_buffers       6 256k;
     proxy_busy_buffers_size   256k;
   }
+
+  ssl on;
+  ssl_certificate <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.crt;
+  ssl_certificate_key <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.key;
+  include nginx_module_ssl.conf;
+  <% if @dhparam_support %>
+  ssl_dhparam <%= node[:nginx][:path] %>/ssl/<%= @app_name %>-dhparam.pem;
+  <% end %>
 }
 <% end %>

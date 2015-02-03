@@ -71,5 +71,8 @@ server {
   ssl_certificate <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.crt;
   ssl_certificate_key <%= node[:nginx][:path] %>/ssl/<%= @app_name %>.key;
   include nginx_module_ssl.conf;
+  <% if @dhparam_support %>
+  ssl_dhparam <%= node[:nginx][:path] %>/ssl/<%= @app_name %>-dhparam.pem;
+  <% end %>
 }
 <% end %>
