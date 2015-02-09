@@ -42,7 +42,7 @@ define :setup_app_folders do
     include_recipe 'logrotate'
 
     logrotate_app "rails_#{app[:name]}" do
-      path ["/data/#{app[:name]}/shared/log/*.log", "/data/#{app[:name]}/shared/log/**/*.log"]
+      path ["/data/#{app[:name]}/shared/log/*.log", "/data/#{app[:name]}/shared/log/**/*.log", "/data/#{app[:name]}/shared/log/**/*.output"]
       frequency 'daily'
       rotate 14
       su 'root'
