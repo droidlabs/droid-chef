@@ -166,9 +166,11 @@ service "passenger" do
 end
 
 include_recipe "logrotate"
-logrotate_app "passenger" do
-  path "#{node[:nginx][:log_path]}/*.log #{node[:nginx][:log_path]}/*/*.log"
-  rotate 12
+logrotate_app "passenger-nginx" do
+  path ["#{node[:nginx][:log_path]}/*.log", "#{node[:nginx][:log_path]}/*/*.log"]
+  frequency 'daily'
+  rotate 14
+  su 'root'
 end
 
 # Add monit cfg for nginx-passenger service
