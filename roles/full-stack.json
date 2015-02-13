@@ -154,6 +154,9 @@
       }
     ],
 
+    // Change server hostname
+    "hostname_change": "droid-server",
+
     "nginx_redirects": [
       ["www.example1.com", "example1.com"],
       ["www.example2.com", "example2.com"]
@@ -244,6 +247,9 @@
 
     // Monit mail settings
     "monit": {
+      "username": "monit",
+      "password": "gas5eidoh3OThei1",
+      "notify_email": "alerts@droidlabs.pro",
       "mailserver": {
         "username": "alerts@hostname.pro",
         "password": "MAIL_PASSWORD",
