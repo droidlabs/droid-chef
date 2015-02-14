@@ -11,7 +11,7 @@ default["monit"]["alert_blacklist"]        = %w( action instance pid ppid )
 default["monit"]["logfile"]                = '/var/log/monit.log'
 
 default["monit"]["poll_period"]            = 60
-default["monit"]["poll_start_delay"]       = 240
+default["monit"]["poll_start_delay"]       = 140
 
 default["monit"]["mail_format"]["subject"] = "Monit #{ node.name } $SERVICE $EVENT"
 default["monit"]["mail_format"]["from"]    = node["monit"]["mailserver"]["username"]
