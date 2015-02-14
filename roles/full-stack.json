@@ -156,7 +156,11 @@
 
     // Change server hostname
     "hostname_change": "droid-server",
+    
+    // Setting the Time Zone other options: "US/Central", "Europe/Amsterdam" and other, see tzdata manual
+    "tz": "Europe/Moscow",
 
+    // Nginx nginx_redirects
     "nginx_redirects": [
       ["www.example1.com", "example1.com"],
       ["www.example2.com", "example2.com"]
