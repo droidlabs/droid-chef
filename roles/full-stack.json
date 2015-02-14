@@ -19,6 +19,7 @@
     "recipe[git]",
     "recipe[openssl]",
     "recipe[security]",
+    "recipe[fail2ban]",
     "recipe[imagemagick::devel]",
     "recipe[droid-redis]",
     "recipe[nginx::daemon]",

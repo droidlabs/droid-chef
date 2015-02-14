@@ -12,6 +12,7 @@ DEPENDENCIES
     git: git://github.com/elasticsearch/cookbook-elasticsearch
     revision: 256bfe63107b245cb9454dc24518b7898875dcc9
     tag: 0.3.11
+  fail2ban (~> 2.2.1)
   git
   imagemagick
   install_from
@@ -70,6 +71,9 @@ GRAPH
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
     yum-erlang_solutions (>= 0.0.0)
+  fail2ban (2.2.1)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
   git (4.1.0)
     build-essential (>= 0.0.0)
     dmg (>= 0.0.0)
