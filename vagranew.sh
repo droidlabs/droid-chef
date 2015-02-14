@@ -11,7 +11,7 @@ vagrant up &&
 ssh-keygen -f ~/.ssh/known_hosts -R [127.0.0.1]:2222 &&
 
 # Copy new key
-# ssh-copy-id vagrant@127.0.0.1 -p2222 &&
+ ssh-copy-id vagrant@127.0.0.1 -p2222 &&
 
 # Prepare new WM
 # knife solo prepare vagrant@127.0.0.1 -p 2222 &&
