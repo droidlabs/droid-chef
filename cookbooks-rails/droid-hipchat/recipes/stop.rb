@@ -1,14 +1,11 @@
 
-hip_message = "Server+#{node.fqdn}+Chef+Recipies+FINISHED" # use plus instead of a space
-hip_color   = "green" # "yellow", "red", "green", "purple", "gray", or "random". (default: yellow)
-hip_from    = "ChefBot"
-hip_room    = "Servers"
+hip_message_stop = node[:hipchat][:message_stop]
 
 if node[:hipchat][:hip_token]
-  hipchat hip_message do
-    hip_color   hip_color 
+  hipchat hip_message_stop do
+    hip_color   node[:hipchat][:hip_color_stop] 
     hip_token   node[:hipchat][:hip_token]
-    hip_from    hip_from
-    hip_room    hip_room
+    hip_from    node[:hipchat][:hip_from]
+    hip_room    node[:hipchat][:hip_room]
   end
 end  
