@@ -21,9 +21,18 @@ monitrc 'droid-security' do
   template_source   'droid-security.conf.erb'
 end
 
+# Add logrotate cfg for syslog
+include_recipe "logrotate"
+logrotate_app "syslog" do
+  path "/var/log/syslog.log"
+  frequency "daily"
+  rotate 14
+end
+
 # Add logrotate cfg for monit
 include_recipe "logrotate"
 logrotate_app "droid-monit" do
-  path "/var/log/syslog.log"
-  rotate 12
+  path "/var/log/monit.log"
+  frequency "daily"
+  rotate 14
 end

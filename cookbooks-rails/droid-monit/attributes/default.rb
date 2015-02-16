@@ -11,7 +11,7 @@ default["monit"]["alert_blacklist"]        = %w( action instance pid ppid )
 default["monit"]["logfile"]                = '/var/log/monit.log'
 
 default["monit"]["poll_period"]            = 60
-default["monit"]["poll_start_delay"]       = 240
+default["monit"]["poll_start_delay"]       = 140
 
 default["monit"]["mail_format"]["subject"] = "Monit #{ node.name } $SERVICE $EVENT"
 default["monit"]["mail_format"]["from"]    = node["monit"]["mailserver"]["username"]
@@ -26,8 +26,8 @@ default["monit"]["address"]  = nil
 default["monit"]["ssl"]      = false
 default["monit"]["cert"]     = "/etc/monit/monit.pem"
 default["monit"]["allow"]    = []
-default["monit"]["username"] = "#{node[:deploy_user][:username]}" || 'guest_monit'
-default["monit"]["password"] = "#{node[:deploy_user][:password]}" || 'guest_monit'
+default["monit"]["username"] = "#{node[:monit][:username]}"
+default["monit"]["password"] = "#{node[:monit][:password]}"
 default["monit"]["ssh_port"] = 22
 
 default["monit"]["eventqueue"]["set"]     = true
