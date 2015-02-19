@@ -22,3 +22,6 @@ bash 'iptables.rules to interfaces' do
   EOF
   not_if "cat /etc/network/interfaces | grep iptables.rules"
 end
+
+# install fail2ban
+include_recipe 'fail2ban::default'
