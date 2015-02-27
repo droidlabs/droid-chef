@@ -8,6 +8,9 @@ DEPENDENCIES
   droid-chef
     path: .
     metadata: true
+  droid-screengun
+    git: git://github.com/fadeev2010/droid-screengun.git
+    revision: 8eb98eaa8febd6a38bd902fd7224cf502eaeee63
   elasticsearch
     git: git://github.com/elasticsearch/cookbook-elasticsearch
     revision: 256bfe63107b245cb9454dc24518b7898875dcc9
@@ -31,6 +34,7 @@ DEPENDENCIES
     revision: b4dd7827f653eb3e8bbc1f69608ae37933bfc84c
   ohai
   openssl
+  postfix (~> 3.6.2)
   postgresql
     git: git://github.com/phlipper/chef-postgresql
     revision: 2a19dd9c91ec2a33e495f99ca42022129e26fc9f
@@ -59,6 +63,9 @@ GRAPH
   cron (1.6.1)
   dmg (2.2.2)
   droid-chef (0.2.5)
+  droid-screengun (0.0.5)
+    apt (>= 0.0.0)
+    imagemagick (>= 0.0.0)
   elasticsearch (0.3.11)
     ark (>= 0.2.4)
     build-essential (>= 0.0.0)
@@ -106,7 +113,7 @@ GRAPH
     python (>= 0.0.0)
   newrelic_plugins (1.1.0)
   ohai (2.0.1)
-  openssl (2.0.2)
+  openssl (4.0.0)
     chef-sugar (>= 0.0.0)
   php (1.5.0)
     build-essential (>= 0.0.0)
@@ -115,6 +122,7 @@ GRAPH
     windows (>= 0.0.0)
     xml (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  postfix (3.6.2)
   postgresql (0.15.0)
     apt (>= 1.9.0)
   python (1.4.6)
@@ -136,15 +144,15 @@ GRAPH
     yum-epel (>= 0.0.0)
   sudo (2.7.1)
   timezone (0.0.1)
-  windows (1.36.1)
+  windows (1.36.6)
     chef_handler (>= 0.0.0)
-  xml (1.2.9)
+  xml (1.2.13)
     build-essential (>= 0.0.0)
     chef-sugar (>= 0.0.0)
-  yum (3.5.2)
+  yum (3.5.3)
   yum-epel (0.6.0)
     yum (~> 3.0)
   yum-erlang_solutions (0.2.0)
     yum (~> 3.0)
-  yum-mysql-community (0.1.12)
+  yum-mysql-community (0.1.13)
     yum (>= 3.0)

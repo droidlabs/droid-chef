@@ -27,16 +27,17 @@ define :app_user do
     command "ssh-keygen -t rsa -q -f /home/#{app_user}/.ssh/id_rsa -P \"\""
   end
 
-  # Add github, bitbucket in ssh known hosts
-  keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
-  hosts_path = "/home/#{app_user}/.ssh/known_hosts"
-  file "ssh_known_hosts for #{app_user}" do
-    user app_user
-    group app_user
-    path hosts_path
-    action :create
-    content "#{keys.join($/)}#{$/}"
-    not_if { File.exists?(hosts_path) }
+  # Add github, bitbucket in ssh known hosts  
+  if !File.exist?("/home/#{app_user}/.ssh/known_hosts")
+    hosts_path = "/home/#{app_user}/.ssh/known_hosts"
+    keys = ["github.com", "bitbucket.org"].map { |h| `ssh-keyscan -H -trsa,dsa -p 22 #{h}` }
+    file "ssh_known_hosts for #{app_user}" do
+      user app_user
+      group app_user
+      path hosts_path
+      action :create
+      content "#{keys.join($/)}#{$/}"
+    end
   end
 
   # Create ".bash_profile"

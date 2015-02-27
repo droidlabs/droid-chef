@@ -264,6 +264,17 @@
     },
     "hipchat": {
       "hip_token": "" // SETUP TOKEN HIPCHAT
+    },
+      "postfix": {
+        "mail_type" : "master",
+        "main": {
+          "relayhost": "[smtp.gmail.com]:587",
+          "smtp_sasl_auth_enable" : "yes"
+        },
+        "sasl" : {
+          "smtp_sasl_passwd": "",
+          "smtp_sasl_user_name": "alerts@droidlabs.pro"
+      }
     }
   }
 }
