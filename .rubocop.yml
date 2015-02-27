@@ -1,0 +1,40 @@
+AllCops:
+  Exclude:
+    - ".bundle/**/*"
+    - "vendor/**/*"
+
+LineLength:
+  Max: 80
+  Exclude:
+    - "**/attributes/*.rb"
+    - "**/metadata.rb"
+
+StringLiterals:
+  EnforcedStyle: double_quotes
+
+StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%w": "[]"  # Arrays use brackets
+    "%W": "[]"  # Arrays use brackets
+
+SingleSpaceBeforeFirstArg:
+  Enabled: false  # too strict about metadata and certain formatting
+
+Blocks:
+  Description: >-
+                Avoid using {...} for multi-line blocks (multiline chaining is
+                always ugly).
+                Prefer {...} over do...end for single-line blocks.
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
+  Enabled: false  
+
+WordArray:
+  Description: 'Use %w or %W for arrays of words.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-w'
+  Enabled: false
+
+inherit_from: test/rubocop/enabled.yml
+inherit_from: test/rubocop/disabled.yml
