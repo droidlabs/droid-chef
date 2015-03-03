@@ -6,3 +6,6 @@ ssl_prefer_server_ciphers on;
 # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
 ssl_session_cache shared:SSL:50m;
 ssl_session_timeout 5m;
+
+add_header X-Content-Type-Options "nosniff";
+add_header Strict-Transport-Security "max-age=31536000";
