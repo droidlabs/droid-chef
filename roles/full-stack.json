@@ -6,39 +6,43 @@
 
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    "recipe[droid-hipchat::start]",
+    //"recipe[droid-hipchat::start]",
     "recipe[droid-admin]",          // install mc, htop, and more pkg
-    "recipe[locale]",               // add locale LC_ALL = en_US.UTF8
-    "recipe[deployer_user]",
-    "recipe[sudo]",
-    "recipe[ruby_build]",
-    "recipe[droid-rbenv]",
-    "recipe[apt]",
-    "recipe[build-essential]",
-    "recipe[ohai]",
-    "recipe[git]",
-    "recipe[openssl]",
-    "recipe[security]",
-    "recipe[imagemagick::devel]",
-    "recipe[droid-redis]",
-    "recipe[nginx::daemon]",
-    "recipe[nginx::redirects]",
+    //"recipe[locale]",               // add locale LC_ALL = en_US.UTF8
+    //"recipe[deployer_user]",
+    //"recipe[sudo]",
+    //"recipe[ruby_build]",
+    //"recipe[droid-rbenv]",
+    //"recipe[apt]",
+    //"recipe[build-essential]",
+    //"recipe[ohai]",
+    //"recipe[git]",
+    //"recipe[openssl]",
+    //"recipe[security]",
+    //"recipe[imagemagick::devel]",
+    //"recipe[droid-redis]",
+    //"recipe[nginx::daemon]",
+    //"recipe[nginx::redirects]",
     
-    "recipe[droid-mysql]",          // wrapper-cookbook, change settings MySQL here
-    "recipe[droid-postgresql]",     // wrapper-cookbook, change settings postresql here
+    //"recipe[droid-mysql]",          // wrapper-cookbook, change settings MySQL here
+    //"recipe[droid-postgresql]",     // wrapper-cookbook, change settings postresql here
+    "recipe[pgpool]",
+
+    "recipe[docker]",
+    "recipe[droid-docker]"//,
 
     //"recipe[faye]",
-    "recipe[droid-backup]",         // don't forget to add configs at the bottom
-    "recipe[java::oracle]",
-    "recipe[droid-elasticsearch]",
+    //"recipe[droid-backup]",         // don't forget to add configs at the bottom
+    //"recipe[java::oracle]",
+    //"recipe[droid-elasticsearch]",
     //"recipe[mongodb]",
 
-    "recipe[droid-rabbitmq]",
-    "recipe[rails]",
-    "recipe[droid-monit]",
+    //"recipe[droid-rabbitmq]",
+    //"recipe[rails]",
+    //"recipe[droid-monit]",
     // "recipe[droid-newrelic]"
 
-    "recipe[droid-hipchat::stop]"
+    //"recipe[droid-hipchat::stop]"
   ],
 
   "override_attributes": {

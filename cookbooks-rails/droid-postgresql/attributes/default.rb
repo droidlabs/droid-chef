@@ -1,6 +1,6 @@
 # Cookbook Name:: droid-postgresql //Wrapper cookbook
 # Attributes:: default
-# Author:: Fadeev <fadeev2010@gmail.com>
+# Author:: Fadeev Sergey Droidlabs.pro <fadeev2010@gmail.com>
 
 # LOAD default attributes for postrgresql
 include_attribute 'postgresql'
@@ -11,7 +11,7 @@ default['postgresql']['version']                         = '9.3'
 default['postgresql']['ssl']                             = false
 default['postgresql']['pg_hba_defaults']                 = false
 
-default['postgresql']['config']['port']                  = 5432
+default["postgresql"]["port"]                            = 5433 #5432
 #------------------------------------------------------------------------------
 # FILE LOCATIONS
 #------------------------------------------------------------------------------

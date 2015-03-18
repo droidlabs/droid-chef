@@ -33,3 +33,5 @@ cookbook 'droid-screengun', git: 'git://github.com/fadeev2010/droid-screengun.gi
 cookbook 'fail2ban', '~> 2.2.1'
 cookbook 'timezone', '~> 0.0.1'
 cookbook 'postfix', '~> 3.6.2'
+cookbook 'pgpool', '~> 0.2.0'
+cookbook 'docker', '~> 0.36.0'
