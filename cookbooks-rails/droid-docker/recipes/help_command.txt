@@ -1,0 +1,7 @@
+
+/var/lib/postgresql/9.3/main
+
+ubuntu_master.ubuntu.dev.docker
+ubuntu_slave1.ubuntu.dev.docker
+
+rsync -a /var/lib/postgresql/9.3/main/ 172.17.0.19:/var/lib/postgresql/9.3/main/ --exclude postmaster.pid
